@@ -27,6 +27,11 @@ class Home extends BaseController
         return view('HR/employee-records');
     }
 
+    public function newEmployee()
+    {
+        return view('HR/new-employee');
+    }
+
     //memorandum
     public function Memo()
     {

@@ -675,7 +675,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <select class="form-select mb-2" data-control="select2" name="filterBy">
-                                                <option value="">Choose</option>
+                                                <option value="">Filter By</option>
                                                 <option>Firstname</option>
                                                 <option>Surname</option>
                                                 <option>Employee ID</option>

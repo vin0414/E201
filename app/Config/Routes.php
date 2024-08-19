@@ -43,6 +43,7 @@ $routes->group('',['filter'=>'AuthCheck'],function($routes)
     $routes->get('HR/overview','Home::Overview');
     //employee
     $routes->get('HR/employee','Home::Employee');
+    $routes->get('HR/new-employee','Home::newEmployee');
     //memo
     $routes->get('HR/Memo','Home::Memo');
     $routes->get('HR/Memo/Upload','Home::Upload');
