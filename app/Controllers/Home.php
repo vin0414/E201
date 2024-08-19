@@ -15,11 +15,24 @@ class Home extends BaseController
         return view('HR/overview');
     }
 
+    //employee
     public function Employee()
     {
         return view('HR/employee-records');
     }
 
+    //memorandum
+    public function Memo()
+    {
+        return view('HR/Memo/index');
+    }
+
+    public function Upload()
+    {
+        return view('HR/Memo/upload-memo');
+    }
+
+    //user accounts
     public function Users()
     {
         $accountModel = new \App\Models\accountModel();

@@ -2,7 +2,7 @@
 <html lang="en" >
     <!--begin::Head-->
     <head>
-        <title>E201 - Edit Account</title>
+        <title>E201 - Upload Memo</title>
         <meta charset="utf-8"/>
         <meta name="description" content="employee information management system, e201"/>
         <meta name="keywords" content="e201, employee information, ems"/>
@@ -14,25 +14,7 @@
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
-            /* Track */
-            ::-webkit-scrollbar-track {
-              background: #f1f1f1; 
-            }
-
-            /* Handle */
-            ::-webkit-scrollbar-thumb {
-              background: #888; 
-            }
-
-            /* Handle on hover */
-            ::-webkit-scrollbar-thumb:hover {
-              background: #555; 
-            }
-            ::-webkit-scrollbar {
-                height: 4px;              /* height of horizontal scrollbar ← You're missing this */
-                width: 0px;               /* width of vertical scrollbar */
-                border: 1px solid #d5d5d5;
-            }  
+            thead,th{background-color:#0096ff;}
         </style>
     </head>
     <body  id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-header-stacked="true" data-kt-app-header-primary-enabled="true" data-kt-app-header-secondary-enabled="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true"  class="app-default" >
@@ -60,7 +42,7 @@
     </script>
 <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
     <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">     
-        <div id="kt_app_header" class="app-header">
+        <div id="kt_app_header" class="app-header ">
             <div class="app-header-primary">
                 <div class="app-container  container-fluid d-flex align-items-stretch justify-content-between " id="kt_app_header_primary_container">
                     <div class="d-flex flex-stack flex-grow-1">
@@ -376,8 +358,6 @@
                                     <a class="menu-link"  href="<?=site_url('HR/overview')?>"><span  class="menu-title" >Overview</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
-                                <!--begin:Menu item-->
                                 <div  class="menu-item" ><!--begin:Menu content-->
                                     <div  class="menu-content" ><div class="menu-separator"></div></div><!--end:Menu content-->
                                 </div><!--end:Menu item-->
@@ -415,10 +395,9 @@
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link active"  href="javascript:void(0);"><span  class="menu-title" >Edit Account</span></a>
+                                    <a class="menu-link active"  href="<?=site_url('HR/Memo/Upload')?>"><span  class="menu-title" >Upload File</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item flex-grow-1" ></div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -547,9 +526,15 @@
 					<!--begin::Items-->
 					<div class="m-0">
                         <!--begin::Item-->
+						<a href="<?=site_url('HR/Memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-envelope-open-text"></i>&nbsp;&nbsp;All Memos          
+						</a>  
+						<!--end::Item-->
+                        <!--begin::Item-->
 						<a href="<?=site_url('HR/new-employee')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
                             <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
 						</a>  
+						<!--end::Item-->
                         <?php if(session()->get('role')=="Administrator"){ ?>
 						<!--begin::Item-->
 						<a href="<?=site_url('HR/new-account')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
@@ -557,10 +542,6 @@
 						</a>  
 						<!--end::Item-->
                         <?php } ?> 
-						<!--end::Item-->
-                        <a href="<?=site_url('HR/users')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
-                            <i class="fa-solid fa-users"></i>&nbsp;All Accounts          
-						</a> 
 					</div>
 					<!--end::Items-->   
 				</div>
@@ -590,138 +571,50 @@
                             <div class="separator separator-dashed"></div>
                         </div><!--end:Menu content-->
                     </div><!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" ><!--begin:Menu link-->
-                        
-                    </div><!--end:Menu item-->
+                    
                 </div>
 				<!--end::Menu-->
 			</div>
 			<!--end::Sidebar wrapper-->    
 		</div>
 		<!--end::Sidebar-->                
-        <!--begin::Main-->
-        <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
-            <div class="d-flex flex-column flex-column-fluid">
-                <!--begin::Toolbar-->
-                <div id="kt_app_toolbar" class="app-toolbar  pt-10 mb-0 ">                        
-                    <!--begin::Toolbar container-->
-                    <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex align-items-stretch ">
-                        <!--begin::Toolbar wrapper-->
-                        <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
-                            <!--begin::Page title-->
-                            <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
-                                <!--begin::Title-->
-                                <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                Edit Account
-                                </h1>
-                                <!--end::Title-->
-                                <!--begin::Breadcrumb-->
-                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        <a href="<?=site_url('HR/overview')?>" class="text-muted text-hover-primary">
-                                        E201                           
-                                        </a>
-                                    </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-500 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->    
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        <a href="<?=site_url('HR/users')?>" class="text-muted text-hover-primary">
-                                        All Account                           
-                                        </a>
-                                    </li>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item">
-                                        <span class="bullet bg-gray-500 w-5px h-2px"></span>
-                                    </li>
-                                    <!--end::Item-->              
-                                    <!--begin::Item-->
-                                    <li class="breadcrumb-item text-muted">
-                                        Edit Account                                       
-                                    </li>
-                                    <!--end::Item-->                     
-                                </ul>
-                                <!--end::Breadcrumb-->
-                            </div>
-                            <!--end::Page title-->   
-                        </div>
-                    <!--end::Toolbar wrapper-->        
-                    </div>
-                    <!--end::Toolbar container-->
-                </div>
-                <!--end::Toolbar-->  
-                <div id="kt_app_content" class="app-content  flex-column-fluid " >
-                    <div id="kt_app_content_container" class="app-container container-fluid ">
-                        <div class="d-flex flex-column flex-lg-row gap-3 w-100">
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-8">
-                                <div class="card card-flush py-4">
-                                    <div class="card-body pt-0">
-                                        <h4 class="card-title py-4"><i class="fa-regular fa-pen-to-square"></i>&nbsp;Edit Account</h4>
-                                        <form method="POST" class="form w-100" id="frmAccount">
-                                            <div class="fv-row mb-4">
-                                                <!--begin::complete name-->
-                                                <span  class="menu-title" >Complete Name</span>
-                                                <input type="text" name="complete_name" class="form-control bg-transparent" required/> 
-                                                <!--end::complete name-->
-                                            </div>
-                                            <div class="fv-row mb-4">
-                                                <div class="d-flex flex-column flex-lg-row gap-3 w-100">
-                                                    <div class="col-lg-6">
-                                                        <!--begin::username-->
-                                                        <span  class="menu-title" >Username</span>
-                                                        <input type="text" name="username" class="form-control bg-transparent" required/> 
-                                                        <!--end::username-->  
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <!--begin::password-->
-                                                        <span  class="menu-title" >Password</span>
-                                                        <input type="password" name="password" minlength="8" maxlength="16" class="form-control bg-transparent" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/> 
-                                                        <!--end::password-->  
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="fv-row mb-4">
-                                                <div class="d-flex flex-column flex-lg-row gap-3 w-100">
-                                                    <div class="col-lg-6">
-                                                        <!--begin::designation-->
-                                                        <span  class="menu-title" >Designation</span>
-                                                        <input type="text" name="designation" class="form-control bg-transparent" required/> 
-                                                        <!--end::designation-->  
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <!--begin::role-->
-                                                        <span  class="menu-title" >System Role</span>
-                                                        <select class="form-select mb-2" data-control="select2" name="role">
-                                                            <option value="">Choose</option>
-                                                            <option>Administrator</option>
-                                                            <option>Standard User</option>
-                                                        </select>  
-                                                        <!--end::role-->  
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="fv-row mb-4">
-                                                <button type="submit" class="btn btn-primary" id="btnSave">Save Changes</button>
-                                            </div>
-                                        </form>
-                                    </div>
+            <!--begin::Main-->
+            <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
+                <!--begin::Content wrapper-->
+                <div class="d-flex flex-column flex-column-fluid">
+                <!--begin::Content-->
+                <div id="kt_app_content" class="app-content  app-content-stretch " >
+                    <!--begin::Content container-->
+                    <div id="kt_app_content_container" class="app-container  container-fluid ">
+                            <!--begin::Products-->
+                            <div class="card card-flush">
+                                <!--begin::Card header-->
+                                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                    
                                 </div>
+                                <!--end::Card header-->
+                                <!--begin::Card body-->
+                                <div class="card-body pt-0">
+                                    
+                                <!--end::Card body-->
+                                </div>
+                            <!--end::Products-->        
                             </div>
-                        </div> 
+                        <!--end::Content container-->
                     </div>
-                </div> 
-            </div>         
+                <!--end::Content-->	
+
+                </div>
+                <!--end::Content wrapper-->                          
+            </div>
+            <!--end:::Main-->
+
+            
         </div>
         <!--end::Wrapper-->
-    </div>
+
+        
+            </div>
     <!--end::Page-->
 </div>
 <!--end::App-->		
