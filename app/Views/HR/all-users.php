@@ -526,6 +526,11 @@
 					<!--begin::Items-->
 					<div class="m-0">
                         <!--begin::Item-->
+						<a href="<?=site_url('HR/Memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-envelope-open-text"></i>&nbsp;&nbsp;All Memos          
+						</a>  
+						<!--end::Item-->
+                        <!--begin::Item-->
 						<a href="<?=site_url('HR/new-employee')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
                             <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
 						</a>  
@@ -578,6 +583,48 @@
                 <!--begin::Content wrapper-->
                 <div class="d-flex flex-column flex-column-fluid">
                 <!--begin::Content-->
+                <!--begin::Toolbar-->
+                <div id="kt_app_toolbar" class="app-toolbar  pt-10 mb-0 ">                        
+                    <!--begin::Toolbar container-->
+                    <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex align-items-stretch ">
+                        <!--begin::Toolbar wrapper-->
+                        <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                            <!--begin::Page title-->
+                            <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
+                                <!--begin::Title-->
+                                <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
+                                All Accounts
+                                </h1>
+                                <!--end::Title-->
+                                <!--begin::Breadcrumb-->
+                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="<?=site_url('HR/overview')?>" class="text-muted text-hover-primary">
+                                        E201                           
+                                        </a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->                 
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        All Accounts                                     
+                                    </li>
+                                    <!--end::Item-->                     
+                                </ul>
+                                <!--end::Breadcrumb-->
+                            </div>
+                            <!--end::Page title-->   
+                        </div>
+                    <!--end::Toolbar wrapper-->        
+                    </div>
+                    <!--end::Toolbar container-->
+                </div>
+                <!--end::Toolbar-->
                 <div id="kt_app_content" class="app-content  app-content-stretch " >
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container  container-fluid ">
@@ -586,7 +633,7 @@
                                 <!--begin::Card header-->
                                 <div class="card-header align-items-center py-5 gap-2 gap-md-5">
                                     <form method="GET" class="d-flex flex-column flex-lg-row gap-3 w-100"  id="frmSearch">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-8">
                                             <input type="search" class="form-control" name="search" placeholder="Search"/>
                                         </div>
                                         <div class="col-lg-2">
@@ -604,35 +651,63 @@
                                 <!--end::Card header-->
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
-                                    <div class="d-flex flex-column flex-lg-row gap-3 w-100" id="listUsers">
-                                    <?php foreach($account as $row): ?>
-                                        <div class="col-lg-3">
-                                            <div class="card border-hover-primary">
-                                                <div class="card-body">
-                                                    <h1 class="text-center"><i class="fa-regular fa-circle-user" style="font-size:25px;"></i></h1>
-                                                    <br/>
-                                                    <span><i class="fa-solid fa-id-card"></i>&nbsp;Complete Name</span>
-                                                    <h3><?php echo $row['Fullname'] ?></h3>
-                                                    <span><i class="fa-solid fa-briefcase"></i>&nbsp;Designation</span>
-                                                    <h3><?php echo $row['Designation'] ?></h3>
-                                                    <span><i class="fa-solid fa-computer"></i>&nbsp;System Role</span>
-                                                    <h3><?php echo $row['Role'] ?></h3>
-                                                    <div class="d-flex flex-column flex-lg-row gap-3 w-100">
-                                                        <div class="col-lg-6">
-                                                            <button type="button" class="btn btn-primary form-control reset" value="<?php echo $row['accountID'] ?>">
-                                                                <i class="fa-solid fa-arrows-rotate"></i>&nbsp;Reset
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <a href="<?=site_url('HR/edit/')?><?php echo $row['Token'] ?>" class="btn btn-primary form-control">
-                                                                <i class="fa-regular fa-pen-to-square"></i>&nbsp;Edit
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <?php if(!empty(session()->getFlashdata('success'))) : ?>
+                                        <div class="alert alert-success" role="alert">
+                                        <?= session()->getFlashdata('success'); ?>
                                         </div>
-                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <th class="text-white w-275">Complete Name</th>
+                                                <th class="text-white">Username</th>
+                                                <th class="text-white">Designation</th>
+                                                <th class="text-white">System Role</th>
+                                                <th class="text-white">Status</th>
+                                                <th class="text-white w-125px">More</th>
+                                            </thead>
+                                            <tbody id="tblaccount">
+                                            <?php foreach($account as $row): ?>
+                                                <tr>
+                                                    <td><?php echo $row['Fullname'] ?></td>
+                                                    <td><?php echo $row['Username'] ?></td>
+                                                    <td><?php echo $row['Designation'] ?></td>
+                                                    <td><?php echo $row['Role'] ?></td>
+                                                    <td class="text-center">
+                                                        <?php 
+                                                        if($row['Status']==1){ ?>
+                                                        <span class="badge bg-primary text-white">Active</span>
+                                                        <?php } else { ?>
+                                                        <span class="badge bg-danger text-white">Inactive</span>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                            Actions&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
+                                                        </a>
+                                                        <!--begin::Menu-->
+                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                                            <!--begin::Menu item-->
+                                                            <div class="menu-item px-3">
+                                                                <a href="<?=site_url('HR/edit/')?><?php echo $row['Token'] ?>" class="menu-link px-3">
+                                                                    Edit
+                                                                </a>
+                                                            </div>
+                                                            <!--end::Menu item-->
+                                                            <!--begin::Menu item-->
+                                                            <div class="menu-item px-3">
+                                                                <a href="javascript:void(0);" class="menu-link btn-outline-default px-3 reset">
+                                                                    Reset
+                                                                </a>
+                                                            </div>
+                                                            <!--end::Menu item-->
+                                                        </div>
+                                                        <!--end::Menu-->
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 <!--end::Card body-->
                                 </div>

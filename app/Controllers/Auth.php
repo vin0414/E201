@@ -47,8 +47,8 @@ class Auth extends BaseController
                 {
                     //save logs
                     date_default_timezone_set('Asia/Manila');
-                    // $values = ['accountID'=>$user_info['accountID'],'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Logged On'];
-                    // $logModel->save($values);
+                    $values = ['accountID'=>$user_info['accountID'],'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Logged On'];
+                    $logModel->save($values);
                     session()->set('loggedUser', $user_info['accountID']);
                     session()->set('fullname', $user_info['Fullname']);
                     session()->set('role',$user_info['Role']);
@@ -62,8 +62,8 @@ class Auth extends BaseController
     {
         $logModel = new \App\Models\logModel();
         date_default_timezone_set('Asia/Manila');
-        // $values = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Logged Out'];
-        // $logModel->save($values);
+        $values = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Logged Out'];
+        $logModel->save($values);
         if(session()->has('loggedUser'))
         {
             session()->remove('loggedUser');

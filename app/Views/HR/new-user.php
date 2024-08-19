@@ -547,6 +547,11 @@
 					<!--begin::Items-->
 					<div class="m-0">
                         <!--begin::Item-->
+						<a href="<?=site_url('HR/Memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-envelope-open-text"></i>&nbsp;&nbsp;All Memos          
+						</a>  
+						<!--end::Item-->
+                        <!--begin::Item-->
 						<a href="<?=site_url('HR/new-employee')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
                             <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
 						</a>  
@@ -660,27 +665,35 @@
                                 <div class="card card-flush py-4">
                                     <div class="card-body pt-0">
                                         <h4 class="card-title py-4"><i class="fa-solid fa-user-plus"></i>&nbsp;Create Account</h4>
-                                        <form method="POST" class="form w-100" id="frmAccount">
+                                        <?php if(!empty(session()->getFlashdata('success'))) : ?>
+                                            <div class="alert alert-success" role="alert">
+                                            <?= session()->getFlashdata('success'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <form method="POST" action="<?=base_url('save-account')?>" class="form w-100" id="frmAccount">
                                             <?= csrf_field(); ?>
                                             <div class="fv-row mb-4">
                                                 <!--begin::complete name-->
                                                 <span  class="menu-title" >Complete Name</span>
-                                                <input type="text" name="complete_name" class="form-control bg-transparent" required/> 
+                                                <input type="text" name="name" id="name" value="<?=set_value('name')?>" class="form-control bg-transparent"/> 
                                                 <!--end::complete name-->
+                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'name') : '' ?></span>
                                             </div>
                                             <div class="fv-row mb-4">
                                                 <div class="d-flex flex-column flex-lg-row gap-3 w-100">
                                                     <div class="col-lg-6">
                                                         <!--begin::username-->
                                                         <span  class="menu-title" >Username</span>
-                                                        <input type="text" name="username" class="form-control bg-transparent" required/> 
+                                                        <input type="text" name="username" id="username" value="<?=set_value('username')?>" class="form-control bg-transparent"/> 
                                                         <!--end::username-->  
+                                                        <span class="text-danger"><?=isset($validation)? display_error($validation,'username') : '' ?></span>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <!--begin::password-->
                                                         <span  class="menu-title" >Password</span>
-                                                        <input type="password" name="password" minlength="8" maxlength="16" class="form-control bg-transparent" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/> 
+                                                        <input type="password" name="password" minlength="8" maxlength="16" value="<?=set_value('password')?>"  class="form-control bg-transparent" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/> 
                                                         <!--end::password-->  
+                                                        <span class="text-danger"><?=isset($validation)? display_error($validation,'password') : '' ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -689,8 +702,9 @@
                                                     <div class="col-lg-6">
                                                         <!--begin::designation-->
                                                         <span  class="menu-title" >Designation</span>
-                                                        <input type="text" name="designation" class="form-control bg-transparent" required/> 
-                                                        <!--end::designation-->  
+                                                        <input type="text" name="designation" value="<?=set_value('designation')?>" class="form-control bg-transparent"/> 
+                                                        <!--end::designation--> 
+                                                        <span class="text-danger"><?=isset($validation)? display_error($validation,'designation') : '' ?></span>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <!--begin::role-->
@@ -701,6 +715,7 @@
                                                             <option>Standard User</option>
                                                         </select>  
                                                         <!--end::role-->  
+                                                        <span class="text-danger"><?=isset($validation)? display_error($validation,'role') : '' ?></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -739,7 +754,7 @@
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
-	<!--end::Javascript-->
+	    <!--end::Javascript-->
     </body>
     <!--end::Body-->
 </html>

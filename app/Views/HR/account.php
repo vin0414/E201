@@ -520,6 +520,11 @@
 					<!--begin::Items-->
 					<div class="m-0">
                         <!--begin::Item-->
+						<a href="<?=site_url('HR/Memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-envelope-open-text"></i>&nbsp;&nbsp;All Memos          
+						</a>  
+						<!--end::Item-->
+                        <!--begin::Item-->
 						<a href="<?=site_url('HR/new-employee')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
                             <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
 						</a>  

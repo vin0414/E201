@@ -33,6 +33,9 @@ $routes->set404Override();
 //authentication
 $routes->post('/auth','Auth::auth');
 $routes->get('/logout','Auth::logout');
+//functions for User Accounts
+$routes->post('save-account','Home::saveUserData');
+$routes->post('modify-account','Home::modifyAccount');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {
@@ -47,6 +50,8 @@ $routes->group('',['filter'=>'AuthCheck'],function($routes)
     $routes->get('HR/users','Home::Users');
     $routes->get('HR/new-account','Home::newUser');
     $routes->get('HR/edit/(:any)','Home::editUser/$1');
+    //system logs
+    $routes->get('HR/logs','Home::systemLogs');
     //account settings
     $routes->get('HR/account','Home::Account');
     //Evaluation

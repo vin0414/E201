@@ -547,6 +547,11 @@
 					<!--begin::Items-->
 					<div class="m-0">
                         <!--begin::Item-->
+						<a href="<?=site_url('HR/Memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-envelope-open-text"></i>&nbsp;&nbsp;All Memos          
+						</a>  
+						<!--end::Item-->
+                        <!--begin::Item-->
 						<a href="<?=site_url('HR/new-employee')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
                             <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
 						</a>  
@@ -665,11 +670,13 @@
                                 <div class="card card-flush py-4">
                                     <div class="card-body pt-0">
                                         <h4 class="card-title py-4"><i class="fa-regular fa-pen-to-square"></i>&nbsp;Edit Account</h4>
-                                        <form method="POST" class="form w-100" id="frmAccount">
+                                        <form method="POST" action="<?=base_url('modify-account')?>" class="form w-100" id="frmAccount">
+                                            <?php if($account): ?>
+                                            <input type="hidden" name="id" value="<?=$account['accountID']?>" />
                                             <div class="fv-row mb-4">
                                                 <!--begin::complete name-->
                                                 <span  class="menu-title" >Complete Name</span>
-                                                <input type="text" name="complete_name" class="form-control bg-transparent" required/> 
+                                                <input type="text" name="complete_name" value="<?=$account['Fullname']?>" class="form-control bg-transparent" required/> 
                                                 <!--end::complete name-->
                                             </div>
                                             <div class="fv-row mb-4">
@@ -677,32 +684,36 @@
                                                     <div class="col-lg-6">
                                                         <!--begin::username-->
                                                         <span  class="menu-title" >Username</span>
-                                                        <input type="text" name="username" class="form-control bg-transparent" required/> 
+                                                        <input type="text" name="username" value="<?=$account['Username']?>" class="form-control bg-transparent" required/> 
                                                         <!--end::username-->  
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <!--begin::password-->
-                                                        <span  class="menu-title" >Password</span>
-                                                        <input type="password" name="password" minlength="8" maxlength="16" class="form-control bg-transparent" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/> 
-                                                        <!--end::password-->  
+                                                        <!--begin::designation-->
+                                                        <span  class="menu-title" >Designation</span>
+                                                        <input type="text" name="designation" value="<?=$account['Designation']?>" class="form-control bg-transparent" required/> 
+                                                        <!--end::designation-->  
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="fv-row mb-4">
                                                 <div class="d-flex flex-column flex-lg-row gap-3 w-100">
                                                     <div class="col-lg-6">
-                                                        <!--begin::designation-->
-                                                        <span  class="menu-title" >Designation</span>
-                                                        <input type="text" name="designation" class="form-control bg-transparent" required/> 
-                                                        <!--end::designation-->  
-                                                    </div>
-                                                    <div class="col-lg-6">
                                                         <!--begin::role-->
                                                         <span  class="menu-title" >System Role</span>
                                                         <select class="form-select mb-2" data-control="select2" name="role">
                                                             <option value="">Choose</option>
-                                                            <option>Administrator</option>
-                                                            <option>Standard User</option>
+                                                            <option <?php if($account['Role']=="Administrator") echo 'selected="selected"'; ?> >Administrator</option>
+                                                            <option <?php if($account['Role']=="Standard User") echo 'selected="selected"'; ?>>Standard User</option>
+                                                        </select>  
+                                                        <!--end::role-->  
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <!--begin::role-->
+                                                        <span  class="menu-title" >Status</span>
+                                                        <select class="form-select mb-2" data-control="select2" name="status">
+                                                            <option value="">Choose</option>
+                                                            <option <?php if($account['Status']=="1") echo 'selected="selected"'; ?> value="1">Active</option>
+                                                            <option <?php if($account['Status']=="0") echo 'selected="selected"'; ?> value="0">Inactive</option>
                                                         </select>  
                                                         <!--end::role-->  
                                                     </div>
@@ -711,6 +722,7 @@
                                             <div class="fv-row mb-4">
                                                 <button type="submit" class="btn btn-primary" id="btnSave">Save Changes</button>
                                             </div>
+                                            <?php endif; ?>
                                         </form>
                                     </div>
                                 </div>

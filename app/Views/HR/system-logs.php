@@ -2,7 +2,7 @@
 <html lang="en" >
     <!--begin::Head-->
     <head>
-        <title>E201 - Dashboard</title>
+        <title>E201 - System Logs</title>
         <meta charset="utf-8"/>
         <meta name="description" content="employee information management system, e201"/>
         <meta name="keywords" content="e201, employee information, ems"/>
@@ -14,25 +14,7 @@
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
-            /* Track */
-            ::-webkit-scrollbar-track {
-              background: #f1f1f1; 
-            }
-
-            /* Handle */
-            ::-webkit-scrollbar-thumb {
-              background: #888; 
-            }
-
-            /* Handle on hover */
-            ::-webkit-scrollbar-thumb:hover {
-              background: #555; 
-            }
-            ::-webkit-scrollbar {
-                height: 4px;              /* height of horizontal scrollbar ← You're missing this */
-                width: 0px;               /* width of vertical scrollbar */
-                border: 1px solid #d5d5d5;
-            }  
+            thead,th{background-color:#0096ff;}
         </style>
     </head>
     <body  id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-header-stacked="true" data-kt-app-header-primary-enabled="true" data-kt-app-header-secondary-enabled="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true"  class="app-default" >
@@ -60,7 +42,7 @@
     </script>
 <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
     <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">     
-        <div id="kt_app_header" class="app-header">
+        <div id="kt_app_header" class="app-header ">
             <div class="app-header-primary">
                 <div class="app-container  container-fluid d-flex align-items-stretch justify-content-between " id="kt_app_header_primary_container">
                     <div class="d-flex flex-stack flex-grow-1">
@@ -371,12 +353,11 @@
                                 data-kt-menu="true"
                             >        
                                 <!--begin:Menu item-->
-                                <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item here show " >
+                                <div  class="menu-item " >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link active"  href="<?=site_url('HR/overview')?>"><span  class="menu-title" >Overview</span></a>
+                                    <a class="menu-link"  href="<?=site_url('HR/overview')?>"><span  class="menu-title" >Overview</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
                                 <div  class="menu-item" ><!--begin:Menu content-->
                                     <div  class="menu-content" ><div class="menu-separator"></div></div><!--end:Menu content-->
                                 </div><!--end:Menu item-->
@@ -407,6 +388,16 @@
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
+                                <div  class="menu-item" ><!--begin:Menu content-->
+                                    <div  class="menu-content" ><div class="menu-separator"></div></div><!--end:Menu content-->
+                                </div>
+                                <!--end:Menu item-->
+                                <!--begin:Menu item-->
+                                <div  class="menu-item " >
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link active"  href="<?=site_url('HR/logs')?>"><span  class="menu-title" >System Logs</span></a>
+                                    <!--end:Menu link-->
+                                </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item flex-grow-1" ></div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -479,32 +470,7 @@
                                         </span>
                                         <span class="menu-title" >Summary</span>
                                     </a><!--end:Menu link-->
-                                </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
-                                <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item menu-lg-down-accordion me-0 me-lg-2" >
-                                    <!--begin:Menu link-->
-                                    <span class="menu-link">
-                                        <span  class="menu-icon" ><i class="fa-solid fa-toolbox"></i></span>
-                                        <span  class="menu-title" >My Widgets</span><span  class="menu-arrow" ></span>
-                                    </span><!--end:Menu link-->
-                                    <!--begin:Menu sub-->
-                                    <div  class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-200px" >
-                                        <!--begin:Menu item-->
-                                        <div  class="menu-item" ><!--begin:Menu link-->
-                                            <a class="menu-link"  href="" >
-                                                <span  class="menu-icon" ><i class="fa-solid fa-list-check"></i></span>
-                                                <span  class="menu-title" >Add Task</span>
-                                            </a><!--end:Menu link-->
-                                        </div><!--end:Menu item-->
-                                        <!--begin:Menu item-->
-                                        <div  class="menu-item" ><!--begin:Menu link-->
-                                            <a class="menu-link"  href="">
-                                                <span  class="menu-icon" ><i class="fa-regular fa-calendar"></i></span>
-                                                <span  class="menu-title" >Task Calendar</span>
-                                            </a><!--end:Menu link-->
-                                        </div><!--end:Menu item-->
-                                    </div><!--end:Menu sub-->
-                                </div><!--end:Menu item-->		
+                                </div><!--end:Menu item-->	
                                 <!--begin:Menu item-->
                                 <div  class="menu-item" >
                                     <!--begin:Menu link-->
@@ -606,8 +572,38 @@
                         </div><!--end:Menu content-->
                     </div><!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" ><!--begin:Menu link-->
-                        
+                    <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" >
+                        <span class="menu-link"  >
+                            <span  class="menu-title"><b>Filter | Generate</b></span><span  class="menu-arrow" ></span>
+                        </span><!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion menu-state-gray-900 menu-fit open" >
+                            <form method="GET" class="form w-100" id="frmFilter">
+                                <div class="fv-row mb-4">
+                                    <!--begin::Date-->
+                                    <span  class="menu-title" >From</span>
+                                    <input type="date" name="fromdate" class="form-control bg-transparent"/> 
+                                    <!--end::Date-->
+                                </div>
+                                <div class="fv-row mb-4">
+                                    <!--begin::Date-->
+                                    <span  class="menu-title" >To</span>
+                                    <input type="date" name="todate" class="form-control bg-transparent"/> 
+                                    <!--end::Date-->
+                                </div>
+                                <!--begin::Submit button-->
+                                <div class="d-grid mb-10">
+                                    <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">   
+                                        <!--begin::Indicator label-->
+                                        <span class="indicator-label">
+                                        <i class="fa-solid fa-magnifying-glass"></i>&nbsp;Search
+                                        </span>
+                                        <!--end::Indicator label-->        
+                                    </button>
+                                </div>
+                                <!--end::Submit button-->
+                            </form> 
+                        </div><!--end:Menu sub-->
                     </div><!--end:Menu item-->
                 </div>
 				<!--end::Menu-->
@@ -615,10 +611,11 @@
 			<!--end::Sidebar wrapper-->    
 		</div>
 		<!--end::Sidebar-->                
-        <!--begin::Main-->
-        <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
-            <div class="d-flex flex-column flex-column-fluid">
-                <!--begin::Toolbar-->
+            <!--begin::Main-->
+            <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
+                <!--begin::Content wrapper-->
+                <div class="d-flex flex-column flex-column-fluid">
+                    <!--begin::Toolbar-->
                 <div id="kt_app_toolbar" class="app-toolbar  pt-10 mb-0 ">                        
                     <!--begin::Toolbar container-->
                     <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex align-items-stretch ">
@@ -628,7 +625,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                Overview
+                                System Logs
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -647,7 +644,7 @@
                                     <!--end::Item-->                 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Overview                                        
+                                        System Logs                                      
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
@@ -659,101 +656,43 @@
                     </div>
                     <!--end::Toolbar container-->
                 </div>
-                <!--end::Toolbar-->  
-                <div id="kt_app_content" class="app-content  flex-column-fluid " >
+                <!--end::Toolbar--> 
+                <!--begin::Content-->
+                <div id="kt_app_content" class="app-content  app-content-stretch " >
+                    <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-                        <div class="d-flex flex-column flex-lg-row gap-3">
-                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-                                <div class="card card-flush py-4" style="background-color:#0096FF;">
-                                    <div class="card-body">
-                                        <div class="fs-3 fw-bold text-gray-900">
-                                        <i class="fa-solid fa-user-tie text-white"></i>&nbsp;Regular       
-                                         </div>
-                                        <p class="text-white fw-semibold fs-5 mt-1 mb-7">
-                                        Regular Employees      
-                                        </p>
-                                        <h1 class="text-white text-center">0</h1>
-                                    </div>
-                                </div>   
-                            </div>
-                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-                                <div class="card card-flush py-4" style="background-color:#0096FF;">
-                                    <div class="card-body">
-                                        <div class="fs-3 fw-bold text-gray-900">
-                                        <i class="fa-solid fa-user-tie text-white"></i>&nbsp;Probationary       
-                                         </div>
-                                        <p class="text-white fw-semibold fs-5 mt-1 mb-7">
-                                        Newly Hired      
-                                        </p>
-                                        <h1 class="text-white text-center">0</h1>
-                                    </div>
+                        <div class="card card-flush">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="tblsystem_logs">
+                                        <thead>
+                                            <th class="text-white">Date</th>
+                                            <th class="text-white">Account Name</th>
+                                            <th class="text-white">Activity</th>
+                                        </thead>
+                                        <tbody id="tbl_result">
+                                        <?php foreach($logs as $row): ?>
+                                            <tr>
+                                                <td><?php echo $row->Date ?></td>
+                                                <td><?php echo $row->Fullname ?></td>
+                                                <td><?php echo $row->Activity ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
-                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-                                <div class="card card-flush py-4" style="background-color:#0096FF;">
-                                    <div class="card-body">
-                                        <div class="fs-3 fw-bold text-gray-900">
-                                        <i class="fa-solid fa-user-tie text-white"></i>&nbsp;Total Employee       
-                                         </div>
-                                        <p class="text-white fw-semibold fs-5 mt-1 mb-7">
-                                        Regular & Probationary      
-                                        </p>
-                                        <h1 class="text-white text-center">0</h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-                                <div class="card card-flush py-4" style="background-color:#0096FF;">
-                                    <div class="card-body">
-                                        <div class="fs-3 fw-bold text-gray-900">
-                                        <i class="fa-solid fa-user-tie text-white"></i>&nbsp;Resigned       
-                                         </div>
-                                        <p class="text-white fw-semibold fs-5 mt-1 mb-7">
-                                        Resigned/Terminated/AWOL      
-                                        </p>
-                                        <h1 class="text-white text-center">0</h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="d-flex flex-column flex-lg-row gap-3">
-                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-                                <div class="card card-flush py-4">
-                                    <div class="card-header">
-                                        <div class="card-title">Employee Charts</div> 
-                                    </div>
-                                    <div class="card-body">
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-400px mb-7">
-                                <div class="card card-flush py-4">
-                                    <div class="card-header">
-                                        <div class="card-title">New Employees</div> 
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="fs-6 d-flex justify-content-between mb-4">
-                                            <div class="fw-semibold">Juan Dela Cruz</div>
-                                            <div class="d-flex fw-bold">
-                                                Office Staff
-                                            </div>
-                                        </div>
-                                        <div class="separator separator-dashed"></div>
-                                        <div class="fs-6 d-flex justify-content-between my-4">
-                                            <div class="fw-semibold">Pedro Gil</div>
-                                            <div class="d-flex fw-bold">
-                                                Architect
-                                            </div>
-                                        </div>  
-                                    </div>
-                                </div>
+                                <span class="badge bg-primary btn-sm text-white">Total : <?php echo $total ?></span>
                             </div>
                         </div>
                     </div>
-                </div> 
-            </div>         
+                <!--end::Content-->	
+
+                </div>
+                <!--end::Content wrapper-->                          
+            </div>
+            <!--end:::Main-->
+
+            
         </div>
         <!--end::Wrapper-->
 
