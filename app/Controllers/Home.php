@@ -24,7 +24,10 @@ class Home extends BaseController
     //employee
     public function Employee()
     {
-        return view('HR/employee-records');
+        $employeeModel = new \App\Models\employeeModel();
+        $employee = $employeeModel->findAll();
+        $data = ['employee'=>$employee];
+        return view('HR/employee-records',$data);
     }
 
     public function newEmployee()
@@ -32,10 +35,29 @@ class Home extends BaseController
         return view('HR/new-employee');
     }
 
-    public function saveEmployee()
+    public function editEmployee($id)
     {
         $employeeModel = new \App\Models\employeeModel();
+        $employee = $employeeModel->WHERE('Token',$id)->first();
+        $data = ['employee'=>$employee];
+        return view('HR/edit-employee',$data);
+    }
+
+    public function viewEmployee($id)
+    {
+        $employeeModel = new \App\Models\employeeModel();
+        $employee = $employeeModel->WHERE('Token',$id)->first();
+        $data = ['employee'=>$employee];
+        return view('HR/view-employee',$data);
+    }
+
+    public function saveEmployee()
+    {
+        date_default_timezone_set('Asia/Manila');
+        $employeeModel = new \App\Models\employeeModel();
+        $logModel = new \App\Models\logModel();
         //data
+        $token = $this->request->getPost('csrf_test_name');
         $surname = $this->request->getPost('surname');
         $firstname = $this->request->getPost('firstname');
         $mi = $this->request->getPost('middlename');
@@ -55,16 +77,8 @@ class Home extends BaseController
         $children = $this->request->getPost('children');
         $education = $this->request->getPost('education');
         //photo
-        $file="";$photo_name="";
-        if(empty($this->request->getFile('file')))
-        {
-            $file = "N/A";$photo_name = "N/A";
-        }
-        else
-        {
-            $file =  $this->request->getFile('file');
-            $photo_name = $file->getClientName();
-        }
+        $file = $this->request->getFile('file');
+        $originalName = $file->getClientName();
         //government
         $sss = $this->request->getPost('sss_number');
         $hdmf = $this->request->getPost('pagibig_number');
@@ -94,7 +108,25 @@ class Home extends BaseController
         }
         else
         {
-
+            //save the employee records
+            $values =  ['DateCreated'=>date('Y-m-d'),'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
+                        'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
+                        'Address'=>$address,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
+                        'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
+                        'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
+                        'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,
+                        'Photo'=>$originalName,'Status'=>1,'Token'=>$token];
+            $employeeModel->save($values);
+            //moved the profile pic to profile folder
+            if(!empty($originalName))
+            {
+                $file->move('Profile/',$originalName);
+            }
+            //logs
+            $value = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Added new Employee'];
+            $logModel->save($value);
+            session()->setFlashdata('success','Great! Successfully added');
+            return redirect()->to('HR/employee')->withInput();
         }
     }
 
@@ -114,7 +146,8 @@ class Home extends BaseController
     {
         $accountModel = new \App\Models\accountModel();
         $account = $accountModel->findAll();
-        $data = ['account'=>$account];
+        $total = $accountModel->countAll();
+        $data = ['account'=>$account,'total'=>$total];
         return view('HR/all-users',$data);
     }
 
@@ -138,7 +171,7 @@ class Home extends BaseController
         //validate
         $validation = $this->validate([
             'name'=>'required',
-            'username'=>'required|min_length[8]|max_length[16]',
+            'username'=>'required|min_length[8]|max_length[16]|is_unique[tblaccount.Username]',
             'password'=>'required|min_length[8]|max_length[16]',
             'designation'=>'required',
             'role'=>'required'
@@ -190,6 +223,57 @@ class Home extends BaseController
         $logModel->save($values);
         session()->setFlashdata('success','Great! Successfully save changes');
         return redirect()->to('HR/users')->withInput();
+    }
+
+    public function searchAccount()
+    {
+        $search = "%".$this->request->getGet('search')."%";
+        $builder = $this->db->table('tblaccount');
+        $builder->select('*');
+        $builder->LIKE('Fullname',$search);
+        $data = $builder->get();
+        foreach($data->getResult() as $row)
+        {
+            ?>
+            <tr>
+                <td><?php echo $row->Fullname ?></td>
+                <td><?php echo $row->Username ?></td>
+                <td><?php echo $row->Designation ?></td>
+                <td><?php echo $row->Role ?></td>
+                <td class="text-center">
+                    <?php 
+                    if($row->Status==1){ ?>
+                    <span class="badge bg-primary text-white">Active</span>
+                    <?php } else { ?>
+                    <span class="badge bg-danger text-white">Inactive</span>
+                    <?php } ?>
+                </td>
+                <td class="text-center">
+                    <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                        Actions&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
+                    </a>
+                    <!--begin::Menu-->
+                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-3">
+                            <a href="<?=site_url('HR/edit/')?><?php echo $row->Token ?>" class="menu-link px-3">
+                                Edit
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+                        <!--begin::Menu item-->
+                        <div class="menu-item px-3">
+                            <a href="javascript:void(0);" class="menu-link btn-outline-default px-3 reset">
+                                Reset
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+                    </div>
+                    <!--end::Menu-->
+                </td>
+            </tr>
+            <?php
+        }
     }
 
     //logs

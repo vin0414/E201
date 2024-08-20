@@ -633,15 +633,8 @@
                                 <!--begin::Card header-->
                                 <div class="card-header align-items-center py-5 gap-2 gap-md-5">
                                     <form method="GET" class="d-flex flex-column flex-lg-row gap-3 w-100"  id="frmSearch">
-                                        <div class="col-lg-8">
+                                        <div class="col-lg-10">
                                             <input type="search" class="form-control" name="search" placeholder="Search"/>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <select class="form-select mb-2" data-control="select2" name="filterBy">
-                                                <option value="">Choose</option>
-                                                <option>Active</option>
-                                                <option>Inactive</option>
-                                            </select> 
                                         </div>
                                         <div class="col-lg-1">
                                             <input type="submit" class="form-control btn btn-primary" id="btnSearch" value="Search"/>
@@ -709,6 +702,7 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <span class="badge bg-primary btn-sm text-white" id="total">Total : <?php echo $total ?></span>
                                 <!--end::Card body-->
                                 </div>
                             <!--end::Products-->        
@@ -749,7 +743,26 @@
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
-	<!--end::Javascript-->
+	    <!--end::Javascript-->
+        <script>
+            $('#btnSearch').on('click',function(e){
+                e.preventDefault();
+                var data = $('#frmSearch').serialize();
+                $('#tblaccount').html("<tr><td colspan='6' class='text-center'>Loading...</td></tr>");
+                $.ajax({
+                    url:"<?=site_url('search-account')?>",method:"GET",
+                    data:data,success:function(response)
+                    {
+                        if(response==="")
+                        {$('#tblaccount').html("<tr><td colspan='6' class='text-center'>No Record(s)</td></tr>");}
+                        else
+                        {$('#tblaccount').html(response);}
+                        var count = $('#tblaccount').children('tr').length;
+                        $('#total').html("Total : "+count);
+                    }
+                });
+            });
+        </script>
     </body>
     <!--end::Body-->
 </html>

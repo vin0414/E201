@@ -36,6 +36,7 @@ $routes->get('/logout','Auth::logout');
 //functions for User Accounts
 $routes->post('save-account','Home::saveUserData');
 $routes->post('modify-account','Home::modifyAccount');
+$routes->get('search-account','Home::searchAccount');
 //employee functions
 $routes->post('save-employee','Home::saveEmployee');
 
@@ -46,6 +47,8 @@ $routes->group('',['filter'=>'AuthCheck'],function($routes)
     //employee
     $routes->get('HR/employee','Home::Employee');
     $routes->get('HR/new-employee','Home::newEmployee');
+    $routes->get('HR/edit-employee/(:any)','Home::editEmployee/$1');
+    $routes->get('HR/view/(:any)','Home::viewEmployee/$1');
     //memo
     $routes->get('HR/Memo','Home::Memo');
     $routes->get('HR/Memo/Upload','Home::Upload');

@@ -670,17 +670,8 @@
                                 <!--begin::Card header-->
                                 <div class="card-header align-items-center py-5 gap-2 gap-md-5">
                                     <form method="GET" class="d-flex flex-column flex-lg-row gap-3 w-100"  id="frmSearch">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-8">
                                             <input type="search" class="form-control" name="search" placeholder="Search"/>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <select class="form-select mb-2" data-control="select2" name="filterBy">
-                                                <option value="">Filter By</option>
-                                                <option>Firstname</option>
-                                                <option>Surname</option>
-                                                <option>Employee ID</option>
-                                                <option>Department</option>
-                                            </select> 
                                         </div>
                                         <div class="col-lg-4">
                                             <button type="submit" class="btn btn-primary" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i>&nbsp;Search</button>
@@ -691,18 +682,71 @@
                                 <!--end::Card header-->
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
+                                    <?php if(!empty(session()->getFlashdata('success'))) : ?>
+                                        <div class="alert alert-success" role="alert">
+                                        <?= session()->getFlashdata('success'); ?>
+                                        </div>
+                                    <?php endif; ?>
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped" id="tblemployee">
                                             <thead>
-                                                <th class="text-white">Employee ID</th>
-                                                <th class="text-white">Surname</th>
-                                                <th class="text-white">Firstname</th>
-                                                <th class="text-white">M.I.</th>
-                                                <th class="text-white">Suffix</th>
-                                                <th class="text-white">Designation</th>
-                                                <th class="text-white">Department</th>
-                                                <th class="text-white">More</th>
+                                                <th class="text-white">Employee</th>
+                                                <th class="text-white">Status</th>
+                                                <th class="text-white">Date Hired</th>
+                                                <th class="text-white">Marital Status</th>
+                                                <th class="text-white">Permanent Address</th>
+                                                <th class="text-white w-125px">More</th>
                                             </thead>
+                                            <tbody>
+                                                <?php foreach($employee as $row): ?>
+                                                    <tr>
+                                                        <td class="d-flex align-items-center">
+                                                            <!--begin:: Avatar -->
+                                                            <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                                <a href="<?=site_url('HR/edit-employee/')?><?php echo $row['Token'] ?>">
+                                                                    <div class="symbol-label">
+                                                                        <img src="<?=base_url('Profile')?>/<?php echo $row['Photo'] ?>" alt="<?php echo $row['Firstname'] ?> <?php echo $row['MI'] ?> <?php echo $row['Surname'] ?> <?php echo $row['Suffix'] ?>" class="w-100" />
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                            <!--end::Avatar-->
+                                                            <!--begin::User details-->
+                                                            <div class="d-flex flex-column">
+                                                                <a href="<?=site_url('HR/edit-employee/')?><?php echo $row['Token'] ?>" class="text-gray-800 text-hover-primary mb-1"><?php echo $row['Firstname'] ?> <?php echo $row['MI'] ?> <?php echo $row['Surname'] ?> <?php echo $row['Suffix'] ?></a>
+                                                                <span><?php echo $row['Designation'] ?></span>
+                                                            </div>
+                                                            <!--begin::User details-->
+                                                        </td>
+                                                        <td><?php echo $row['EmployeeStatus'] ?></td>
+                                                        <td><?php echo $row['DateHired'] ?></td>
+                                                        <td><?php echo $row['MaritalStatus'] ?></td>
+                                                        <td><?php echo $row['Address'] ?></td>
+                                                        <td class="text-center">
+                                                            <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                                Action&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
+                                                            </a>
+                                                            <!--begin::Menu-->
+                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                                                <!--begin::Menu item-->
+                                                                <div class="menu-item px-3">
+                                                                    <a href="<?=site_url('HR/edit-employee/')?><?php echo $row['Token'] ?>" class="menu-link px-3">
+                                                                        Edit Records
+                                                                    </a>
+                                                                </div>
+                                                                <!--end::Menu item-->
+                                                                <!--begin::Menu item-->
+                                                                <div class="menu-item px-3">
+                                                                    <a href="<?=site_url('HR/view/')?><?php echo $row['Token'] ?>" class="menu-link px-3">
+                                                                        View Records
+                                                                    </a>
+                                                                </div>
+                                                                <!--end::Menu item-->
+                                                            </div>
+                                                            <!--end::Menu-->
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach;?>
+                                            </tbody>
                                         </table>
                                     </div>
                                 <!--end::Card body-->

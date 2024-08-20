@@ -628,17 +628,7 @@
                 <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-                        <form method="POST" action="<?=base_url('save-employee')?>" class="d-flex flex-column flex-lg-row gap-3 w-100" id="frmEmployee">
-                            <?php if(!empty(session()->getFlashdata('success'))) : ?>
-                                <div class="alert alert-success" role="alert">
-                                <?= session()->getFlashdata('success'); ?>
-                                </div>
-                            <?php endif; ?>
-                            <?php if(!empty(session()->getFlashdata('fail'))) : ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <?= session()->getFlashdata('fail'); ?>
-                                </div>
-                            <?php endif; ?>
+                        <form method="POST" action="<?=base_url('save-employee')?>" enctype="multipart/form-data" class="d-flex flex-column flex-lg-row gap-3 w-100" id="frmEmployee">
                             <?= csrf_field(); ?>
                             <div class="col-12">
                                 <div class="d-flex flex-column flex-lg-row gap-5 w-100">
@@ -666,7 +656,7 @@
                                                     <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                         <!--begin::Inputs-->
-                                                        <input type="file" name="file" accept=".png, .jpg, .jpeg" />
+                                                        <input type="file" name="file" accept=".png, .jpg, .jpeg" required/>
                                                         <input type="hidden" name="avatar_remove" />
                                                         <!--end::Inputs-->
                                                     </label>
@@ -688,6 +678,7 @@
 
                                                 <!--begin::Description-->
                                                 <div class="text-muted fs-7">Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'file') : '' ?></span>
                                                 <!--end::Description-->
                                             </div>
                                         </div>
