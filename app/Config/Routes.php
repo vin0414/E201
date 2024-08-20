@@ -36,6 +36,8 @@ $routes->get('/logout','Auth::logout');
 //functions for User Accounts
 $routes->post('save-account','Home::saveUserData');
 $routes->post('modify-account','Home::modifyAccount');
+//employee functions
+$routes->post('save-employee','Home::saveEmployee');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {

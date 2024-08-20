@@ -675,7 +675,7 @@
                                             <div class="fv-row mb-4">
                                                 <!--begin::complete name-->
                                                 <span  class="menu-title" >Complete Name</span>
-                                                <input type="text" name="name" id="name" value="<?=set_value('name')?>" class="form-control bg-transparent"/> 
+                                                <input type="text" name="name" id="name" class="form-control bg-transparent"/> 
                                                 <!--end::complete name-->
                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'name') : '' ?></span>
                                             </div>
@@ -684,14 +684,14 @@
                                                     <div class="col-lg-6">
                                                         <!--begin::username-->
                                                         <span  class="menu-title" >Username</span>
-                                                        <input type="text" name="username" id="username" value="<?=set_value('username')?>" class="form-control bg-transparent"/> 
+                                                        <input type="text" name="username" id="username" class="form-control bg-transparent"/> 
                                                         <!--end::username-->  
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'username') : '' ?></span>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <!--begin::password-->
                                                         <span  class="menu-title" >Password</span>
-                                                        <input type="password" name="password" minlength="8" maxlength="16" value="<?=set_value('password')?>"  class="form-control bg-transparent" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/> 
+                                                        <input type="password" name="password" minlength="8" maxlength="16" class="form-control bg-transparent" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/> 
                                                         <!--end::password-->  
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'password') : '' ?></span>
                                                     </div>
@@ -702,7 +702,7 @@
                                                     <div class="col-lg-6">
                                                         <!--begin::designation-->
                                                         <span  class="menu-title" >Designation</span>
-                                                        <input type="text" name="designation" value="<?=set_value('designation')?>" class="form-control bg-transparent"/> 
+                                                        <input type="text" name="designation" class="form-control bg-transparent"/> 
                                                         <!--end::designation--> 
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'designation') : '' ?></span>
                                                     </div>

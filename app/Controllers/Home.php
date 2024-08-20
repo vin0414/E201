@@ -7,7 +7,7 @@ class Home extends BaseController
     private $db;
     public function __construct()
     {
-        helper(['url','form']);
+        helper(['form']);
         $this->db = db_connect();
     }
     //pages
@@ -30,6 +30,72 @@ class Home extends BaseController
     public function newEmployee()
     {
         return view('HR/new-employee');
+    }
+
+    public function saveEmployee()
+    {
+        $employeeModel = new \App\Models\employeeModel();
+        //data
+        $surname = $this->request->getPost('surname');
+        $firstname = $this->request->getPost('firstname');
+        $mi = $this->request->getPost('middlename');
+        $suffix = $this->request->getPost('suffix');
+        $maritalStatus = $this->request->getPost('maritalStatus');
+        $dob = $this->request->getPost('dob');
+        $place_of_birth = $this->request->getPost('place_of_birth');
+        $address = $this->request->getPost('address');
+        $date_hired = $this->request->getPost('date_hired');
+        $designation = $this->request->getPost('designation');
+        $salary_grade = $this->request->getPost('salary_grade');
+        $employeeStatus = $this->request->getPost('employeeStatus');
+        $fathersName = $this->request->getPost('fathersName');
+        $mothersName = $this->request->getPost('mothersName');
+        $spouseName = $this->request->getPost('spouseName');
+        $spouseDOB = $this->request->getPost('spouseDOB');
+        $children = $this->request->getPost('children');
+        $education = $this->request->getPost('education');
+        //photo
+        $file="";$photo_name="";
+        if(empty($this->request->getFile('file')))
+        {
+            $file = "N/A";$photo_name = "N/A";
+        }
+        else
+        {
+            $file =  $this->request->getFile('file');
+            $photo_name = $file->getClientName();
+        }
+        //government
+        $sss = $this->request->getPost('sss_number');
+        $hdmf = $this->request->getPost('pagibig_number');
+        $ph = $this->request->getPost('ph_number');
+        $tin = $this->request->getPost('tin_number');
+        //validate
+        $validation = $this->validate([
+            'surname'=>'required',
+            'firstname'=>'required',
+            'maritalStatus'=>'required',
+            'dob'=>'required',
+            'place_of_birth'=>'required',
+            'date_hired'=>'required',
+            'address'=>'required',
+            'designation'=>'required',
+            'salary_grade'=>'required',
+            'employeeStatus'=>'required',
+            'education'=>'required',
+            'sss_number'=>'required|min_length[8]|max_length[16]',
+            'pagibig_number'=>'required|min_length[8]|max_length[16]',
+            'ph_number'=>'required|min_length[8]|max_length[16]',
+            'tin_number'=>'required|min_length[8]|max_length[16]'
+        ]);
+        if(!$validation)
+        {
+            return view('HR/new-employee',['validation'=>$this->validator]);
+        }
+        else
+        {
+
+        }
     }
 
     //memorandum
@@ -91,7 +157,6 @@ class Home extends BaseController
             date_default_timezone_set('Asia/Manila');
             $values = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Added account of '.$name];
             $logModel->save($values);
-
             session()->setFlashdata('success','Great! Successfully registered');
             return redirect()->to('HR/new-account')->withInput();
         }

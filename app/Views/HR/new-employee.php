@@ -625,30 +625,345 @@
                 </div>
                 <!--end::Toolbar-->  
                 <!--begin::Content-->
-                <div id="kt_app_content" class="app-content  app-content-stretch " >
+                <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-                        
+                        <form method="POST" action="<?=base_url('save-employee')?>" class="d-flex flex-column flex-lg-row gap-3 w-100" id="frmEmployee">
+                            <?php if(!empty(session()->getFlashdata('success'))) : ?>
+                                <div class="alert alert-success" role="alert">
+                                <?= session()->getFlashdata('success'); ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if(!empty(session()->getFlashdata('fail'))) : ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <?= session()->getFlashdata('fail'); ?>
+                                </div>
+                            <?php endif; ?>
+                            <?= csrf_field(); ?>
+                            <div class="col-12">
+                                <div class="d-flex flex-column flex-lg-row gap-5 w-100">
+                                    <div class="col-lg-3">
+                                        <div class="card card-flush py-4">
+                                            <div class="card-header">
+                                                <div class="card-title"><h2>Profile</h2></div>
+                                            </div>
+                                            <div class="card-body text-center pt-0">
+                                                <style>
+                                                    .image-input-placeholder {
+                                                        background-image: url('/assets/img/blank-image.svg');
+                                                    }
+
+                                                    [data-bs-theme="dark"] .image-input-placeholder {
+                                                        background-image: url('/assets/img/blank-dark-image.svg');
+                                                    }                
+                                                </style>
+                                                <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+                                                    <!--begin::Preview existing avatar-->
+                                                    <div class="image-input-wrapper w-150px h-150px"></div>
+                                                    <!--end::Preview existing avatar-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                        <!--begin::Inputs-->
+                                                        <input type="file" name="file" accept=".png, .jpg, .jpeg" />
+                                                        <input type="hidden" name="avatar_remove" />
+                                                        <!--end::Inputs-->
+                                                    </label>
+                                                    <!--end::Label-->
+
+                                                    <!--begin::Cancel-->
+                                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                                        <i class="fa-solid fa-trash"></i>            
+                                                    </span>
+                                                    <!--end::Cancel-->
+
+                                                    <!--begin::Remove-->
+                                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </span>
+                                                    <!--end::Remove-->
+                                                </div>
+                                                <!--end::Image input-->
+
+                                                <!--begin::Description-->
+                                                <div class="text-muted fs-7">Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                                                <!--end::Description-->
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="card card-flush py-4">
+                                            <div class="card-header">
+                                                <div class="card-title"><h2>Government Records</h2></div>
+                                            </div>
+                                            <div class="card-body pt-0">
+                                                <div class="form w-100">
+                                                    <div class="fv-row mb-4">
+                                                        <span class="menu-title">SSS No</span>
+                                                        <input type="text" name="sss_number" id="sss_number" value="<?=set_value('sss_number')?>" class="form-control bg-transparent"/> 
+                                                        <span class="text-danger"><?=isset($validation)? display_error($validation,'sss_number') : '' ?></span>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <span class="menu-title">PAG-IBIG No</span>
+                                                        <input type="text" name="pagibig_number" id="pagibig_number" value="<?=set_value('pagibig_number')?>" class="form-control bg-transparent"/> 
+                                                        <span class="text-danger"><?=isset($validation)? display_error($validation,'pagibig_number') : '' ?></span>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <span class="menu-title">PhilHealth No</span>
+                                                        <input type="text" name="ph_number" id="ph_number" value="<?=set_value('ph_number')?>" class="form-control bg-transparent"/> 
+                                                        <span class="text-danger"><?=isset($validation)? display_error($validation,'ph_number') : '' ?></span>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <span class="menu-title">TIN No</span>
+                                                        <input type="text" name="tin_number" id="tin_number" value="<?=set_value('tin_number')?>" class="form-control bg-transparent"/> 
+                                                        <span class="text-danger"><?=isset($validation)? display_error($validation,'tin_number') : '' ?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="card card-flush py-4">
+                                            <div class="card-header">
+                                                <div class="card-title"><h2>Personal Details</h2></div>
+                                            </div>
+                                            <div class="card-body pt-0">
+                                                <div class="form gap-1">
+                                                    <div class="fv-row mb-4">
+                                                        <div class="d-flex flex-column flex-lg-row gap-3">
+                                                            <div class="col-lg-4">
+                                                                <span  class="menu-title" >Surname</span>
+                                                                <input type="text" name="surname" id="surname" value="<?=set_value('surname')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'surname') : '' ?></span>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <span  class="menu-title" >Firstname</span>
+                                                                <input type="text" name="firstname" id="firstname" value="<?=set_value('firstname')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'firstname') : '' ?></span>
+                                                            </div>
+                                                            <div class="col-lg-1">
+                                                                <span  class="menu-title" >M.I.</span>
+                                                                <input type="text" name="middlename" id="middlename" class="form-control bg-transparent"/> 
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <span  class="menu-title" >Suffix</span>
+                                                                <input type="text" name="suffix" id="suffix" class="form-control w-175px bg-transparent"/> 
+                                                            </div>
+                                                        </div>   
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <div class="d-flex flex-wrap gap-5">
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Marital Status</span>
+                                                                <select class="form-select mb-2" data-control="select2" name="maritalStatus" id="maritalStatus">
+                                                                    <option value="">Choose</option>
+                                                                    <option>Single</option>
+                                                                    <option>Married</option>
+                                                                    <option>Separated</option>
+                                                                    <option>Widowed</option>
+                                                                    <option>Single with Children</option>
+                                                                </select>   
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'maritalStatus') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Date of Birth</span>
+                                                                <input type="date" name="dob" id="dob" value="<?=set_value('dob')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'dob') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Place of Birth</span>
+                                                                <input type="text" name="place_of_birth" id="place_of_birth" value="<?=set_value('place_of_birth')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'place_of_birth') : '' ?></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <span  class="menu-title" >Permanent Address</span>
+                                                        <textarea id="address" class="form-control" name="address" class="min-h-200px mb-2"></textarea>
+                                                        <span class="text-danger"><?=isset($validation)? display_error($validation,'address') : '' ?></span>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <div class="d-flex flex-wrap gap-5">
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Date Hired</span>
+                                                                <input type="date" name="date_hired" id="dateHired" value="<?=set_value('date_hired')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'date_hired') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Designation</span>
+                                                                <input type="text" name="designation" id="designation" value="<?=set_value('designation')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'designation') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Salary Grade</span>
+                                                                <input type="text" name="salary_grade" id="salary_grade" value="<?=set_value('salary_grade')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'salary_grade') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Employee Status</span>
+                                                                <select class="form-select mb-2" data-control="select2" name="employeeStatus" id="employeeStatus">
+                                                                    <option value="">Choose</option>
+                                                                    <option>Probationary</option>
+                                                                    <option>Regular</option>
+                                                                    <option>Contractual</option>
+                                                                </select> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'employeeStatus') : '' ?></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <div class="d-flex flex-wrap gap-5">
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span  class="menu-title" >Father's Name</span>
+                                                                <input type="text" name="fathersName" id="fathersName" value="<?=set_value('fathersName')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'fathersName') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span  class="menu-title" >Mother's Name</span>
+                                                                <input type="text" name="mothersName" id="mothersName" value="<?=set_value('mothersName')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'mothersName') : '' ?></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fv-row mb-4" style="display:none;" id="ifMarried">
+                                                        <div class="d-flex flex-wrap gap-5">
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span  class="menu-title" >Spouse's Name</span>
+                                                                <input type="text" name="spouseName" id="spouseName" value="<?=set_value('spouseName')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'spouseName') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span  class="menu-title" >Date of Birth</span>
+                                                                <input type="date" name="spouseDOB" id="spouseDOB" value="<?=set_value('spouseDOB')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'spouseDOB') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span  class="menu-title" >No. of Children</span>
+                                                                <input type="number" name="children" id="children" value="<?=set_value('children')?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'children') : '' ?></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <span  class="menu-title" >Educational Attainment</span>
+                                                        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-5" data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
+                                                            <!--begin::Col-->
+                                                            <div class="col">
+                                                                <!--begin::Option-->
+                                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
+                                                                    <!--begin::Radio-->
+                                                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                                        <input class="form-check-input" type="radio" name="education" value="Elementary"/>
+                                                                    </span>
+                                                                    <!--end::Radio-->
+                                                                    <!--begin::Info-->
+                                                                    <span class="ms-5">
+                                                                        <span class="fs-4 fw-bold text-gray-800 d-block">Elementary</span>
+                                                                    </span>
+                                                                    <!--end::Info-->
+                                                                </label>
+                                                                <!--end::Option-->
+                                                            </div>
+                                                            <!--end::Col-->
+                                                            <!--begin::Col-->
+                                                            <div class="col">
+                                                                <!--begin::Option-->
+                                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
+                                                                    <!--begin::Radio-->
+                                                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                                        <input class="form-check-input" type="radio" name="education" value="High School"/>
+                                                                    </span>
+                                                                    <!--end::Radio-->
+                                                                    <!--begin::Info-->
+                                                                    <span class="ms-5">
+                                                                        <span class="fs-4 fw-bold text-gray-800 d-block">High School</span>
+                                                                    </span>
+                                                                    <!--end::Info-->
+                                                                </label>
+                                                                <!--end::Option-->
+                                                            </div>
+                                                            <!--end::Col-->
+                                                            <!--begin::Col-->
+                                                            <div class="col">
+                                                                <!--begin::Option-->
+                                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
+                                                                    <!--begin::Radio-->
+                                                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                                        <input class="form-check-input" type="radio" name="education" value="College Level"/>
+                                                                    </span>
+                                                                    <!--end::Radio-->
+                                                                    <!--begin::Info-->
+                                                                    <span class="ms-5">
+                                                                        <span class="fs-4 fw-bold text-gray-800 d-block">College Level</span>
+                                                                    </span>
+                                                                    <!--end::Info-->
+                                                                </label>
+                                                                <!--end::Option-->
+                                                            </div>
+                                                            <!--end::Col-->
+                                                            <!--begin::Col-->
+                                                            <div class="col">
+                                                                <!--begin::Option-->
+                                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
+                                                                    <!--begin::Radio-->
+                                                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                                        <input class="form-check-input" type="radio" name="education" value="College Graduate"/>
+                                                                    </span>
+                                                                    <!--end::Radio-->
+                                                                    <!--begin::Info-->
+                                                                    <span class="ms-5">
+                                                                        <span class="fs-4 fw-bold text-gray-800 d-block">College Graduate</span>
+                                                                    </span>
+                                                                    <!--end::Info-->
+                                                                </label>
+                                                                <!--end::Option-->
+                                                            </div>
+                                                            <!--end::Col-->
+                                                            <!--begin::Col-->
+                                                            <div class="col">
+                                                                <!--begin::Option-->
+                                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
+                                                                    <!--begin::Radio-->
+                                                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                                        <input class="form-check-input" type="radio" name="education" value="Vocational Course"/>
+                                                                    </span>
+                                                                    <!--end::Radio-->
+                                                                    <!--begin::Info-->
+                                                                    <span class="ms-5">
+                                                                        <span class="fs-4 fw-bold text-gray-800 d-block">Vocational Course</span>
+                                                                    </span>
+                                                                    <!--end::Info-->
+                                                                </label>
+                                                                <!--end::Option-->
+                                                            </div>
+                                                            <!--end::Col-->
+                                                        </div>
+                                                        <span class="text-danger"><?=isset($validation)? display_error($validation,'education') : '' ?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Save Entry</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 <!--end::Content-->	
-
                 </div>
                 <!--end::Content wrapper-->                          
             </div>
-            <!--end:::Main-->
-
-            
+            <!--end:::Main-->   
         </div>
         <!--end::Wrapper-->
-
-        
-            </div>
+    </div>
     <!--end::Page-->
 </div>
 <!--end::App-->		
 		<!--begin::Scrolltop-->
 		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-			<i class="ki-outline ki-arrow-up"></i>
+            <i class="fa-solid fa-arrow-up"></i>
 		</div>
 		<!--end::Scrolltop-->
 		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
@@ -664,7 +979,20 @@
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
-	<!--end::Javascript-->
+	    <!--end::Javascript-->
+        <script>
+            $('#maritalStatus').change(function(){
+                var val = $(this).val();
+                if(val==="Married"||val==="Single with Children")
+                {
+                    $('#ifMarried').slideDown();
+                }
+                else
+                {
+                    $('#ifMarried').slideUp();
+                }
+            });
+        </script>
     </body>
     <!--end::Body-->
 </html>
