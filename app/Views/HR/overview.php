@@ -34,6 +34,12 @@
                 border: 1px solid #d5d5d5;
             }  
         </style>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+		<script type="text/javascript">
+			google.charts.load('visualization', "1", {
+				packages: ['corechart']
+			});
+		</script>
     </head>
     <body  id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-header-stacked="true" data-kt-app-header-primary-enabled="true" data-kt-app-header-secondary-enabled="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true"  class="app-default" >
     <script>
@@ -575,6 +581,11 @@
                             <i class="fa-solid fa-user-plus"></i>&nbsp;New Account           
 						</a>  
 						<!--end::Item-->
+                        <!--begin::Item-->
+						<a href="<?=site_url('HR/users')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-users"></i>&nbsp;All Accounts          
+						</a>  
+						<!--end::Item-->
                         <?php } ?> 
 					</div>
 					<!--end::Items-->   
@@ -672,7 +683,7 @@
                                         <p class="text-white fw-semibold fs-5 mt-1 mb-7">
                                         Regular Employees      
                                         </p>
-                                        <h1 class="text-white text-center">0</h1>
+                                        <h1 class="text-white text-center"><?php if($regular): ?><?php echo $regular->total ?><?php endif; ?></h1>
                                     </div>
                                 </div>   
                             </div>
@@ -685,7 +696,7 @@
                                         <p class="text-white fw-semibold fs-5 mt-1 mb-7">
                                         Newly Hired      
                                         </p>
-                                        <h1 class="text-white text-center">0</h1>
+                                        <h1 class="text-white text-center"><?php if($probationary): ?><?php echo $probationary->total ?><?php endif; ?></h1>
                                     </div>
                                 </div>
                             </div>
@@ -698,7 +709,7 @@
                                         <p class="text-white fw-semibold fs-5 mt-1 mb-7">
                                         Regular & Probationary      
                                         </p>
-                                        <h1 class="text-white text-center">0</h1>
+                                        <h1 class="text-white text-center"><?php if($total): ?><?php echo $total->total ?><?php endif; ?></h1>
                                     </div>
                                 </div>
                             </div>
@@ -711,7 +722,7 @@
                                         <p class="text-white fw-semibold fs-5 mt-1 mb-7">
                                         Resigned/Terminated/AWOL      
                                         </p>
-                                        <h1 class="text-white text-center">0</h1>
+                                        <h1 class="text-white text-center"><?php if($inactive): ?><?php echo $inactive->total ?><?php endif; ?></h1>
                                     </div>
                                 </div>
                             </div>
@@ -723,7 +734,7 @@
                                     <div class="card-header">
                                         <div class="card-title">Employee Charts</div> 
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body" id="chartContainer">
                                         
                                     </div>
                                 </div>
@@ -731,22 +742,18 @@
                             <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-400px mb-7">
                                 <div class="card card-flush py-4">
                                     <div class="card-header">
-                                        <div class="card-title">New Employees</div> 
+                                        <div class="card-title">Recent Employees</div> 
                                     </div>
                                     <div class="card-body">
-                                        <div class="fs-6 d-flex justify-content-between mb-4">
-                                            <div class="fw-semibold">Juan Dela Cruz</div>
-                                            <div class="d-flex fw-bold">
-                                                Office Staff
+                                        <?php foreach($employee as $row): ?>
+                                        <div class="justify-content-between mb-4">
+                                            <div class="fw-bold text-white" style="background-color:#0096FF;padding:0.5rem;"><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></div>
+                                            <div class="fw-semibold">
+                                            <?php echo $row->Designation ?>
                                             </div>
                                         </div>
                                         <div class="separator separator-dashed"></div>
-                                        <div class="fs-6 d-flex justify-content-between my-4">
-                                            <div class="fw-semibold">Pedro Gil</div>
-                                            <div class="d-flex fw-bold">
-                                                Architect
-                                            </div>
-                                        </div>  
+                                        <?php endforeach; ?> 
                                     </div>
                                 </div>
                             </div>
@@ -780,7 +787,30 @@
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
-	<!--end::Javascript-->
+	    <!--end::Javascript-->
+        <script>
+            google.charts.setOnLoadCallback(requestChart);
+            function requestChart() 
+			{
+				var data = google.visualization.arrayToDataTable([
+					["Date", "Total"],
+					<?php 
+					foreach ($query as $row){
+					echo "['".$row->DateCreated."',".$row->total."],";
+					}
+					?>
+				]);
+
+				var options = {
+				title: '',
+				curveType: 'function',
+				legend: { position: 'bottom' },
+				};
+				/* Instantiate and draw the chart.*/
+				var chart = new google.visualization.ColumnChart(document.getElementById('chartContainer'));
+				chart.draw(data, options);
+			}
+        </script>
     </body>
     <!--end::Body-->
 </html>

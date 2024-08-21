@@ -541,6 +541,11 @@
                             <i class="fa-solid fa-user-plus"></i>&nbsp;New Account           
 						</a>  
 						<!--end::Item-->
+                        <!--begin::Item-->
+						<a href="<?=site_url('HR/users')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-users"></i>&nbsp;All Accounts          
+						</a>  
+						<!--end::Item-->
                         <?php } ?> 
 					</div>
 					<!--end::Items-->   

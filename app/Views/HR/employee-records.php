@@ -526,15 +526,15 @@
                             <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
 						</a>  
 						<!--end::Item-->
-                        <!--begin::Item-->
-						<button type="button" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
-                            <i class="fa-solid fa-upload"></i>&nbsp;&nbsp;Upload Records           
-						</button>  
-						<!--end::Item-->
                         <?php if(session()->get('role')=="Administrator"){ ?>
 						<!--begin::Item-->
 						<a href="<?=site_url('HR/new-account')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
                             <i class="fa-solid fa-user-plus"></i>&nbsp;New Account           
+						</a>  
+						<!--end::Item-->
+                        <!--begin::Item-->
+						<a href="<?=site_url('HR/users')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-users"></i>&nbsp;All Accounts          
 						</a>  
 						<!--end::Item-->
                         <?php } ?> 
@@ -581,7 +581,6 @@
                                     <select class="form-select mb-2" data-control="select2" name="status">
                                         <option value="">Choose</option>
                                         <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
                                         <option value="2">Resigned</option>
                                         <option value="3">Terminated</option>
                                         <option value="4">AWOL</option>
@@ -661,6 +660,13 @@
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->   
+                            <!--begin::Actions-->
+                            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                <button type="button" class="btn btn-sm btn-flex btn-primary">
+                                    <i class="fa-solid fa-upload"></i>&nbsp;Upload
+                                </button>          
+                            </div>
+                            <!--end::Actions-->
                         </div>
                     <!--end::Toolbar wrapper-->        
                     </div>
@@ -684,10 +690,10 @@
                                         <table class="table table-bordered table-striped" id="tblemployee">
                                             <thead>
                                                 <th class="text-white">Employee</th>
-                                                <th class="text-white">Status</th>
-                                                <th class="text-white">Date Hired</th>
+                                                <th class="text-white">Work Status</th>
                                                 <th class="text-white">Marital Status</th>
                                                 <th class="text-white">Permanent Address</th>
+                                                <th class="text-white">Status</th>
                                                 <th class="text-white w-125px">More</th>
                                             </thead>
                                             <tbody>
@@ -711,9 +717,19 @@
                                                             <!--begin::User details-->
                                                         </td>
                                                         <td><?php echo $row['EmployeeStatus'] ?></td>
-                                                        <td><?php echo $row['DateHired'] ?></td>
                                                         <td><?php echo $row['MaritalStatus'] ?></td>
                                                         <td><?php echo $row['Address'] ?></td>
+                                                        <td>
+                                                            <?php if($row['Status']==1){ ?>
+                                                                <span class="badge badge-success text-white">Active</span>
+                                                            <?php }else if($row['Status']==2){ ?>
+                                                                <span class="badge badge-danger text-white">Resigned</span>
+                                                            <?php }else if($row['Status']==3){?>
+                                                                <span class="badge badge-danger text-white">Terminated</span>
+                                                            <?php }else{ ?>
+                                                                <span class="badge badge-danger text-white">AWOL</span>
+                                                            <?php } ?>
+                                                        </td>
                                                         <td class="text-center">
                                                             <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                                                 Action&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   

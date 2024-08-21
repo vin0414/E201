@@ -18,7 +18,38 @@ class Home extends BaseController
 
     public function Overview()
     {
-        return view('HR/overview');
+        //chart
+        $builder = $this->db->table('tblemployee');
+        $builder->select('DateCreated,COUNT(employeeID)total');
+        $builder->groupBy('DateCreated');
+        $query = $builder->get()->getResult();
+        //recent employees
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname, MI, Suffix,Designation');
+        $builder->orderBy('employeeID','DESC')->limit(5);
+        $employee = $builder->get()->getResult();
+        //regular
+        $builder = $this->db->table('tblemployee');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('EmployeeStatus','Regular');
+        $regular = $builder->get()->getRow();
+        //probationary
+        $builder = $this->db->table('tblemployee');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('EmployeeStatus','Probationary');
+        $newlyHired = $builder->get()->getRow();
+        //total
+        $builder = $this->db->table('tblemployee');
+        $builder->select('COUNT(*)total');
+        $total = $builder->get()->getRow();
+        //resigned
+        $builder = $this->db->table('tblemployee');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status<>',1);
+        $inactive = $builder->get()->getRow();
+
+        $data = ['employee'=>$employee,'regular'=>$regular,'probationary'=>$newlyHired,'total'=>$total,'inactive'=>$inactive,'query'=>$query];
+        return view('HR/overview',$data);
     }
 
     //employee
@@ -68,6 +99,7 @@ class Home extends BaseController
         $spouseDOB = $this->request->getPost('spouseDOB');
         $children = $this->request->getPost('children');
         $education = $this->request->getPost('education');
+        $status = $this->request->getPost('status');
         //photo
         $file = $this->request->getFile('file');
         $originalName = $file->getClientName();
@@ -77,14 +109,27 @@ class Home extends BaseController
         $ph = $this->request->getPost('ph_number');
         $tin = $this->request->getPost('tin_number');
         //save the employee records
-        $values =  ['DateCreated'=>date('Y-m-d'),'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
-        'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
-        'Address'=>$address,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
-        'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
-        'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
-        'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,
-        'Photo'=>$originalName];
-        $employeeModel->update($employeeID,$values);
+        if(!empty($originalName))
+        {
+            $values =  ['Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
+            'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
+            'Address'=>$address,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
+            'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
+            'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
+            'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,
+            'Photo'=>$originalName,'Status'=>$status];
+            $employeeModel->update($employeeID,$values);
+        }
+        else
+        {
+            $values =  ['Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
+            'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
+            'Address'=>$address,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
+            'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
+            'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
+            'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,'Status'=>$status];
+            $employeeModel->update($employeeID,$values);
+        }
         //moved the profile pic to profile folder
         if(!empty($originalName))
         {

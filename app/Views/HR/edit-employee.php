@@ -542,6 +542,11 @@
                             <i class="fa-solid fa-user-plus"></i>&nbsp;New Account           
 						</a>  
 						<!--end::Item-->
+                        <!--begin::Item-->
+						<a href="<?=site_url('HR/users')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-users"></i>&nbsp;All Accounts          
+						</a>  
+						<!--end::Item-->
                         <?php } ?> 
 					</div>
 					<!--end::Items-->   
@@ -792,7 +797,7 @@
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'salary_grade') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
-                                                                <span class="menu-title">Employee Status</span>
+                                                                <span class="menu-title">Employment Status</span>
                                                                 <select class="form-select mb-2" data-control="select2" name="employeeStatus" id="employeeStatus">
                                                                     <option value="">Choose</option>
                                                                     <option <?php if($employee['EmployeeStatus']=="Probationary") echo 'selected="selected"'; ?>>Probationary</option>
@@ -952,11 +957,22 @@
                                                         </div>
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'education') : '' ?></span>
                                                     </div>
+                                                    <div class="fv-row mb-4">
+                                                        <span class="menu-title">Employee Status</span>
+                                                        <select class="form-select mb-2" data-control="select2" name="status" id="status">
+                                                            <option value="">Choose</option>
+                                                            <option <?php if($employee['Status']=="1") echo 'selected="selected"'; ?> value="1">Active</option>
+                                                            <option <?php if($employee['Status']=="2") echo 'selected="selected"'; ?> value="2">Resigned</option>
+                                                            <option <?php if($employee['Status']=="3") echo 'selected="selected"'; ?> value="3">Terminated</option>
+                                                            <option <?php if($employee['Status']=="4") echo 'selected="selected"'; ?> value="4">AWOL</option>
+                                                        </select> 
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Save Changes</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <br/>
-                                        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Save Changes</button>
                                     </div>
                                 </div>
                             </div>
