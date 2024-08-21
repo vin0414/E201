@@ -12,6 +12,7 @@
         <link href="<?=base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             thead,th{background-color:#0096ff;}
@@ -525,6 +526,11 @@
                             <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
 						</a>  
 						<!--end::Item-->
+                        <!--begin::Item-->
+						<button type="button" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-upload"></i>&nbsp;&nbsp;Upload Records           
+						</button>  
+						<!--end::Item-->
                         <?php if(session()->get('role')=="Administrator"){ ?>
 						<!--begin::Item-->
 						<a href="<?=site_url('HR/new-account')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
@@ -564,7 +570,7 @@
                     <!--begin:Menu item-->
                     <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" >
                         <span class="menu-link"  >
-                            <span  class="menu-title"><b>Filter | Generate</b></span><span  class="menu-arrow" ></span>
+                            <span  class="menu-title"><b>Filter</b></span><span  class="menu-arrow" ></span>
                         </span><!--end:Menu link-->
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-accordion menu-state-gray-900 menu-fit open" >
@@ -596,7 +602,7 @@
                                 </div>
                                 <!--begin::Submit button-->
                                 <div class="d-grid mb-10">
-                                    <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
+                                    <button type="submit" id="kt_sign_in_submit" class="btn btn-primary btn-sm">
                                         
                                     <!--begin::Indicator label-->
                                     <span class="indicator-label">
@@ -667,21 +673,8 @@
                     <div id="kt_app_content_container" class="app-container container-fluid ">
                             <!--begin::Products-->
                             <div class="card card-flush">
-                                <!--begin::Card header-->
-                                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                                    <form method="GET" class="d-flex flex-column flex-lg-row gap-3 w-100"  id="frmSearch">
-                                        <div class="col-lg-8">
-                                            <input type="search" class="form-control" name="search" placeholder="Search"/>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <button type="submit" class="btn btn-primary" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i>&nbsp;Search</button>
-                                            <button type="button" class="btn btn-primary" id="btnUpload"><i class="fa-solid fa-arrow-up-from-bracket"></i>&nbsp;Upload</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!--end::Card header-->
                                 <!--begin::Card body-->
-                                <div class="card-body pt-0">
+                                <div class="card-body">
                                     <?php if(!empty(session()->getFlashdata('success'))) : ?>
                                         <div class="alert alert-success" role="alert">
                                         <?= session()->getFlashdata('success'); ?>
@@ -788,7 +781,17 @@
 		<!--begin::Custom Javascript(used for this page only)-->
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
-			<!--end::Custom Javascript-->
+		<!--end::Custom Javascript-->
+        <!--data tables -->
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
+        <script>
+            new DataTable('#tblemployee', {
+                info: false,
+                ordering: false,
+                paging: true
+            });
+        </script>
 	<!--end::Javascript-->
     </body>
     <!--end::Body-->

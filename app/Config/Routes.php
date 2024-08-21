@@ -39,6 +39,7 @@ $routes->post('modify-account','Home::modifyAccount');
 $routes->get('search-account','Home::searchAccount');
 //employee functions
 $routes->post('save-employee','Home::saveEmployee');
+$routes->post('update-employee','Home::updateEmployee');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {

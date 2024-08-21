@@ -12,6 +12,7 @@
         <link href="<?=base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             thead,th{background-color:#0096ff;}
@@ -573,37 +574,7 @@
                     </div><!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" >
-                        <span class="menu-link"  >
-                            <span  class="menu-title"><b>Filter | Generate</b></span><span  class="menu-arrow" ></span>
-                        </span><!--end:Menu link-->
-                        <!--begin:Menu sub-->
-                        <div class="menu-sub menu-sub-accordion menu-state-gray-900 menu-fit open" >
-                            <form method="GET" class="form w-100" id="frmFilter">
-                                <div class="fv-row mb-4">
-                                    <!--begin::Date-->
-                                    <span  class="menu-title" >From</span>
-                                    <input type="date" name="fromdate" class="form-control bg-transparent"/> 
-                                    <!--end::Date-->
-                                </div>
-                                <div class="fv-row mb-4">
-                                    <!--begin::Date-->
-                                    <span  class="menu-title" >To</span>
-                                    <input type="date" name="todate" class="form-control bg-transparent"/> 
-                                    <!--end::Date-->
-                                </div>
-                                <!--begin::Submit button-->
-                                <div class="d-grid mb-10">
-                                    <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">   
-                                        <!--begin::Indicator label-->
-                                        <span class="indicator-label">
-                                        <i class="fa-solid fa-magnifying-glass"></i>&nbsp;Search
-                                        </span>
-                                        <!--end::Indicator label-->        
-                                    </button>
-                                </div>
-                                <!--end::Submit button-->
-                            </form> 
-                        </div><!--end:Menu sub-->
+                        
                     </div><!--end:Menu item-->
                 </div>
 				<!--end::Menu-->
@@ -668,7 +639,7 @@
                                         <thead>
                                             <th class="text-white">Date</th>
                                             <th class="text-white">Account Name</th>
-                                            <th class="text-white">Activity</th>
+                                            <th class="text-white">Activities</th>
                                         </thead>
                                         <tbody id="tbl_result">
                                         <?php foreach($logs as $row): ?>
@@ -681,7 +652,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <span class="badge bg-primary btn-sm text-white">Total : <?php echo $total ?></span>
                             </div>
                         </div>
                     </div>
@@ -691,8 +661,6 @@
                 <!--end::Content wrapper-->                          
             </div>
             <!--end:::Main-->
-
-            
         </div>
         <!--end::Wrapper-->
 
@@ -719,6 +687,15 @@
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
+        <script>
+            new DataTable('#tblsystem_logs', {
+                info: false,
+                ordering: false,
+                paging: true
+            });
+        </script>
 	<!--end::Javascript-->
     </body>
     <!--end::Body-->

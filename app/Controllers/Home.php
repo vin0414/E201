@@ -43,6 +43,60 @@ class Home extends BaseController
         return view('HR/edit-employee',$data);
     }
 
+    public function updateEmployee()
+    {
+        date_default_timezone_set('Asia/Manila');
+        $employeeModel = new \App\Models\employeeModel();
+        $logModel = new \App\Models\logModel();
+        //data
+        $employeeID = $this->request->getPost('employeeID');
+        $surname = $this->request->getPost('surname');
+        $firstname = $this->request->getPost('firstname');
+        $mi = $this->request->getPost('middlename');
+        $suffix = $this->request->getPost('suffix');
+        $maritalStatus = $this->request->getPost('maritalStatus');
+        $dob = $this->request->getPost('dob');
+        $place_of_birth = $this->request->getPost('place_of_birth');
+        $address = $this->request->getPost('address');
+        $date_hired = $this->request->getPost('date_hired');
+        $designation = $this->request->getPost('designation');
+        $salary_grade = $this->request->getPost('salary_grade');
+        $employeeStatus = $this->request->getPost('employeeStatus');
+        $fathersName = $this->request->getPost('fathersName');
+        $mothersName = $this->request->getPost('mothersName');
+        $spouseName = $this->request->getPost('spouseName');
+        $spouseDOB = $this->request->getPost('spouseDOB');
+        $children = $this->request->getPost('children');
+        $education = $this->request->getPost('education');
+        //photo
+        $file = $this->request->getFile('file');
+        $originalName = $file->getClientName();
+        //government
+        $sss = $this->request->getPost('sss_number');
+        $hdmf = $this->request->getPost('pagibig_number');
+        $ph = $this->request->getPost('ph_number');
+        $tin = $this->request->getPost('tin_number');
+        //save the employee records
+        $values =  ['DateCreated'=>date('Y-m-d'),'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
+        'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
+        'Address'=>$address,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
+        'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
+        'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
+        'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,
+        'Photo'=>$originalName];
+        $employeeModel->update($employeeID,$values);
+        //moved the profile pic to profile folder
+        if(!empty($originalName))
+        {
+        $file->move('Profile/',$originalName);
+        }
+        //logs
+        $value = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Update the Employee records'];
+        $logModel->save($value);
+        session()->setFlashdata('success','Great! Successfully applied changes');
+        return redirect()->to('HR/employee')->withInput();
+    }
+
     public function viewEmployee($id)
     {
         $employeeModel = new \App\Models\employeeModel();
@@ -283,7 +337,7 @@ class Home extends BaseController
         $builder = $this->db->table('tblsystem_logs a');
         $builder->select('a.Date,a.Activity,b.Fullname');
         $builder->join('tblaccount b','b.accountID=a.accountID','LEFT');
-        $builder->groupby('a.logID')->orderBy('a.logID','DESC')->limit(10);
+        $builder->groupby('a.logID')->orderBy('a.logID','DESC');
         $logs = $builder->get()->getResult();
         //page
         $total = $model->countAll();

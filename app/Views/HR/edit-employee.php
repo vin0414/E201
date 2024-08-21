@@ -592,7 +592,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                New Employee
+                                Edit Employee
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -611,7 +611,7 @@
                                     <!--end::Item-->                 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        New Employee                                      
+                                        Edit Employee                                      
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
@@ -628,8 +628,9 @@
                 <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-                        <form method="POST" action="<?=base_url('save-employee')?>" enctype="multipart/form-data" class="d-flex flex-column flex-lg-row gap-3 w-100" id="frmEmployee">
-                            <?= csrf_field(); ?>
+                        <form method="POST" action="<?=base_url('update-employee')?>" enctype="multipart/form-data" class="d-flex flex-column flex-lg-row gap-3 w-100" id="frmEmployee">
+                            <?php if($employee):?>
+                            <input type="hidden" name="employeeID" value="<?php echo $employee['employeeID'] ?>"/>
                             <div class="col-12">
                                 <div class="d-flex flex-column flex-lg-row gap-5 w-100">
                                     <div class="col-lg-3">
@@ -649,14 +650,14 @@
                                                 </style>
                                                 <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
                                                     <!--begin::Preview existing avatar-->
-                                                    <div class="image-input-wrapper w-150px h-150px"></div>
+                                                    <div class="image-input-wrapper w-150px h-150px" style="background-image: url('/Profile/<?php echo $employee['Photo'] ?>')"></div>
                                                     <!--end::Preview existing avatar-->
 
                                                     <!--begin::Label-->
                                                     <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                         <!--begin::Inputs-->
-                                                        <input type="file" name="file" accept=".png, .jpg, .jpeg" required/>
+                                                        <input type="file" name="file" accept=".png, .jpg, .jpeg"/>
                                                         <input type="hidden" name="avatar_remove" />
                                                         <!--end::Inputs-->
                                                     </label>
@@ -691,22 +692,22 @@
                                                 <div class="form w-100">
                                                     <div class="fv-row mb-4">
                                                         <span class="menu-title">SSS No</span>
-                                                        <input type="text" name="sss_number" id="sss_number" value="<?=set_value('sss_number')?>" class="form-control bg-transparent"/> 
+                                                        <input type="text" name="sss_number" id="sss_number" value="<?php echo $employee['SSS'] ?>" class="form-control bg-transparent"/> 
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'sss_number') : '' ?></span>
                                                     </div>
                                                     <div class="fv-row mb-4">
                                                         <span class="menu-title">PAG-IBIG No</span>
-                                                        <input type="text" name="pagibig_number" id="pagibig_number" value="<?=set_value('pagibig_number')?>" class="form-control bg-transparent"/> 
+                                                        <input type="text" name="pagibig_number" id="pagibig_number" value="<?php echo $employee['HDMF'] ?>" class="form-control bg-transparent"/> 
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'pagibig_number') : '' ?></span>
                                                     </div>
                                                     <div class="fv-row mb-4">
                                                         <span class="menu-title">PhilHealth No</span>
-                                                        <input type="text" name="ph_number" id="ph_number" value="<?=set_value('ph_number')?>" class="form-control bg-transparent"/> 
+                                                        <input type="text" name="ph_number" id="ph_number" value="<?php echo $employee['PhilHealth'] ?>" class="form-control bg-transparent"/> 
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'ph_number') : '' ?></span>
                                                     </div>
                                                     <div class="fv-row mb-4">
                                                         <span class="menu-title">TIN No</span>
-                                                        <input type="text" name="tin_number" id="tin_number" value="<?=set_value('tin_number')?>" class="form-control bg-transparent"/> 
+                                                        <input type="text" name="tin_number" id="tin_number" value="<?php echo $employee['TIN'] ?>" class="form-control bg-transparent"/> 
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'tin_number') : '' ?></span>
                                                     </div>
                                                 </div>
@@ -724,21 +725,21 @@
                                                         <div class="d-flex flex-column flex-lg-row gap-3">
                                                             <div class="col-lg-4">
                                                                 <span  class="menu-title" >Surname</span>
-                                                                <input type="text" name="surname" id="surname" value="<?=set_value('surname')?>" class="form-control bg-transparent"/> 
+                                                                <input type="text" name="surname" id="surname" value="<?php echo $employee['Surname'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'surname') : '' ?></span>
                                                             </div>
                                                             <div class="col-lg-4">
                                                                 <span  class="menu-title" >Firstname</span>
-                                                                <input type="text" name="firstname" id="firstname" value="<?=set_value('firstname')?>" class="form-control bg-transparent"/> 
+                                                                <input type="text" name="firstname" id="firstname" value="<?php echo $employee['Firstname'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'firstname') : '' ?></span>
                                                             </div>
                                                             <div class="col-lg-1">
                                                                 <span  class="menu-title" >M.I.</span>
-                                                                <input type="text" name="middlename" id="middlename" class="form-control bg-transparent"/> 
+                                                                <input type="text" name="middlename" id="middlename" value="<?php echo $employee['MI'] ?>" class="form-control bg-transparent"/> 
                                                             </div>
                                                             <div class="col-lg-2">
                                                                 <span  class="menu-title" >Suffix</span>
-                                                                <input type="text" name="suffix" id="suffix" class="form-control w-175px bg-transparent"/> 
+                                                                <input type="text" name="suffix" id="suffix" value="<?php echo $employee['Suffix'] ?>" class="form-control w-175px bg-transparent"/> 
                                                             </div>
                                                         </div>   
                                                     </div>
@@ -748,55 +749,55 @@
                                                                 <span class="menu-title">Marital Status</span>
                                                                 <select class="form-select mb-2" data-control="select2" name="maritalStatus" id="maritalStatus">
                                                                     <option value="">Choose</option>
-                                                                    <option>Single</option>
-                                                                    <option>Married</option>
-                                                                    <option>Separated</option>
-                                                                    <option>Widowed</option>
-                                                                    <option>Single with Children</option>
+                                                                    <option <?php if($employee['MaritalStatus']=="Single") echo 'selected="selected"'; ?>>Single</option>
+                                                                    <option <?php if($employee['MaritalStatus']=="Married") echo 'selected="selected"'; ?>>Married</option>
+                                                                    <option <?php if($employee['MaritalStatus']=="Separated") echo 'selected="selected"'; ?>>Separated</option>
+                                                                    <option <?php if($employee['MaritalStatus']=="Widowed") echo 'selected="selected"'; ?>>Widowed</option>
+                                                                    <option <?php if($employee['MaritalStatus']=="Single with Children") echo 'selected="selected"'; ?>>Single with Children</option>
                                                                 </select>   
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'maritalStatus') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Date of Birth</span>
-                                                                <input type="date" name="dob" id="dob" value="<?=set_value('dob')?>" class="form-control bg-transparent"/> 
+                                                                <input type="date" name="dob" id="dob" value="<?php echo $employee['BirthDate'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'dob') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Place of Birth</span>
-                                                                <input type="text" name="place_of_birth" id="place_of_birth" value="<?=set_value('place_of_birth')?>" class="form-control bg-transparent"/> 
+                                                                <input type="text" name="place_of_birth" id="place_of_birth" value="<?php echo $employee['PlaceOfBirth'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'place_of_birth') : '' ?></span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="fv-row mb-4">
                                                         <span  class="menu-title" >Permanent Address</span>
-                                                        <textarea id="address" class="form-control" name="address" class="min-h-200px mb-2"></textarea>
+                                                        <textarea id="address" class="form-control" name="address" class="min-h-200px mb-2"><?php echo $employee['Address'] ?></textarea>
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'address') : '' ?></span>
                                                     </div>
                                                     <div class="fv-row mb-4">
                                                         <div class="d-flex flex-wrap gap-5">
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Date Hired</span>
-                                                                <input type="date" name="date_hired" id="dateHired" value="<?=set_value('date_hired')?>" class="form-control bg-transparent"/> 
+                                                                <input type="date" name="date_hired" id="dateHired" value="<?php echo $employee['DateHired'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'date_hired') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Designation</span>
-                                                                <input type="text" name="designation" id="designation" value="<?=set_value('designation')?>" class="form-control bg-transparent"/> 
+                                                                <input type="text" name="designation" id="designation" value="<?php echo $employee['Designation'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'designation') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Salary Grade</span>
-                                                                <input type="text" name="salary_grade" id="salary_grade" value="<?=set_value('salary_grade')?>" class="form-control bg-transparent"/> 
+                                                                <input type="text" name="salary_grade" id="salary_grade" value="<?php echo $employee['SalaryGrade'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'salary_grade') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Employee Status</span>
                                                                 <select class="form-select mb-2" data-control="select2" name="employeeStatus" id="employeeStatus">
                                                                     <option value="">Choose</option>
-                                                                    <option>Probationary</option>
-                                                                    <option>Regular</option>
-                                                                    <option>Contractual</option>
+                                                                    <option <?php if($employee['EmployeeStatus']=="Probationary") echo 'selected="selected"'; ?>>Probationary</option>
+                                                                    <option <?php if($employee['EmployeeStatus']=="Regular") echo 'selected="selected"'; ?>>Regular</option>
+                                                                    <option <?php if($employee['EmployeeStatus']=="Contractual") echo 'selected="selected"'; ?>>Contractual</option>
                                                                 </select> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'employeeStatus') : '' ?></span>
                                                             </div>
@@ -806,12 +807,12 @@
                                                         <div class="d-flex flex-wrap gap-5">
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span  class="menu-title" >Father's Name</span>
-                                                                <input type="text" name="fathersName" id="fathersName" value="<?=set_value('fathersName')?>" class="form-control bg-transparent"/> 
+                                                                <input type="text" name="fathersName" id="fathersName" value="<?php echo $employee['Guardian1'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'fathersName') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span  class="menu-title" >Mother's Name</span>
-                                                                <input type="text" name="mothersName" id="mothersName" value="<?=set_value('mothersName')?>" class="form-control bg-transparent"/> 
+                                                                <input type="text" name="mothersName" id="mothersName" value="<?php echo $employee['Guardian2'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'mothersName') : '' ?></span>
                                                             </div>
                                                         </div>
@@ -820,17 +821,17 @@
                                                         <div class="d-flex flex-wrap gap-5">
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span  class="menu-title" >Spouse's Name</span>
-                                                                <input type="text" name="spouseName" id="spouseName" value="<?=set_value('spouseName')?>" class="form-control bg-transparent"/> 
+                                                                <input type="text" name="spouseName" id="spouseName" value="<?php echo $employee['Spouse'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'spouseName') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span  class="menu-title" >Date of Birth</span>
-                                                                <input type="date" name="spouseDOB" id="spouseDOB" value="<?=set_value('spouseDOB')?>" class="form-control bg-transparent"/> 
+                                                                <input type="date" name="spouseDOB" id="spouseDOB" value="<?php echo $employee['SpouseDOB'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'spouseDOB') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span  class="menu-title" >No. of Children</span>
-                                                                <input type="number" name="children" id="children" value="<?=set_value('children')?>" class="form-control bg-transparent"/> 
+                                                                <input type="number" name="children" id="children" value="<?php echo $employee['Children'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'children') : '' ?></span>
                                                             </div>
                                                         </div>
@@ -844,7 +845,11 @@
                                                                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
                                                                     <!--begin::Radio-->
                                                                     <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                                        <?php if($employee['Education']=="Elementary"){ ?>
+                                                                        <input class="form-check-input" type="radio" name="education" value="Elementary" checked/>
+                                                                        <?php }else {?>
                                                                         <input class="form-check-input" type="radio" name="education" value="Elementary"/>
+                                                                        <?php } ?>
                                                                     </span>
                                                                     <!--end::Radio-->
                                                                     <!--begin::Info-->
@@ -862,7 +867,11 @@
                                                                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
                                                                     <!--begin::Radio-->
                                                                     <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                                    <?php if($employee['Education']=="High School"){ ?>
+                                                                        <input class="form-check-input" type="radio" name="education" value="High School" checked/>
+                                                                        <?php }else {?>
                                                                         <input class="form-check-input" type="radio" name="education" value="High School"/>
+                                                                        <?php } ?>
                                                                     </span>
                                                                     <!--end::Radio-->
                                                                     <!--begin::Info-->
@@ -880,7 +889,11 @@
                                                                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
                                                                     <!--begin::Radio-->
                                                                     <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                                    <?php if($employee['Education']=="College Level"){ ?>
+                                                                        <input class="form-check-input" type="radio" name="education" value="College Level" checked/>
+                                                                        <?php }else {?>
                                                                         <input class="form-check-input" type="radio" name="education" value="College Level"/>
+                                                                        <?php } ?>
                                                                     </span>
                                                                     <!--end::Radio-->
                                                                     <!--begin::Info-->
@@ -898,7 +911,11 @@
                                                                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
                                                                     <!--begin::Radio-->
                                                                     <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                                    <?php if($employee['Education']=="College Graduate"){ ?>
+                                                                        <input class="form-check-input" type="radio" name="education" value="College Graduate" checked/>
+                                                                        <?php }else {?>
                                                                         <input class="form-check-input" type="radio" name="education" value="College Graduate"/>
+                                                                        <?php } ?>
                                                                     </span>
                                                                     <!--end::Radio-->
                                                                     <!--begin::Info-->
@@ -916,7 +933,11 @@
                                                                 <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
                                                                     <!--begin::Radio-->
                                                                     <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                                    <?php if($employee['Education']=="Vocational Course"){ ?>
+                                                                        <input class="form-check-input" type="radio" name="education" value="Vocational Course" checked/>
+                                                                        <?php }else {?>
                                                                         <input class="form-check-input" type="radio" name="education" value="Vocational Course"/>
+                                                                        <?php } ?>
                                                                     </span>
                                                                     <!--end::Radio-->
                                                                     <!--begin::Info-->
@@ -935,10 +956,11 @@
                                             </div>
                                         </div>
                                         <br/>
-                                        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Save Entry</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Save Changes</button>
                                     </div>
                                 </div>
                             </div>
+                            <?php endif;?>
                         </form>
                     </div>
                 <!--end::Content-->	
@@ -972,6 +994,18 @@
 			<!--end::Custom Javascript-->
 	    <!--end::Javascript-->
         <script>
+            $(document).ready(function()
+            {
+                var val = $('#maritalStatus').val();
+                if(val==="Married"||val==="Single with Children")
+                {
+                    $('#ifMarried').slideDown();
+                }
+                else
+                {
+                    $('#ifMarried').slideUp();
+                }
+            });
             $('#maritalStatus').change(function(){
                 var val = $(this).val();
                 if(val==="Married"||val==="Single with Children")
