@@ -734,7 +734,7 @@
                                     <div class="card-header">
                                         <div class="card-title">Employee Charts</div> 
                                     </div>
-                                    <div class="card-body" id="chartContainer">
+                                    <div class="card-body" id="chartContainer" style="height:300px;">
                                         
                                     </div>
                                 </div>
