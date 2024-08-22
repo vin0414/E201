@@ -181,7 +181,7 @@
                                 data-kt-menu-trigger="{default: 'click', lg: 'hover'}" 
                                 data-kt-menu-attach="parent" 
                                 data-kt-menu-placement="bottom-end">
-                                <img src="assets/img/logo.png" alt="user"/>
+                                <img src="<?=base_url('assets/img/profile.png')?>" alt="user"/>
 
                                 <span class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle mb-1 bottom-0 start-100 animation-blink"></span>
                             </div>
@@ -193,7 +193,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="assets/img/logo.png"/>
+                                    <img alt="Logo" src="<?=base_url('assets/img/profile.png')?>"/>
                                 </div>
                                 <!--end::Avatar-->
 
@@ -535,6 +535,11 @@
                             <i class="fa-solid fa-user-plus"></i>&nbsp;New Account           
 						</a>  
 						<!--end::Item-->
+                        <!--begin::Item-->
+						<a href="<?=site_url('HR/users')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-users"></i>&nbsp;All Accounts          
+						</a>  
+						<!--end::Item-->
                         <?php } ?> 
 					</div>
 					<!--end::Items-->   
@@ -579,12 +584,119 @@
             <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
                 <!--begin::Content wrapper-->
                 <div class="d-flex flex-column flex-column-fluid">
+                    <!--begin::Toolbar-->
+                <div id="kt_app_toolbar" class="app-toolbar  pt-10 mb-0 ">                        
+                    <!--begin::Toolbar container-->
+                    <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex align-items-stretch ">
+                        <!--begin::Toolbar wrapper-->
+                        <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                            <!--begin::Page title-->
+                            <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
+                                <!--begin::Title-->
+                                <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
+                                My Account
+                                </h1>
+                                <!--end::Title-->
+                                <!--begin::Breadcrumb-->
+                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="<?=site_url('HR/overview')?>" class="text-muted text-hover-primary">
+                                        E201                           
+                                        </a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->                 
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        My Account                                       
+                                    </li>
+                                    <!--end::Item-->                     
+                                </ul>
+                                <!--end::Breadcrumb-->
+                            </div>
+                            <!--end::Page title-->   
+                        </div>
+                    <!--end::Toolbar wrapper-->        
+                    </div>
+                    <!--end::Toolbar container-->
+                </div>
+                <!--end::Toolbar-->
                 <!--begin::Content-->
-                <div id="kt_app_content" class="app-content  app-content-stretch " >
+                <div id="kt_app_content" class="app-content  flex-column-fluid " >
                     <!--begin::Content container-->
-                    <div id="kt_app_content_container" class="app-container  container-fluid ">
-                            
-                        <!--end::Content container-->
+                    <div id="kt_app_content_container" class="app-container  container-fluid">
+                        <div class="d-flex flex-column flex-lg-row gap-5 w-100">
+                            <div class="col-lg-8">
+                                <div class="card card-flush py-4">
+                                    <div class="card-body pt-0">
+                                        <h4 class="card-title py-4"><i class="fa-solid fa-user"></i>&nbsp;Account</h4>
+                                        <p class="text-muted">Account Information</p>
+                                        <form method="POST" class="form w-100" id="frmAccount">
+                                            <?php if($account):?>
+                                            <div class="fv-row mb-4">
+                                                <span  class="menu-title" >Complete Name</span>
+                                                <input type="text" name="name" value="<?php echo $account['Fullname']?>" class="form-control bg-transparent"/> 
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <span  class="menu-title" >Designation</span>
+                                                <input type="text" name="designation" value="<?php echo $account['Designation']?>" class="form-control bg-transparent"/> 
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <div class="d-flex flex-column flex-lg-row gap-3 w-100">
+                                                    <div class="col-lg-6">
+                                                        <span  class="menu-title" >System Role</span>
+                                                        <input type="text" name="role" value="<?php echo $account['Role']?>" class="form-control bg-transparent"/> 
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <span  class="menu-title" >Account Status</span>
+                                                        <input type="text" name="status" class="form-control bg-transparent"/> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php endif; ?>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card card-flush py-4">
+                                    <div class="card-body pt-0">
+                                        <h4 class="card-title py-4"><i class="fa-solid fa-shield"></i>&nbsp;Security</h4>
+                                        <form method="POST" action="<?=base_url('account-security')?>" class="form w-100" id="frmSecurity">
+                                            <p class="text-muted">Please change your password</p>
+                                            <?php if(!empty(session()->getFlashdata('fail'))) : ?>
+                                                <div class="alert alert-danger" role="alert">
+                                                    <?= session()->getFlashdata('fail'); ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php if(!empty(session()->getFlashdata('success'))) : ?>
+                                                <script>alert("Great! Password successfully changed");location.reload();</script>
+                                            <?php endif; ?>
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">Current Password</span>
+                                                <input type="password" placeholder="Password" value="<?=set_value('password')?>" name="password" minlength="8" maxlength="16" class="form-control bg-transparent" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control bg-transparent" required/>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">New Password</span>
+                                                <input type="password" placeholder="New Password" value="<?=set_value('new_password')?>" name="new_password" minlength="8" maxlength="16" class="form-control bg-transparent" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control bg-transparent" required/>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">Confirm Password</span>
+                                                <input type="password" placeholder="Re-enter Password" name="confirm_password" minlength="8" maxlength="16" class="form-control bg-transparent" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control bg-transparent" required/>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <input type="submit" class="btn btn-primary" id="btnUpdate" value="Save Changes"/>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 <!--end::Content-->	
 

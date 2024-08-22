@@ -16,7 +16,7 @@ class employeeModel extends Model
     protected $protectFields = true;
     protected $allowedFields = ['DateCreated','Surname','Firstname','MI','Suffix',
                                 'BirthDate','MaritalStatus','PlaceOfBirth',
-                                'Address','DateHired','Designation','EmployeeStatus',
+                                'Address','ContactNo','EmailAddress','DateHired','Designation','EmployeeStatus',
                                 'SalaryGrade','Guardian1','Guardian2',
                                 'Spouse','SpouseDOB','Children',
                                 'Education','SSS','HDMF','PhilHealth','TIN','Photo','Status','Token'];

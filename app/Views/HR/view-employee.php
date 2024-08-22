@@ -187,7 +187,7 @@
                                 data-kt-menu-trigger="{default: 'click', lg: 'hover'}" 
                                 data-kt-menu-attach="parent" 
                                 data-kt-menu-placement="bottom-end">
-                                <img src="assets/img/logo.png" alt="user"/>
+                                <img src="<?=base_url('assets/img/profile.png')?>" alt="user"/>
 
                                 <span class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle mb-1 bottom-0 start-100 animation-blink"></span>
                             </div>
@@ -199,7 +199,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="assets/img/logo.png"/>
+                                    <img alt="Logo" src="<?=base_url('assets/img/profile.png')?>"/>
                                 </div>
                                 <!--end::Avatar-->
 
@@ -628,6 +628,9 @@
                                 <a href="<?=site_url('HR/promotion/')?><?php echo $employee['Token'] ?>" class="btn btn-sm btn-flex btn-primary">
                                     <i class="fa-solid fa-ranking-star"></i>&nbsp;Promote
                                 </a> 
+                                <button type="button" class="btn btn-sm btn-flex btn-primary addWork">
+                                    <i class="fa-solid fa-file-circle-plus"></i>&nbsp;Work History
+                                </button> 
                                 <a href="<?=site_url('HR/edit-employee/')?><?php echo $employee['Token'] ?>" class="btn btn-sm btn-flex btn-primary">
                                     <i class="fa-regular fa-pen-to-square"></i>&nbsp;Edit Profile
                                 </a>          
@@ -927,6 +930,35 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <br/>
+                                        <div class="card card-flush py-4">
+                                            <div class="card-header">
+                                                <div class="card-title">
+                                                    <h2>Employment History</h2>
+                                                </div>
+                                            </div>
+                                            <div class="card-body pt-0">
+                                                <div class="form w-100">
+                                                    <div class="fv-row mb-4">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <th class="text-white">Company/Designation</th>
+                                                                    <th class="text-white">From</th>
+                                                                    <th class="text-white">To</th>
+                                                                    <th class="text-white w-100px">More</th>
+                                                                </thead>
+                                                                <tbody id="tblhistory">
+                                                                    <tr>
+                                                                        <td colspan="4" class="text-center">No Record(s)</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -963,29 +995,119 @@
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
 	    <!--end::Javascript-->
+        <div class="modal fade" id="modalWork" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header pb-0 border-0">
+                        <h2 class="modal-title">Add Work History</h2>
+                    </div>
+                    <!--begin::Modal header-->
+
+                    <!--begin::Modal body-->
+                    <div class="modal-body">
+                        <form method="POST" class="form w-100" id="frmHistory">
+                            <input type="hidden" name="employeeID" value="<?php echo $employee['employeeID'] ?>"/>
+                            <div class="fv-row mb-4">
+                                <span class="menu-title">Designation/Position</span>
+                                <input type="text" name="job" class="form-control bg-transparent"/>
+                            </div>
+                            <div class="fv-row mb-4">
+                                <span class="menu-title">Company</span>
+                                <input type="text" name="company" class="form-control bg-transparent"/>
+                            </div>
+                            <div class="fv-row mb-4">
+                                <span class="menu-title">Company Address</span>
+                                <textarea id="address" class="form-control" name="company_address" class="min-h-200px mb-2"></textarea>
+                            </div>
+                            <div class="fv-row mb-4">
+                                <div class="d-flex flex-wrap gap-5">
+                                    <div class="fv-row w-100 flex-md-root">
+                                        <span class="menu-title">From</span>
+                                        <input type="date" name="fromdate" class="form-control bg-transparent"/>
+                                    </div>
+                                    <div class="fv-row w-100 flex-md-root">
+                                        <span class="menu-title">To</span>
+                                        <input type="date" name="todate" class="form-control bg-transparent"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fv-row mb-4" id="btnAction">
+                                <button type="submit" class="btn btn-primary" id="Add"><i class="fa-solid fa-circle-plus"></i>&nbsp;Add Entry</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i>&nbsp;Cancel</button>
+                            </div>
+                            <div class="fv-row mb-4" id="btnProgress" style="display:none;">
+                                <button type="button" class="btn btn-primary">
+                                    Please wait...    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script>
             $(document).ready(function()
             {
-                var val = $('#maritalStatus').val();
-                if(val==="Married"||val==="Single with Children")
-                {
-                    $('#ifMarried').slideDown();
-                }
-                else
-                {
-                    $('#ifMarried').slideUp();
-                }
+                listWork();
+                var val = $('#maritalStatus').val();if(val==="Married"||val==="Single with Children"){$('#ifMarried').slideDown();}else{$('#ifMarried').slideUp();}
             });
-            $('#maritalStatus').change(function(){
-                var val = $(this).val();
-                if(val==="Married"||val==="Single with Children")
-                {
-                    $('#ifMarried').slideDown();
-                }
-                else
-                {
-                    $('#ifMarried').slideUp();
-                }
+            $(document).on('click','.addWork',function(){$('#modalWork').modal('show');});
+            $('#maritalStatus').change(function(){var val = $(this).val();if(val==="Married"||val==="Single with Children"){$('#ifMarried').slideDown();}else{$('#ifMarried').slideUp();}});
+            function listWork()
+            {
+                $('#tblhistory').html("<tr><td colspan='4' class='text-center'>Loading...</td></tr>");
+                var user = "<?=$employee['Token']?>";
+                $.ajax({
+                    url:"<?=site_url('list-work')?>",method:"GET",
+                    data:{user:user},
+                    success:function(response)
+                    {
+                        if(response==="")
+                        {
+                            $('#tblhistory').html("<tr><td colspan='4' class='text-center'>No Record(s)</td></tr>");
+                        }
+                        else
+                        {
+                            $('#tblhistory').html(response);
+                        }
+                    }
+                });
+            }
+            $('#frmHistory').on('submit',function(e){
+                e.preventDefault();
+                var data = $(this).serialize();
+                document.getElementById('btnAction').style="display:none";
+                document.getElementById('btnProgress').style="display:block";
+                $.ajax({
+                    url:"<?=site_url('save-work')?>",method:"POST",
+                    data:data,success:function(response)
+                    {
+                        document.getElementById('btnAction').style="display:block";
+                        document.getElementById('btnProgress').style="display:none";
+                        if(response=="success")
+                        {
+                            Swal.fire({
+                                title: "Great!",
+                                text: "Successfully added",
+                                icon: "success"
+                            });
+                            listWork();
+                            $('#frmHistory')[0].reset();
+                            $('#modalWork').modal('hide'); 
+                        }
+                        else
+                        {
+                            Swal.fire({
+                                title: "Warning!",
+                                text: response,
+                                icon: "warning"
+                            });
+                        }
+                    }
+                });
             });
         </script>
     </body>

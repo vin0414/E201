@@ -37,9 +37,13 @@ $routes->get('/logout','Auth::logout');
 $routes->post('save-account','Home::saveUserData');
 $routes->post('modify-account','Home::modifyAccount');
 $routes->get('search-account','Home::searchAccount');
+$routes->post('reset-password','Home::resetPassword');
+$routes->post('account-security','Home::accountSecurity');
 //employee functions
 $routes->post('save-employee','Home::saveEmployee');
 $routes->post('update-employee','Home::updateEmployee');
+$routes->post('save-work','Home::saveWork');
+$routes->get('list-work','Home::listWork');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {

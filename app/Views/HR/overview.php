@@ -211,7 +211,7 @@
                                 data-kt-menu-trigger="{default: 'click', lg: 'hover'}" 
                                 data-kt-menu-attach="parent" 
                                 data-kt-menu-placement="bottom-end">
-                                <img src="assets/img/logo.png" alt="user"/>
+                                <img src="<?=base_url('assets/img/profile.png')?>" alt="user"/>
 
                                 <span class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle mb-1 bottom-0 start-100 animation-blink"></span>
                             </div>
@@ -223,7 +223,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="assets/img/logo.png"/>
+                                    <img alt="Logo" src="<?=base_url('assets/img/profile.png')?>"/>
                                 </div>
                                 <!--end::Avatar-->
 
@@ -741,10 +741,8 @@
                             </div>
                             <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-400px mb-7">
                                 <div class="card card-flush py-4">
-                                    <div class="card-header">
-                                        <div class="card-title">Recent Employees</div> 
-                                    </div>
                                     <div class="card-body">
+                                        <div class="card-title"><h2>Recent Employees</h2></div>
                                         <?php foreach($employee as $row): ?>
                                         <div class="justify-content-between mb-4">
                                             <div class="fw-bold text-white" style="background-color:#0096FF;padding:0.5rem;"><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></div>

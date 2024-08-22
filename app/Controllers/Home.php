@@ -229,6 +229,84 @@ class Home extends BaseController
         }
     }
 
+    public function saveWork()
+    {
+        date_default_timezone_set('Asia/Manila');
+        $workHistoryModel = new \App\Models\workHistoryModel();
+        $logModel = new \App\Models\logModel();
+        //data
+        $eID = $this->request->getPost('employeeID');
+        $job = $this->request->getPost('job');
+        $company = $this->request->getPost('company');
+        $address = $this->request->getPost('company_address');
+        $fromdate = $this->request->getPost('fromdate');
+        $todate = $this->request->getPost('todate');
+
+        $validation = $this->validate([
+            'job'=>'required',
+            'company'=>'required',
+            'company_address'=>'required',
+            'fromdate'=>'required',
+            'todate'=>'required',
+        ]);
+        
+        if(!$validation)
+        {
+            echo "Please fill in the form";
+        }
+        else
+        {
+            //check if company is already added per employee
+            $builder = $this->db->table('tblhistory');
+            $builder->select('Company');
+            $builder->WHERE('employeeID',$eID)->WHERE('Company',$company);
+            $data = $builder->get();
+            if($row = $data->getRow())
+            {
+                echo "Company/Institution already added";
+            }
+            else
+            {
+                //save the data
+                $values = ['employeeID'=>$eID,'Designation'=>$job,'Company'=>$company,'Address'=>$address,'From'=>$fromdate,'To'=>$todate];
+                $workHistoryModel->save($values);
+                //logs
+                $new_values = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Added employment history'];
+                $logModel->save($new_values);
+                echo "success";
+            }
+        }
+    }
+
+    public function listWork()
+    {
+        $employeeModel = new \App\Models\employeeModel();
+        $token = $this->request->getGet('user');
+        $employee = $employeeModel->WHERE('Token',$token)->first();
+        $builder = $this->db->table('tblhistory');
+        $builder->select('*');
+        $builder->WHERE('employeeID',$employee['employeeID']);
+        $data = $builder->get();
+        foreach($data->getResult() as $row)
+        {
+            ?>
+            <tr>
+                <td>
+                    <div class="d-flex flex-column">
+                        <a href="javascript:void(0);"><b><?php echo $row->Designation ?></b></a>
+                        <span><?php echo $row->Company ?></span><span><?php echo $row->Address ?></span>
+                    </div>
+                </td>
+                <td><?php echo date('d M, Y', strtotime($row->From)) ?></td>
+                <td><?php echo date('d M, Y', strtotime($row->To)) ?></td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm edit" value="<?php echo $row->historyID ?>"><i class="fa-regular fa-pen-to-square"></i>&nbsp;Edit</button>
+                </td>
+            </tr>
+            <?php
+        }
+    }
+
     //memorandum
     public function Memo()
     {
@@ -375,6 +453,60 @@ class Home extends BaseController
         }
     }
 
+    public function resetPassword()
+    {
+        $accountModel = new \App\Models\accountModel();
+        $logModel = new \App\Models\logModel();
+        //data
+        $val = $this->request->getPost('value');
+        $defaultPassword = Hash::make("NewPassword1234");
+        $values = ['Password'=>$defaultPassword];
+        $accountModel->update($val,$values);
+        //logs
+        date_default_timezone_set('Asia/Manila');
+        $account = $accountModel->WHERE('accountID',$val)->first();
+        $values = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Reset the password of account: '.$account['Fullname']];
+        $logModel->save($values);
+        echo "success";
+    }
+
+    public function accountSecurity()
+    {
+        $accountModel = new \App\Models\accountModel();
+        $account = $accountModel->WHERE('accountID',session()->get('loggedUser'))->first();
+        //data
+        $current_password = $this->request->getPost('password');
+        $new_password = $this->request->getPost('new_password');
+        $confirm_password = $this->request->getPost('confirm_password');
+        //check if password is correct
+        $passwordCheck = Hash::check($current_password,$account['Password']);
+        if(!$passwordCheck||empty($passwordCheck))
+        {
+            session()->setFlashdata('fail','Invalid! Incorrect Password');
+            return redirect()->to('HR/account')->withInput();
+        }
+        else
+        {
+            if($current_password==$new_password)
+            {
+                session()->setFlashdata('fail','Invalid! Please enter a new password');
+                return redirect()->to('HR/account')->withInput();
+            }
+            else if($new_password!=$confirm_password)
+            {
+                session()->setFlashdata('fail','Invalid! Password mismatched. Try again');
+                return redirect()->to('HR/account')->withInput();
+            }
+            else
+            {
+                $values = ['Password'=>Hash::make($new_password)];
+                $accountModel->update($account['accountID'],$values);
+                session()->setFlashdata('success','Great! Successfully changed the password');
+                return redirect()->to('HR/account')->withInput();
+            }
+        }
+    }
+
     //logs
     public function systemLogs()
     {
@@ -392,7 +524,10 @@ class Home extends BaseController
 
     public function Account()
     {
-        return view('HR/account');
+        $accountModel = new \App\Models\accountModel();
+        $account = $accountModel->WHERE('accountID',session()->get('loggedUser'))->first();
+        $data = ['account'=>$account];
+        return view('HR/account',$data);
     }
 
 }

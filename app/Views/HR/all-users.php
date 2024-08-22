@@ -187,7 +187,7 @@
                                 data-kt-menu-trigger="{default: 'click', lg: 'hover'}" 
                                 data-kt-menu-attach="parent" 
                                 data-kt-menu-placement="bottom-end">
-                                <img src="assets/img/logo.png" alt="user"/>
+                                <img src="<?=base_url('assets/img/profile.png')?>" alt="user"/>
 
                                 <span class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle mb-1 bottom-0 start-100 animation-blink"></span>
                             </div>
@@ -199,7 +199,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="assets/img/logo.png"/>
+                                    <img alt="Logo" src="<?=base_url('assets/img/profile.png')?>"/>
                                 </div>
                                 <!--end::Avatar-->
 
@@ -689,9 +689,9 @@
                                                             <!--end::Menu item-->
                                                             <!--begin::Menu item-->
                                                             <div class="menu-item px-3">
-                                                                <a href="javascript:void(0);" class="menu-link btn-outline-default px-3 reset">
+                                                                <button type="button" class="menu-link w-100 border-0 px-3 reset" value="<?php echo $row['accountID'] ?>">
                                                                     Reset
-                                                                </a>
+                                                                </button>
                                                             </div>
                                                             <!--end::Menu item-->
                                                         </div>
@@ -761,6 +761,36 @@
                         $('#total').html("Total : "+count);
                     }
                 });
+            });
+            $(document).on('click','.reset',function(){
+                var confirmation = confirm("Do you want to reset the password?");
+                if(confirmation)
+                {
+                    var val = $(this).val();
+                    $.ajax({
+                        url:"<?=site_url('reset-password')?>",method:"POST",
+                        data:{value:val},
+                        success:function(response)
+                        {
+                            if(response==="success")
+                            {
+                                Swal.fire({
+                                    title: "Great!",
+                                    text: "Successfully reset the password",
+                                    icon: "success"
+                                    });
+                            }
+                            else
+                            {
+                                Swal.fire({
+                                    title: "Invalid!",
+                                    text: response,
+                                    icon: "error"
+                                    });
+                            }
+                        }
+                    });
+                }
             });
         </script>
     </body>

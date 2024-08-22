@@ -187,7 +187,7 @@
                                 data-kt-menu-trigger="{default: 'click', lg: 'hover'}" 
                                 data-kt-menu-attach="parent" 
                                 data-kt-menu-placement="bottom-end">
-                                <img src="assets/img/logo.png" alt="user"/>
+                                <img src="<?=base_url('assets/img/profile.png')?>" alt="user"/>
 
                                 <span class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle mb-1 bottom-0 start-100 animation-blink"></span>
                             </div>
@@ -199,7 +199,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo" src="assets/img/logo.png"/>
+                                    <img alt="Logo" src="<?=base_url('assets/img/profile.png')?>"/>
                                 </div>
                                 <!--end::Avatar-->
 
@@ -936,11 +936,12 @@
                                                         </div>
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'education') : '' ?></span>
                                                     </div>
+                                                    <div class="fv-row mb-4">
+                                                        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Save Entry</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <br/>
-                                        <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Save Entry</button>
                                     </div>
                                 </div>
                             </div>
