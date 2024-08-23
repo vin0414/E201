@@ -690,6 +690,7 @@
                                         <table class="table table-bordered table-striped" id="tblemployee">
                                             <thead>
                                                 <th class="text-white">Employee</th>
+                                                <th class="text-white">Date Hired</th>
                                                 <th class="text-white">Work Status</th>
                                                 <th class="text-white">Marital Status</th>
                                                 <th class="text-white">Permanent Address</th>
@@ -716,6 +717,7 @@
                                                             </div>
                                                             <!--begin::User details-->
                                                         </td>
+                                                        <td><?php echo date('d M, Y', strtotime($row['DateHired'])) ?></td>
                                                         <td><?php echo $row['EmployeeStatus'] ?></td>
                                                         <td><?php echo $row['MaritalStatus'] ?></td>
                                                         <td><?php echo $row['Address'] ?></td>

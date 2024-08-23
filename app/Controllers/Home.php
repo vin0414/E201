@@ -307,6 +307,77 @@ class Home extends BaseController
         }
     }
 
+    
+    public function updateData()
+    {
+        date_default_timezone_set('Asia/Manila');
+        $workHistoryModel = new \App\Models\workHistoryModel();
+        $logModel = new \App\Models\logModel();
+        //data
+        $historyID = $this->request->getPost('historyID');
+        $job = $this->request->getPost('job');
+        $company = $this->request->getPost('company');
+        $address = $this->request->getPost('address');
+        $fromdate = $this->request->getPost('fromdate');
+        $todate = $this->request->getPost('todate');
+        //update the data
+        $values = ['Designation'=>$job,'Company'=>$company,'Address'=>$address,'From'=>$fromdate,'To'=>$todate];
+        $workHistoryModel->update($historyID,$values);
+        //logs
+        $new_values = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Update employment history'];
+        $logModel->save($new_values);
+        echo "success";
+    }
+
+    public function fetchData()
+    {
+        $val = $this->request->getGet('value');
+        $builder = $this->db->table('tblhistory');
+        $builder->select('*');
+        $builder->WHERE('historyID',$val);
+        $work = $builder->get();
+        foreach($work->getResult() as $row)
+        {
+            ?>
+            <form method="POST" class="form w-100" id="editHistory">
+                <input type="hidden" name="historyID" value="<?php echo $row->historyID ?>"/>
+                <div class="fv-row mb-4">
+                    <span class="menu-title">Designation/Position</span>
+                    <input type="text" name="job" value="<?php echo $row->Designation ?>" class="form-control bg-transparent"/>
+                </div>
+                <div class="fv-row mb-4">
+                    <span class="menu-title">Company</span>
+                    <input type="text" name="company" value="<?php echo $row->Company ?>" class="form-control bg-transparent"/>
+                </div>
+                <div class="fv-row mb-4">
+                    <span class="menu-title">Company Address</span>
+                    <textarea id="address" class="form-control" name="address" class="min-h-200px mb-2"><?php echo $row->Address ?></textarea>
+                </div>
+                <div class="fv-row mb-4">
+                    <div class="d-flex flex-wrap gap-5">
+                        <div class="fv-row w-100 flex-md-root">
+                            <span class="menu-title">From</span>
+                            <input type="date" name="fromdate" value="<?php echo $row->From ?>" class="form-control bg-transparent"/>
+                        </div>
+                        <div class="fv-row w-100 flex-md-root">
+                            <span class="menu-title">To</span>
+                            <input type="date" name="todate" value="<?php echo $row->To ?>" class="form-control bg-transparent"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="fv-row mb-4" id="btnSave">
+                    <button type="submit" class="btn btn-primary save"><i class="fa-solid fa-circle-plus"></i>&nbsp;Save Changes</button>
+                </div>
+                <div class="fv-row mb-4" id="btnLoading" style="display:none;">
+                    <button type="button" class="btn btn-primary">
+                        Please wait...    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </button>
+                </div>
+            </form>
+            <?php
+        }
+    }
+
     //memorandum
     public function Memo()
     {

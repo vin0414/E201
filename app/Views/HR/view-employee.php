@@ -1002,7 +1002,7 @@
                 <div class="modal-content">
                     <!--begin::Modal header-->
                     <div class="modal-header pb-0 border-0">
-                        <h2 class="modal-title">Add Work History</h2>
+                        <h2 class="modal-title">Add Employment History</h2>
                     </div>
                     <!--begin::Modal header-->
 
@@ -1048,6 +1048,26 @@
                 </div>
             </div>
         </div>
+        <!--edit form-->
+        <div class="modal fade" id="modalEditWork" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header pb-0 border-0">
+                        <h2 class="modal-title">Edit Employment History</h2>
+                    </div>
+                    <!--begin::Modal header-->
+
+                    <!--begin::Modal body-->
+                    <div class="modal-body">
+                        <div id="output"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
             $(document).ready(function()
             {
@@ -1055,6 +1075,7 @@
                 var val = $('#maritalStatus').val();if(val==="Married"||val==="Single with Children"){$('#ifMarried').slideDown();}else{$('#ifMarried').slideUp();}
             });
             $(document).on('click','.addWork',function(){$('#modalWork').modal('show');});
+            $(document).on('click','.edit',function(){var val = $(this).val();$.ajax({url:"<?=site_url('fetch-data')?>",method:"GET",data:{value:val},success:function(response){$('#modalEditWork').modal('show');$('#output').html(response);}});});
             $('#maritalStatus').change(function(){var val = $(this).val();if(val==="Married"||val==="Single with Children"){$('#ifMarried').slideDown();}else{$('#ifMarried').slideUp();}});
             function listWork()
             {
@@ -1076,6 +1097,40 @@
                     }
                 });
             }
+
+            $(document).on('click','.save',function(e){
+                e.preventDefault();
+                var data = $('#editHistory').serialize();
+                document.getElementById('btnSave').style="display:none";
+                document.getElementById('btnLoading').style="display:block";
+                $.ajax({
+                    url:"<?=site_url('update-data')?>",method:"POST",
+                    data:data,success:function(response)
+                    {
+                        document.getElementById('btnSave').style="display:block";
+                        document.getElementById('btnLoading').style="display:none";
+                        if(response=="success")
+                        {
+                            Swal.fire({
+                                title: "Great!",
+                                text: "Successfully applied changes",
+                                icon: "success"
+                            });
+                            listWork();
+                            $('#modalEditWork').modal('hide'); 
+                        }
+                        else
+                        {
+                            Swal.fire({
+                                title: "Warning!",
+                                text: response,
+                                icon: "warning"
+                            });
+                        }
+                    }
+                });
+            });
+
             $('#frmHistory').on('submit',function(e){
                 e.preventDefault();
                 var data = $(this).serialize();

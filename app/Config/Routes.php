@@ -44,6 +44,8 @@ $routes->post('save-employee','Home::saveEmployee');
 $routes->post('update-employee','Home::updateEmployee');
 $routes->post('save-work','Home::saveWork');
 $routes->get('list-work','Home::listWork');
+$routes->get('fetch-data','Home::fetchData');
+$routes->post('update-data','Home::updateData');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {
