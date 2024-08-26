@@ -642,20 +642,54 @@
                 </div>
                 <!--end::Toolbar-->  
                 <!--begin::Content-->
-                <div id="kt_app_content" class="app-content  app-content-stretch " >
+                <div id="kt_app_content" class="app-content flex-column-fluid" >
                     <!--begin::Content container-->
-                    <div id="kt_app_content_container" class="app-container  container-fluid ">
-                        <div class="d-flex flex-column flex-lg-row gap-3">
+                    <div id="kt_app_content_container" class="app-container container-fluid ">
+                        <div class="d-flex flex-column flex-lg-row gap-5">
                             <div class="col-lg-8">
-                                <div class="card card-flush">
-                                    <div class="card-body">
-
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title"><h2>Upload</h2></div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <form method="POST" class="form w-100" id="frmUpload">
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">Subject</span>
+                                                <input type="text" name="subject" class="form-control bg-transparent"/>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <div class="d-flex flex-wrap gap-5">
+                                                    <div class="fv-row w-100 flex-md-root">
+                                                        <span class="menu-title">Date</span>
+                                                        <input type="date" class="form-control bg-transparent" name="date"/>
+                                                    </div>
+                                                    <div class="fv-row w-100 flex-md-root">
+                                                        <span class="menu-title">From</span>
+                                                        <input type="text" class="form-control bg-transparent" name="from"/>
+                                                    </div>
+                                                    <div class="fv-row w-100 flex-md-root">
+                                                        <span class="menu-title">To</span>
+                                                        <input type="text" class="form-control bg-transparent" name="to"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">Attachment</span>
+                                                <input type="file" name="file" class="form-control bg-transparent" accept="application/pdf,application/vnd.ms-excel"/>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <button type="submit" class="btn btn-primary" id="btnUpload"><i class="fa-solid fa-upload"></i>&nbsp;Upload</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="card card-flush">
-                                    <div class="card-body">
+                                    <div class="card-header">
+                                        <div class="card-title"><h2>Recent Files</h2></div>
+                                    </div>
+                                    <div class="card-body pt-0">
                                         
                                     </div>
                                 </div>

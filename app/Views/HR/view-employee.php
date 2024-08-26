@@ -625,9 +625,9 @@
                             <!--end::Page title-->   
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="<?=site_url('HR/promotion/')?><?php echo $employee['Token'] ?>" class="btn btn-sm btn-flex btn-primary">
+                                <button type="button" class="btn btn-sm btn-flex btn-primary promote">
                                     <i class="fa-solid fa-ranking-star"></i>&nbsp;Promote
-                                </a> 
+                                </button> 
                                 <button type="button" class="btn btn-sm btn-flex btn-primary addWork">
                                     <i class="fa-solid fa-file-circle-plus"></i>&nbsp;Work History
                                 </button> 
@@ -668,6 +668,24 @@
                                                     <!--end::Label-->
                                                 </div>
                                                 <!--end::Image input-->
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="card card-flush py-4">
+                                            <div class="card-header">
+                                                <div class="card-title"><h2>Employee Movement</h2></div>
+                                            </div>
+                                            <div class="card-body pt-0">
+                                                <?php foreach($job as $row): ?>
+                                                <div class="justify-content-between mb-4">
+                                                    <h4 class="fw-bold"><?php echo $row->Title ?></h4>
+                                                    <div class="fw-semibold">
+                                                    <?php echo $row->Date ?>
+                                                    </div>
+                                                </div>
+                                                <div class="separator separator-dashed"></div>
+                                                <br/>
+                                                <?php endforeach; ?>
                                             </div>
                                         </div>
                                         <br/>
@@ -762,11 +780,6 @@
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'date_hired') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
-                                                                <span class="menu-title">Designation</span>
-                                                                <input type="text" name="designation" id="designation" value="<?php echo $employee['Designation'] ?>" class="form-control bg-transparent"/> 
-                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'designation') : '' ?></span>
-                                                            </div>
-                                                            <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Salary Grade</span>
                                                                 <input type="text" name="salary_grade" id="salary_grade" value="<?php echo $employee['SalaryGrade'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'salary_grade') : '' ?></span>
@@ -813,118 +826,7 @@
                                                     </div>
                                                     <div class="fv-row mb-4">
                                                         <span  class="menu-title" >Educational Attainment</span>
-                                                        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-5" data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
-                                                            <!--begin::Col-->
-                                                            <div class="col">
-                                                                <!--begin::Option-->
-                                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
-                                                                    <!--begin::Radio-->
-                                                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                                                        <?php if($employee['Education']=="Elementary"){ ?>
-                                                                        <input class="form-check-input" type="radio" name="education" value="Elementary" checked/>
-                                                                        <?php }else {?>
-                                                                        <input class="form-check-input" type="radio" name="education" value="Elementary"/>
-                                                                        <?php } ?>
-                                                                    </span>
-                                                                    <!--end::Radio-->
-                                                                    <!--begin::Info-->
-                                                                    <span class="ms-5">
-                                                                        <span class="fs-4 fw-bold text-gray-800 d-block">Elementary</span>
-                                                                    </span>
-                                                                    <!--end::Info-->
-                                                                </label>
-                                                                <!--end::Option-->
-                                                            </div>
-                                                            <!--end::Col-->
-                                                            <!--begin::Col-->
-                                                            <div class="col">
-                                                                <!--begin::Option-->
-                                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
-                                                                    <!--begin::Radio-->
-                                                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                                                    <?php if($employee['Education']=="High School"){ ?>
-                                                                        <input class="form-check-input" type="radio" name="education" value="High School" checked/>
-                                                                        <?php }else {?>
-                                                                        <input class="form-check-input" type="radio" name="education" value="High School"/>
-                                                                        <?php } ?>
-                                                                    </span>
-                                                                    <!--end::Radio-->
-                                                                    <!--begin::Info-->
-                                                                    <span class="ms-5">
-                                                                        <span class="fs-4 fw-bold text-gray-800 d-block">High School</span>
-                                                                    </span>
-                                                                    <!--end::Info-->
-                                                                </label>
-                                                                <!--end::Option-->
-                                                            </div>
-                                                            <!--end::Col-->
-                                                            <!--begin::Col-->
-                                                            <div class="col">
-                                                                <!--begin::Option-->
-                                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
-                                                                    <!--begin::Radio-->
-                                                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                                                    <?php if($employee['Education']=="College Level"){ ?>
-                                                                        <input class="form-check-input" type="radio" name="education" value="College Level" checked/>
-                                                                        <?php }else {?>
-                                                                        <input class="form-check-input" type="radio" name="education" value="College Level"/>
-                                                                        <?php } ?>
-                                                                    </span>
-                                                                    <!--end::Radio-->
-                                                                    <!--begin::Info-->
-                                                                    <span class="ms-5">
-                                                                        <span class="fs-4 fw-bold text-gray-800 d-block">College Level</span>
-                                                                    </span>
-                                                                    <!--end::Info-->
-                                                                </label>
-                                                                <!--end::Option-->
-                                                            </div>
-                                                            <!--end::Col-->
-                                                            <!--begin::Col-->
-                                                            <div class="col">
-                                                                <!--begin::Option-->
-                                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
-                                                                    <!--begin::Radio-->
-                                                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                                                    <?php if($employee['Education']=="College Graduate"){ ?>
-                                                                        <input class="form-check-input" type="radio" name="education" value="College Graduate" checked/>
-                                                                        <?php }else {?>
-                                                                        <input class="form-check-input" type="radio" name="education" value="College Graduate"/>
-                                                                        <?php } ?>
-                                                                    </span>
-                                                                    <!--end::Radio-->
-                                                                    <!--begin::Info-->
-                                                                    <span class="ms-5">
-                                                                        <span class="fs-4 fw-bold text-gray-800 d-block">College Graduate</span>
-                                                                    </span>
-                                                                    <!--end::Info-->
-                                                                </label>
-                                                                <!--end::Option-->
-                                                            </div>
-                                                            <!--end::Col-->
-                                                            <!--begin::Col-->
-                                                            <div class="col">
-                                                                <!--begin::Option-->
-                                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
-                                                                    <!--begin::Radio-->
-                                                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                                                    <?php if($employee['Education']=="Vocational Course"){ ?>
-                                                                        <input class="form-check-input" type="radio" name="education" value="Vocational Course" checked/>
-                                                                        <?php }else {?>
-                                                                        <input class="form-check-input" type="radio" name="education" value="Vocational Course"/>
-                                                                        <?php } ?>
-                                                                    </span>
-                                                                    <!--end::Radio-->
-                                                                    <!--begin::Info-->
-                                                                    <span class="ms-5">
-                                                                        <span class="fs-4 fw-bold text-gray-800 d-block">Vocational Course</span>
-                                                                    </span>
-                                                                    <!--end::Info-->
-                                                                </label>
-                                                                <!--end::Option-->
-                                                            </div>
-                                                            <!--end::Col-->
-                                                        </div>
+                                                        <input type="text" class="form-control bg-transparent" value="<?=$employee['Education']?>"/>
                                                         <span class="text-danger"><?=isset($validation)? display_error($validation,'education') : '' ?></span>
                                                     </div>
                                                 </div>
@@ -1036,7 +938,6 @@
                             </div>
                             <div class="fv-row mb-4" id="btnAction">
                                 <button type="submit" class="btn btn-primary" id="Add"><i class="fa-solid fa-circle-plus"></i>&nbsp;Add Entry</button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i>&nbsp;Cancel</button>
                             </div>
                             <div class="fv-row mb-4" id="btnProgress" style="display:none;">
                                 <button type="button" class="btn btn-primary">
@@ -1063,6 +964,42 @@
                     <!--begin::Modal body-->
                     <div class="modal-body">
                         <div id="output"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- promote -->
+        <div class="modal fade" id="modalPromote" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header pb-0 border-0">
+                        <h2 class="modal-title">Promotion</h2>
+                    </div>
+                    <!--begin::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body">
+                        <form method="POST" class="form w-100" id="frmPromote">
+                            <input type="hidden" name="employeeID" value="<?php echo $employee['employeeID'] ?>"/>
+                            <div class="fv-row mb-4">
+                                <span class="menu-title">Designation/Position</span>
+                                <input type="text" name="job" class="form-control bg-transparent"/>
+                            </div>
+                            <div class="fv-row mb-4">
+                                <span class="menu-title">Date Effectivity</span>
+                                <input type="date" name="date" class="form-control bg-transparent"/>
+                            </div>
+                            <div class="fv-row mb-4" id="btnConfirm">
+                                <button type="submit" class="btn btn-primary" id="Add"><i class="fa-solid fa-circle-plus"></i>&nbsp;Save Entry</button>
+                            </div>
+                            <div class="fv-row mb-4" id="btnLoad" style="display:none;">
+                                <button type="button" class="btn btn-primary">
+                                    Please wait...    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </button>
+                            </div>
+                        </form> 
                     </div>
                 </div>
             </div>
@@ -1152,6 +1089,54 @@
                             listWork();
                             $('#frmHistory')[0].reset();
                             $('#modalWork').modal('hide'); 
+                        }
+                        else
+                        {
+                            Swal.fire({
+                                title: "Warning!",
+                                text: response,
+                                icon: "warning"
+                            });
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click','.promote',function(){
+                Swal.fire({
+                    icon:"question",
+                    title: "Do you want to promote this employee?",
+                    showDenyButton: true,
+                    confirmButtonText: "Yes",
+                    denyButtonText: "Cancel"
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        //open dialog box
+                        $('#modalPromote').modal('show');
+                    } 
+                });
+            });
+
+            $('#frmPromote').on('submit',function(e){
+                e.preventDefault();
+                var data = $(this).serialize();
+                document.getElementById('btnConfirm').style="display:none";
+                document.getElementById('btnLoad').style="display:block";
+                $.ajax({
+                    url:"<?=site_url('save-promotion')?>",method:"POST",
+                    data:data,success:function(response)
+                    {
+                        document.getElementById('btnConfirm').style="display:block";
+                        document.getElementById('btnLoad').style="display:none";
+                        if(response=="success")
+                        {
+                            Swal.fire({
+                                title: "Great!",
+                                text: "Successfully added",
+                                icon: "success"
+                            }); 
+                            location.reload();
                         }
                         else
                         {

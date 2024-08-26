@@ -78,6 +78,7 @@ class Home extends BaseController
     {
         date_default_timezone_set('Asia/Manila');
         $employeeModel = new \App\Models\employeeModel();
+        $employeeMovementModel = new \App\Models\employeeMovementModel();
         $logModel = new \App\Models\logModel();
         //data
         $employeeID = $this->request->getPost('employeeID');
@@ -130,10 +131,15 @@ class Home extends BaseController
             'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,'Status'=>$status];
             $employeeModel->update($employeeID,$values);
         }
+        //get the ID of employee movement
+        $employee = $employeeMovementModel->WHERE('employeeID',$employeeID)->first();
+        //update the title
+        $records = ['Title'=>$designation];
+        $employeeMovementModel->update($employee['movementID'],$records);
         //moved the profile pic to profile folder
         if(!empty($originalName))
         {
-        $file->move('Profile/',$originalName);
+            $file->move('Profile/',$originalName);
         }
         //logs
         $value = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Update the Employee records'];
@@ -146,7 +152,13 @@ class Home extends BaseController
     {
         $employeeModel = new \App\Models\employeeModel();
         $employee = $employeeModel->WHERE('Token',$id)->first();
-        $data = ['employee'=>$employee];
+        //movement
+        $builder = $this->db->table('tblemployee_movement');
+        $builder->select('*');
+        $builder->WHERE('employeeID',$employee['employeeID'])
+                ->orderBy('movementID','DESC');
+        $job = $builder->get()->getResult();
+        $data = ['employee'=>$employee,'job'=>$job];
         return view('HR/view-employee',$data);
     }
 
@@ -154,6 +166,7 @@ class Home extends BaseController
     {
         date_default_timezone_set('Asia/Manila');
         $employeeModel = new \App\Models\employeeModel();
+        $employeeMovementModel = new \App\Models\employeeMovementModel();
         $logModel = new \App\Models\logModel();
         //data
         $token = $this->request->getPost('csrf_test_name');
@@ -216,6 +229,11 @@ class Home extends BaseController
                         'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,
                         'Photo'=>$originalName,'Status'=>1,'Token'=>$token];
             $employeeModel->save($values);
+            //get the employeeID
+            $employee = $employeeModel->WHERE('Token',$token)->first();
+            //save the movement as default value
+            $records = ['employeeID'=>$employee['employeeID'],'Title'=>$designation,'Date'=>date('Y-m-d')];
+            $employeeMovementModel->save($records);
             //moved the profile pic to profile folder
             if(!empty($originalName))
             {
@@ -375,6 +393,34 @@ class Home extends BaseController
                 </div>
             </form>
             <?php
+        }
+    }
+
+    public function savePromotion()
+    {
+        $employeeMovementModel = new \App\Models\employeeMovementModel();
+        $employeeModel = new \App\Models\employeeModel();
+        //save the data
+        $employeeID = $this->request->getPost('employeeID');
+        $job = $this->request->getPost('job');
+        $date = $this->request->getPost('date');
+
+        $validation = $this->validate([
+            'job'=>'required','date'=>'required'
+        ]);
+
+        if(!$validation)
+        {
+            echo "Please fill in the form";
+        }
+        else
+        {
+            $values = ['employeeID'=>$employeeID,'Title'=>$job,'Date'=>$date];
+            $employeeMovementModel->save($values);
+            //update the designation
+            $value = ['Designation'=>$job];
+            $employeeModel->update($employeeID,$value);
+            echo "success";
         }
     }
 
