@@ -47,6 +47,8 @@ $routes->get('list-work','Home::listWork');
 $routes->get('fetch-data','Home::fetchData');
 $routes->post('update-data','Home::updateData');
 $routes->post('save-promotion','Home::savePromotion');
+//memo
+$routes->post('upload-file','Memo::uploadFile');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {

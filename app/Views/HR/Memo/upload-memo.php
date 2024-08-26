@@ -652,30 +652,30 @@
                                         <div class="card-title"><h2>Upload</h2></div>
                                     </div>
                                     <div class="card-body pt-0">
-                                        <form method="POST" class="form w-100" id="frmUpload">
+                                        <form method="POST" action="<?=base_url('upload-file')?>" class="form w-100" id="frmUpload" enctype="multipart/form-data">
                                             <div class="fv-row mb-4">
                                                 <span class="menu-title">Subject</span>
-                                                <input type="text" name="subject" class="form-control bg-transparent"/>
+                                                <input type="text" name="subject" class="form-control bg-transparent" required/>
                                             </div>
                                             <div class="fv-row mb-4">
                                                 <div class="d-flex flex-wrap gap-5">
                                                     <div class="fv-row w-100 flex-md-root">
                                                         <span class="menu-title">Date</span>
-                                                        <input type="date" class="form-control bg-transparent" name="date"/>
+                                                        <input type="date" class="form-control bg-transparent" name="date" required/>
                                                     </div>
                                                     <div class="fv-row w-100 flex-md-root">
                                                         <span class="menu-title">From</span>
-                                                        <input type="text" class="form-control bg-transparent" name="from"/>
+                                                        <input type="text" class="form-control bg-transparent" name="from" required/>
                                                     </div>
                                                     <div class="fv-row w-100 flex-md-root">
                                                         <span class="menu-title">To</span>
-                                                        <input type="text" class="form-control bg-transparent" name="to"/>
+                                                        <input type="text" class="form-control bg-transparent" name="to" required/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="fv-row mb-4">
                                                 <span class="menu-title">Attachment</span>
-                                                <input type="file" name="file" class="form-control bg-transparent" accept="application/pdf,application/vnd.ms-excel"/>
+                                                <input type="file" name="file" class="form-control bg-transparent" accept="application/pdf,application/vnd.ms-excel" required/>
                                             </div>
                                             <div class="fv-row mb-4">
                                                 <button type="submit" class="btn btn-primary" id="btnUpload"><i class="fa-solid fa-upload"></i>&nbsp;Upload</button>
