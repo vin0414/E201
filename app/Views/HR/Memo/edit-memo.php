@@ -663,7 +663,8 @@
                                     </div>
                                 <?php endif; ?>
                                 <?php if($memo):?>
-                                <form method="POST" class="form w-100" id="editMemo">
+                                <form method="POST" class="form w-100" action="<?=base_url('update-memo')?>" id="editMemo" enctype="multipart/form-data">
+                                    <input type="hidden" name="memoID" value="<?=$memo['memoID']?>"/>
                                     <div class="fv-row mb-4">
                                         <span class="menu-title">Subject</span>
                                         <input type="text" class="form-control bg-transparent" value="<?=$memo['Subject']?>" name="subject" required/>
@@ -686,7 +687,7 @@
                                     </div>
                                     <div class="fv-row mb-4">
                                         <span class="menu-title">Attachment</span>
-                                        <input type="file" name="file" class="form-control bg-transparent" accept="application/pdf,application/vnd.ms-excel" required/>
+                                        <input type="file" name="file" class="form-control bg-transparent" accept="application/pdf,application/vnd.ms-excel"/>
                                     </div>
                                     <div class="fv-row mb-4">
                                         <button type="submit" class="btn btn-primary" id="btnUpload"><i class="fa-solid fa-upload"></i>&nbsp;Save Changes</button>

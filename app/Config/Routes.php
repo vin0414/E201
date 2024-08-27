@@ -51,6 +51,7 @@ $routes->post('save-promotion','Home::savePromotion');
 $routes->post('upload-file','Memo::uploadFile');
 $routes->post('move-to-archive','Memo::archive');
 $routes->post('move-to-unarchive','Memo::unarchive');
+$routes->post('update-memo','Memo::updateMemo');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {
@@ -73,8 +74,12 @@ $routes->group('',['filter'=>'AuthCheck'],function($routes)
     $routes->get('HR/logs','Home::systemLogs');
     //account settings
     $routes->get('HR/account','Home::Account');
+    //Performance
+    $routes->get('HR/performance','Home::Performance');
     //Evaluation
+    $routes->get('HR/Evaluation','Home::Evaluation');
     //Report
+    $routes->get('HR/report','Home::Report');
 });
 
 $routes->group('',['filter'=>'AlreadyLoggedIn'],function($routes)

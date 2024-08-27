@@ -639,6 +639,23 @@ class Home extends BaseController
             }
         }
     }
+    
+    //performance
+    public function Performance()
+    {
+        return view('HR/performance');
+    }
+    //evaluation
+    public function Evaluation()
+    {
+        return view('HR/Evaluation/index');
+    }
+
+    //report
+    public function Report()
+    {
+        return view('HR/report');
+    }
 
     //logs
     public function systemLogs()

@@ -58,6 +58,53 @@ class Memo extends BaseController
         }
     }
 
+    public function updateMemo()
+    {
+        date_default_timezone_set('Asia/Manila');
+        $memoModel = new \App\Models\memoModel();
+        $logModel = new \App\Models\logModel();
+        //data
+        $memoID = $this->request->getPost('memoID');
+        $date = $this->request->getPost("date");
+        $from = $this->request->getPost("from");
+        $to = $this->request->getPost("to");
+        $subject = $this->request->getPost("subject");
+        $file = $this->request->getFile("file");
+        $originalName = $file->getClientName();
+        //validation
+        $validation = $this->validate([
+            'date'=>'required',
+            'from'=>'required',
+            'to'=>'required',
+            'subject'=>'required',
+        ]);
+
+        if(!$validation)
+        {
+            session()->setFlashdata('fail','Please fill in the form');
+            return redirect()->to('HR/Memo/edit-memo/'.$memoID)->withInput();
+        }
+        else
+        {
+            if(empty($originalName))
+            {
+                $values = ['Date'=>$date,'From'=>$from,'To'=>$to,'Subject'=>$subject];
+                $memoModel->update($memoID,$values);
+            }
+            else
+            {
+                $file->move('Memo/',$originalName);
+                $values = ['Date'=>$date,'From'=>$from,'To'=>$to,'Subject'=>$subject,'File'=>$originalName];
+                $memoModel->update($memoID,$values);
+            }
+            //logs
+            $value = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Applied changes with '.$subject];
+            $logModel->save($value);
+            session()->setFlashdata('success','Great! Successfully applied changes');
+            return redirect()->to('HR/Memo')->withInput();
+        }
+    }
+
     public function archive()
     {
         date_default_timezone_set('Asia/Manila');
