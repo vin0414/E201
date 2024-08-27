@@ -49,6 +49,8 @@ $routes->post('update-data','Home::updateData');
 $routes->post('save-promotion','Home::savePromotion');
 //memo
 $routes->post('upload-file','Memo::uploadFile');
+$routes->post('move-to-archive','Memo::archive');
+$routes->post('move-to-unarchive','Memo::unarchive');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {
@@ -62,6 +64,7 @@ $routes->group('',['filter'=>'AuthCheck'],function($routes)
     //memo
     $routes->get('HR/Memo','Home::Memo');
     $routes->get('HR/Memo/Upload','Home::Upload');
+    $routes->get('HR/Memo/edit-memo/(:any)','Home::editMemo/$1');
     //users
     $routes->get('HR/users','Home::Users');
     $routes->get('HR/new-account','Home::newUser');

@@ -1008,8 +1008,7 @@
         <script>
             $(document).ready(function()
             {
-                listWork();
-                var val = $('#maritalStatus').val();if(val==="Married"||val==="Single with Children"){$('#ifMarried').slideDown();}else{$('#ifMarried').slideUp();}
+                listWork();var val = $('#maritalStatus').val();if(val==="Married"||val==="Single with Children"){$('#ifMarried').slideDown();}else{$('#ifMarried').slideUp();}
             });
             $(document).on('click','.addWork',function(){$('#modalWork').modal('show');});
             $(document).on('click','.edit',function(){var val = $(this).val();$.ajax({url:"<?=site_url('fetch-data')?>",method:"GET",data:{value:val},success:function(response){$('#modalEditWork').modal('show');$('#output').html(response);}});});

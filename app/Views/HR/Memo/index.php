@@ -12,6 +12,7 @@
         <link href="<?=base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             thead,th{background-color:#0096ff;}
@@ -526,6 +527,11 @@
 					<!--begin::Items-->
 					<div class="m-0">
                         <!--begin::Item-->
+						<a href="<?=site_url('HR/Memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-envelope-open-text"></i>&nbsp;&nbsp;All Memos          
+						</a>  
+						<!--end::Item-->
+                        <!--begin::Item-->
 						<a href="<?=site_url('HR/new-employee')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
                             <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
 						</a>  
@@ -630,29 +636,65 @@
                     <div id="kt_app_content_container" class="app-container  container-fluid ">
                             <!--begin::Products-->
                             <div class="card card-flush">
-                                <!--begin::Card header-->
-                                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                                    <form method="GET" class="d-flex flex-column flex-lg-row gap-3 w-100"  id="frmSearch">
-                                        <div class="col-lg-6">
-                                            <input type="search" class="form-control" name="search" placeholder="Search"/>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <select class="form-select mb-2" data-control="select2" name="filterBy">
-                                                <option value="">Choose</option>
-                                                <option>Active</option>
-                                                <option>Inactive</option>
-                                            </select> 
-                                        </div>
-                                        <div class="col-lg-1">
-                                            <input type="submit" class="form-control btn btn-primary" id="btnSearch" value="Search"/>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!--end::Card header-->
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
-                                    <div class="d-flex flex-column flex-lg-row gap-3 w-100" id="listMemo">
-                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped" id="tblmemo">
+                                            <thead>
+                                                <th class="text-white">Subject</th>
+                                                <th class="text-white">Date</th>
+                                                <th class="text-white">From</th>
+                                                <th class="text-white">To</th>
+                                                <th class="text-white">Attachment</th>
+                                                <th class="text-white w-125px">More</th>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach($memo as $row): ?>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="<?=base_url('Memo')?>/<?php echo $row['File'] ?>" class="text-gray-800 text-hover-primary mb-1"><?php echo $row['Subject'] ?></a>
+                                                        </td>
+                                                        <td><?php echo date('d M, Y', strtotime($row['Date'])) ?></td>
+                                                        <td><?php echo $row['From'] ?></td>
+                                                        <td><?php echo $row['To'] ?></td>
+                                                        <td><a href="<?=base_url('Memo')?>/<?php echo $row['File'] ?>" class="text-gray-800 text-hover-primary mb-1"><?php echo $row['File'] ?></a></td>
+                                                        <td class="text-center">
+                                                            <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                                Action&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
+                                                            </a>
+                                                            <!--begin::Menu-->
+                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                                                <!--begin::Menu item-->
+                                                                <div class="menu-item px-3">
+                                                                    <a href="<?=site_url('HR/Memo/edit-memo/')?><?php echo $row['memoID'] ?>" class="menu-link px-3">
+                                                                        Edit Memo
+                                                                    </a>
+                                                                </div>
+                                                                <!--end::Menu item-->
+                                                                <?php if($row['Status']==1){ ?>
+                                                                <!--begin::Menu item-->
+                                                                <div class="menu-item px-3">
+                                                                    <button type="button" class="menu-link w-100 border-0 px-3 archive" value="<?php echo $row['memoID'] ?>">
+                                                                        Archive
+                                                                    </button>
+                                                                </div>
+                                                                <!--end::Menu item-->
+                                                                <?php }else{ ?>
+                                                                <!--begin::Menu item-->
+                                                                <div class="menu-item px-3">
+                                                                    <button type="button" class="menu-link w-100 border-0 px-3 unarchive" value="<?php echo $row['memoID'] ?>">
+                                                                        Unarchive
+                                                                    </button>
+                                                                </div>
+                                                                <!--end::Menu item-->
+                                                                <?php } ?>
+                                                            </div>
+                                                            <!--end::Menu-->
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 <!--end::Card body-->
                                 </div>
@@ -665,14 +707,10 @@
                 </div>
                 <!--end::Content wrapper-->                          
             </div>
-            <!--end:::Main-->
-
-            
+            <!--end:::Main-->           
         </div>
-        <!--end::Wrapper-->
-
-        
-            </div>
+        <!--end::Wrapper-->        
+    </div>
     <!--end::Page-->
 </div>
 <!--end::App-->		
@@ -694,7 +732,60 @@
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
-	<!--end::Javascript-->
+	    <!--end::Javascript-->
+        <!--data tables -->
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
+        <script>
+            new DataTable('#tblmemo');
+        </script>
+        <script>
+            $(document).on('click','.archive',function(){
+                Swal.fire({
+                    icon:"question",
+                    title: "Do you want to move this to archive?",
+                    showDenyButton: true,
+                    confirmButtonText: "Yes",
+                    denyButtonText: "Cancel"
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        //open dialog box
+                        var val = $(this).val();
+                        $.ajax({
+                            url:"<?=site_url('move-to-archive')?>",method:"POST",data:{value:val},success:function(response)
+                            {
+                                if(response==="success"){location.reload();}
+                                else{Swal.fire({title: "Invalid!",text: response,icon: "error"});}
+                            }
+                        });
+                    } 
+                });
+            });
+
+            $(document).on('click','.unarchive',function(){
+                Swal.fire({
+                    icon:"question",
+                    title: "Do you want to unarchive this selected memo?",
+                    showDenyButton: true,
+                    confirmButtonText: "Yes",
+                    denyButtonText: "Cancel"
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        //open dialog box
+                        var val = $(this).val();
+                        $.ajax({
+                            url:"<?=site_url('move-to-unarchive')?>",method:"POST",data:{value:val},success:function(response)
+                            {
+                                if(response==="success"){location.reload();}
+                                else{Swal.fire({title: "Invalid!",text: response,icon: "error"});}
+                            }
+                        });
+                    } 
+                });
+            });
+        </script>
     </body>
     <!--end::Body-->
 </html>

@@ -14,7 +14,7 @@ class memoModel extends Model
     protected $returnType = 'array';
     protected $userSoftDelete = false;
     protected $protectFields = true;
-    protected $allowedFields = ['Date','From','To','Subject','DateCreated','accountID'];
+    protected $allowedFields = ['Date','From','To','Subject','File','DateCreated','accountID','Status'];
 
     protected $validationRules = [];
     protected $validationMessages = [];

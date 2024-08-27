@@ -427,12 +427,28 @@ class Home extends BaseController
     //memorandum
     public function Memo()
     {
-        return view('HR/Memo/index');
+        $memoModel = new \App\Models\memoModel();
+        $memo = $memoModel->findAll();
+        $data = ['memo'=>$memo];
+        return view('HR/Memo/index',$data);
     }
 
     public function Upload()
     {
-        return view('HR/Memo/upload-memo');
+        $builder = $this->db->table('tblmemo');
+        $builder->select('File,Subject,Date');
+        $builder->orderby('memoID','DESC')->limit(3);
+        $memo = $builder->get()->getResult();
+        $data = ['memo'=>$memo];
+        return view('HR/Memo/upload-memo',$data);
+    }
+
+    public function editMemo($id)
+    {
+        $memoModel = new \App\Models\memoModel();
+        $memo = $memoModel->WHERE('memoID',$id)->first();
+        $data = ['memo'=>$memo];
+        return view('HR/Memo/edit-memo',$data);
     }
 
     //user accounts

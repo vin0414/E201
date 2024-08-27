@@ -2,7 +2,7 @@
 <html lang="en" >
     <!--begin::Head-->
     <head>
-        <title>E201 - All Accounts</title>
+        <title>E201 - Edit Memo</title>
         <meta charset="utf-8"/>
         <meta name="description" content="employee information management system, e201"/>
         <meta name="keywords" content="e201, employee information, ems"/>
@@ -395,7 +395,7 @@
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link active"  href="<?=site_url('HR/users')?>"><span  class="menu-title" >All Accounts</span></a>
+                                    <a class="menu-link active"  href="javascript:void(0);"><span  class="menu-title" >Edit Memo</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -541,6 +541,11 @@
                             <i class="fa-solid fa-user-plus"></i>&nbsp;New Account           
 						</a>  
 						<!--end::Item-->
+                        <!--begin::Item-->
+						<a href="<?=site_url('HR/users')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-users"></i>&nbsp;All Accounts          
+						</a>  
+						<!--end::Item-->
                         <?php } ?> 
 					</div>
 					<!--end::Items-->   
@@ -582,8 +587,7 @@
             <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
                 <!--begin::Content wrapper-->
                 <div class="d-flex flex-column flex-column-fluid">
-                <!--begin::Content-->
-                <!--begin::Toolbar-->
+                    <!--begin::Toolbar-->
                 <div id="kt_app_toolbar" class="app-toolbar  pt-10 mb-0 ">                        
                     <!--begin::Toolbar container-->
                     <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex align-items-stretch ">
@@ -593,7 +597,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                All Accounts
+                                Edit Memo
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -609,105 +613,46 @@
                                     <li class="breadcrumb-item">
                                         <span class="bullet bg-gray-500 w-5px h-2px"></span>
                                     </li>
-                                    <!--end::Item-->                 
+                                    <!--end::Item-->  
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        All Accounts                                     
+                                        <a href="<?=site_url('HR/Memo')?>" class="text-muted text-hover-primary">
+                                        All Memo                           
+                                        </a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->                
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        Edit Memo                                      
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->   
+                            <!--begin::Actions-->
+                            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                <a href="<?=site_url('HR/Memo')?>" class="btn btn-sm btn-flex btn-primary">
+                                    <i class="fa-solid fa-arrow-left"></i>&nbsp;Back
+                                </a>          
+                            </div>
+                            <!--end::Actions-->  
                         </div>
                     <!--end::Toolbar wrapper-->        
                     </div>
                     <!--end::Toolbar container-->
                 </div>
-                <!--end::Toolbar-->
-                <div id="kt_app_content" class="app-content  app-content-stretch " >
+                <!--end::Toolbar-->  
+                <!--begin::Content-->
+                <div id="kt_app_content" class="app-content flex-column-fluid" >
                     <!--begin::Content container-->
-                    <div id="kt_app_content_container" class="app-container  container-fluid ">
-                            <!--begin::Products-->
-                            <div class="card card-flush">
-                                <!--begin::Card header-->
-                                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                                    <form method="GET" class="d-flex flex-column flex-lg-row gap-3 w-100"  id="frmSearch">
-                                        <div class="col-lg-10">
-                                            <input type="search" class="form-control" name="search" placeholder="Search"/>
-                                        </div>
-                                        <div class="col-lg-1">
-                                            <input type="submit" class="form-control btn btn-primary" id="btnSearch" value="Search"/>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!--end::Card header-->
-                                <!--begin::Card body-->
-                                <div class="card-body pt-0">
-                                    <?php if(!empty(session()->getFlashdata('success'))) : ?>
-                                        <div class="alert alert-success" role="alert">
-                                        <?= session()->getFlashdata('success'); ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead>
-                                                <th class="text-white w-275">Complete Name</th>
-                                                <th class="text-white">Username</th>
-                                                <th class="text-white">Designation</th>
-                                                <th class="text-white">System Role</th>
-                                                <th class="text-white">Status</th>
-                                                <th class="text-white w-125px">More</th>
-                                            </thead>
-                                            <tbody id="tblaccount">
-                                            <?php foreach($account as $row): ?>
-                                                <tr>
-                                                    <td><?php echo $row['Fullname'] ?></td>
-                                                    <td><?php echo $row['Username'] ?></td>
-                                                    <td><?php echo $row['Designation'] ?></td>
-                                                    <td><?php echo $row['Role'] ?></td>
-                                                    <td class="text-center">
-                                                        <?php 
-                                                        if($row['Status']==1){ ?>
-                                                        <span class="badge bg-primary text-white">Active</span>
-                                                        <?php } else { ?>
-                                                        <span class="badge bg-danger text-white">Inactive</span>
-                                                        <?php } ?>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                            Actions&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
-                                                        </a>
-                                                        <!--begin::Menu-->
-                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                                                            <!--begin::Menu item-->
-                                                            <div class="menu-item px-3">
-                                                                <a href="<?=site_url('HR/edit/')?><?php echo $row['Token'] ?>" class="menu-link px-3">
-                                                                    Edit
-                                                                </a>
-                                                            </div>
-                                                            <!--end::Menu item-->
-                                                            <!--begin::Menu item-->
-                                                            <div class="menu-item px-3">
-                                                                <button type="button" class="menu-link w-100 border-0 px-3 reset" value="<?php echo $row['accountID'] ?>">
-                                                                    Reset
-                                                                </button>
-                                                            </div>
-                                                            <!--end::Menu item-->
-                                                        </div>
-                                                        <!--end::Menu-->
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <span class="badge bg-primary btn-sm text-white" id="total">Total : <?php echo $total ?></span>
-                                <!--end::Card body-->
-                                </div>
-                            <!--end::Products-->        
-                            </div>
-                        <!--end::Content container-->
+                    <div id="kt_app_content_container" class="app-container container-fluid ">
+
                     </div>
                 <!--end::Content-->	
 
@@ -743,64 +688,7 @@
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
-	    <!--end::Javascript-->
-        <script>
-            $('#btnSearch').on('click',function(e){
-                e.preventDefault();
-                var data = $('#frmSearch').serialize();
-                $('#tblaccount').html("<tr><td colspan='6' class='text-center'>Loading...</td></tr>");
-                $.ajax({
-                    url:"<?=site_url('search-account')?>",method:"GET",
-                    data:data,success:function(response)
-                    {
-                        if(response==="")
-                        {$('#tblaccount').html("<tr><td colspan='6' class='text-center'>No Record(s)</td></tr>");}
-                        else
-                        {$('#tblaccount').html(response);}
-                        var count = $('#tblaccount').children('tr').length;
-                        $('#total').html("Total : "+count);
-                    }
-                });
-            });
-            $(document).on('click','.reset',function(){
-                Swal.fire({
-                    icon:"question",
-                    title: "Do you want to reset the password?",
-                    showDenyButton: true,
-                    confirmButtonText: "Yes",
-                    denyButtonText: "Cancel"
-                    }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
-                    if (result.isConfirmed) {
-                        //open dialog box
-                        var val = $(this).val();
-                        $.ajax({
-                            url:"<?=site_url('reset-password')?>",method:"POST",
-                            data:{value:val},
-                            success:function(response)
-                            {
-                                if(response==="success")
-                                {
-                                    Swal.fire({
-                                        title: "Great!",
-                                        text: "Successfully reset the password",
-                                        icon: "success"
-                                    });
-                                }
-                                else
-                                {
-                                    Swal.fire({
-                                        title: "Invalid!",
-                                        text: response,
-                                        icon: "error"
-                                    });
-                                }
-                            }
-                        });
-                    } 
-                });
-            });
-        </script>
+	<!--end::Javascript-->
     </body>
     <!--end::Body-->
 </html>

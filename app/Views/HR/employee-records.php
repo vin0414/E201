@@ -567,53 +567,6 @@
                             <div class="separator separator-dashed"></div>
                         </div><!--end:Menu content-->
                     </div><!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" >
-                        <span class="menu-link"  >
-                            <span  class="menu-title"><b>Filter</b></span><span  class="menu-arrow" ></span>
-                        </span><!--end:Menu link-->
-                        <!--begin:Menu sub-->
-                        <div class="menu-sub menu-sub-accordion menu-state-gray-900 menu-fit open" >
-                            <form method="GET" class="form w-100" id="frmFilter">
-                                <div class="fv-row mb-4">
-                                    <!--begin::Select-->
-                                    <span  class="menu-title" >Employee Status</span>
-                                    <select class="form-select mb-2" data-control="select2" name="status">
-                                        <option value="">Choose</option>
-                                        <option value="1">Active</option>
-                                        <option value="2">Resigned</option>
-                                        <option value="3">Terminated</option>
-                                        <option value="4">AWOL</option>
-                                    </select> 
-                                    <!--end::Select-->
-                                </div>
-                                <div class="fv-row mb-4">
-                                    <!--begin::Date-->
-                                    <span  class="menu-title" >From</span>
-                                    <input type="date" name="fromdate" class="form-control bg-transparent"/> 
-                                    <!--end::Date-->
-                                </div>
-                                <div class="fv-row mb-4">
-                                    <!--begin::Date-->
-                                    <span  class="menu-title" >To</span>
-                                    <input type="date" name="todate" class="form-control bg-transparent"/> 
-                                    <!--end::Date-->
-                                </div>
-                                <!--begin::Submit button-->
-                                <div class="d-grid mb-10">
-                                    <button type="submit" id="kt_sign_in_submit" class="btn btn-primary btn-sm">
-                                        
-                                    <!--begin::Indicator label-->
-                                    <span class="indicator-label">
-                                        Apply Changes
-                                    </span>
-                                    <!--end::Indicator label-->        
-                                    </button>
-                                </div>
-                                <!--end::Submit button-->
-                            </form> 
-                        </div><!--end:Menu sub-->
-                    </div><!--end:Menu item-->
                 </div>
 				<!--end::Menu-->
 			</div>

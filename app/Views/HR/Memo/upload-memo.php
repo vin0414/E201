@@ -395,7 +395,7 @@
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link active"  href="<?=site_url('HR/Memo/Upload')?>"><span  class="menu-title" >Upload File</span></a>
+                                    <a class="menu-link active"  href="<?=site_url('HR/Memo/Upload')?>"><span  class="menu-title" >Upload Memo</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -597,7 +597,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                Upload File
+                                Upload Memo
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -628,7 +628,7 @@
                                     <!--end::Item-->                
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Upload File                                       
+                                        Upload Memo                                       
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
@@ -652,6 +652,16 @@
                                         <div class="card-title"><h2>Upload</h2></div>
                                     </div>
                                     <div class="card-body pt-0">
+                                        <?php if(!empty(session()->getFlashdata('fail'))) : ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                <?= session()->getFlashdata('fail'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if(!empty(session()->getFlashdata('success'))) : ?>
+                                            <div class="alert alert-success" role="alert">
+                                                <?= session()->getFlashdata('success'); ?>
+                                            </div>
+                                        <?php endif; ?>
                                         <form method="POST" action="<?=base_url('upload-file')?>" class="form w-100" id="frmUpload" enctype="multipart/form-data">
                                             <div class="fv-row mb-4">
                                                 <span class="menu-title">Subject</span>
@@ -690,7 +700,15 @@
                                         <div class="card-title"><h2>Recent Files</h2></div>
                                     </div>
                                     <div class="card-body pt-0">
-                                        
+                                        <?php foreach($memo as $row): ?>
+                                            <div class="justify-content-between mb-4">
+                                                <h5 class="fw-bold"><?php echo $row->Subject ?></h5>
+                                                <a href="<?=base_url('Memo')?>/<?php echo $row->File ?>" alt="<?php echo $row->File ?>" target="_BLANK"><?php echo $row->File ?></a>
+                                                <div class="fw-semibold"><?php echo $row->Date ?></div>
+                                            </div>
+                                            <div class="separator separator-dashed"></div>
+                                            <br/>
+                                        <?php endforeach; ?> 
                                     </div>
                                 </div>
                             </div>
