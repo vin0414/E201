@@ -652,7 +652,49 @@
                 <div id="kt_app_content" class="app-content flex-column-fluid" >
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-
+                        <div class="card card-flush py-4">
+                            <div class="card-header">
+                                <div class="card-title">Edit Memo</div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <?php if(!empty(session()->getFlashdata('fail'))) : ?>
+                                    <div class="alert alert-danger" role="alert">
+                                        <?= session()->getFlashdata('fail'); ?>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if($memo):?>
+                                <form method="POST" class="form w-100" id="editMemo">
+                                    <div class="fv-row mb-4">
+                                        <span class="menu-title">Subject</span>
+                                        <input type="text" class="form-control bg-transparent" value="<?=$memo['Subject']?>" name="subject" required/>
+                                    </div>
+                                    <div class="fv-row mb-4">
+                                        <div class="d-flex flex-wrap gap-5">
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <span class="menu-title">Date</span>
+                                                <input type="date" class="form-control bg-transparent" value="<?=$memo['Date']?>" name="date" required/>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <span class="menu-title">From</span>
+                                                <input type="text" class="form-control bg-transparent" value="<?=$memo['From']?>" name="from" required/>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <span class="menu-title">To</span>
+                                                <input type="text" class="form-control bg-transparent" value="<?=$memo['To']?>" name="to" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fv-row mb-4">
+                                        <span class="menu-title">Attachment</span>
+                                        <input type="file" name="file" class="form-control bg-transparent" accept="application/pdf,application/vnd.ms-excel" required/>
+                                    </div>
+                                    <div class="fv-row mb-4">
+                                        <button type="submit" class="btn btn-primary" id="btnUpload"><i class="fa-solid fa-upload"></i>&nbsp;Save Changes</button>
+                                    </div>
+                                </form>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
                 <!--end::Content-->	
 

@@ -638,6 +638,11 @@
                             <div class="card card-flush">
                                 <!--begin::Card body-->
                                 <div class="card-body pt-0">
+                                    <?php if(!empty(session()->getFlashdata('success'))) : ?>
+                                        <div class="alert alert-success" role="alert">
+                                            <?= session()->getFlashdata('success'); ?>
+                                        </div>
+                                    <?php endif; ?>
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped" id="tblmemo">
                                             <thead>
