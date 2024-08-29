@@ -31,8 +31,12 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 
 //authentication
+//hr
 $routes->post('/auth','Auth::auth');
 $routes->get('/logout','Auth::logout');
+//employee
+$routes->post('/employeeAuth','Auth::employeeAuth');
+$routes->get('/signout','Auth::employeeLogout');
 //functions for User Accounts
 $routes->post('save-account','Home::saveUserData');
 $routes->post('modify-account','Home::modifyAccount');
@@ -85,6 +89,16 @@ $routes->group('',['filter'=>'AuthCheck'],function($routes)
 $routes->group('',['filter'=>'AlreadyLoggedIn'],function($routes)
 {
     $routes->get('/', 'Home::index');
+});
+
+$routes->group('',['filter'=>'EmployeeAuthCheck'],function($routes)
+{
+
+});
+
+$routes->group('',['filter'=>'EmployeeAlreadyLoggedIn'],function($routes)
+{
+    $routes->get('/employee', 'Employee::employeeIndex');
 });
 
 /*

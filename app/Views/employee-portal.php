@@ -98,12 +98,12 @@
                 <!--begin::Wrapper-->
                 <div class="d-flex flex-center flex-column flex-column-fluid pb-15 pb-lg-20">
                     <!--begin::Form-->
-                    <form class="form w-100" method="POST" novalidate="novalidate" id="kt_sign_in_form" action="<?=base_url('/auth')?>">
+                    <form class="form w-100" method="POST" novalidate="novalidate" id="kt_sign_in_form" action="<?=base_url('/employeeAuth')?>">
                         <!--begin::Heading-->
                         <div class="text-center mb-11">
                             <!--begin::Title-->
                             <h1 class="text-gray-900 fw-bolder mb-3">
-                                Sign In
+                                Employee Portal
                             </h1>
                             <!--end::Title-->
 
@@ -122,29 +122,17 @@
                         <!--begin::Input group--->
                         <div class="fv-row mb-8">
                             <!--begin::Email-->
-                            <input type="text" placeholder="Username" name="username" autocomplete="off" class="form-control bg-transparent" required/> 
+                            <input type="text" placeholder="Employee ID" name="username" autocomplete="off" class="form-control bg-transparent" required/> 
                             <!--end::Email-->
                         </div>
 
                         <!--end::Input group--->
                         <div class="fv-row mb-3">    
                             <!--begin::Password-->
-                            <input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent" required/>
+                            <input type="password" placeholder="PIN" name="password" autocomplete="off" class="form-control bg-transparent" required/>
                             <!--end::Password-->
                         </div>
-                        <!--end::Input group--->
-
-                        <!--begin::Wrapper-->
-                        <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
-                            <div></div>
-
-                            <!--begin::Link-->
-                            <a href="" class="link-primary">
-                                Forgot Password ?
-                            </a>
-                            <!--end::Link-->
-                        </div>
-                        <!--end::Wrapper-->    
+                        <!--end::Input group--->   
 
                         <!--begin::Submit button-->
                         <div class="d-grid mb-10">
@@ -160,7 +148,7 @@
                         <!--end::Submit button-->
                     </form>
                     <!--end::Form-->     
-                    <p>For Employee, click <a href="<?=site_url('/employee')?>">here</a> to login</p>
+                    <p>Back to <a href="<?=site_url('/')?>">Home</a></p>
                 </div>
             </div>
             <!--end::Content-->

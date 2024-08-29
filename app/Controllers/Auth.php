@@ -71,4 +71,57 @@ class Auth extends BaseController
             return redirect()->to('/?access=out')->with('fail', 'You are logged out!');
         }
     }
+
+    //employee
+    public function employeeAuth()
+    {
+        $employeeModel = new \App\Models\employeeModel();
+        $logModel = new \App\Models\logModel();
+        $username = $this->request->getPost('username');
+        $password = $this->request->getPost('password');
+
+        $validation = $this->validate([
+            'username'=>'required',
+            'password'=>'required',
+        ]);
+        if(!$validation)
+        {
+            session()->setFlashdata('fail','Please enter your username and/or password');
+            return redirect()->to('/employee')->withInput();
+        }
+        else
+        {
+            $user_info = $employeeModel->where('companyID', $username)->WHERE('PIN',$password)->WHERE('Status',1)->first();
+            if(empty($user_info['employeeID']))
+            {
+                session()->setFlashdata('fail','Account is not registered. Please contact System Administrator');
+                return redirect()->to('/employee')->withInput();
+            }
+            else
+            {
+                //save logs
+                date_default_timezone_set('Asia/Manila');
+                $values = ['accountID'=>$user_info['employeeID'],'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Logged On'];
+                $logModel->save($values);
+                $fullname = $user_info['Firstname']." ".$user_info['MI']." ".$user_info['Surname']." ".$user_info['Suffix'];
+                session()->set('employeeUser', $user_info['employeeID']);
+                session()->set('fullname', $fullname);
+                session()->set('designation',$user_info['Designation']);
+                return redirect()->to('employee-portal/overview');
+            }
+        }
+    }
+    public function employeeLogout()
+    {
+        $logModel = new \App\Models\logModel();
+        date_default_timezone_set('Asia/Manila');
+        $values = ['accountID'=>session()->get('employeeUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Logged Out'];
+        $logModel->save($values);
+        if(session()->has('employeeUser'))
+        {
+            session()->remove('employeeUser');
+            session()->destroy();
+            return redirect()->to('/employee?access=out')->with('fail', 'You are logged out!');
+        }
+    }
 }

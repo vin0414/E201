@@ -23,6 +23,8 @@ class Filters extends BaseConfig
         'secureheaders' => SecureHeaders::class,
         'AuthCheck' => \App\Filters\AuthCheckFilter::class,
         'AlreadyLoggedIn' => \App\Filters\AlreadyLoggedInFilter::class,
+        'EmployeeAuthCheck' => \App\Filters\EmployeeAuthCheckFilter::class,
+        'EmployeeAlreadyLoggedIn' => \App\Filters\EmployeeAlreadyLoggedInFilter::class,
     ];
 
     /**
