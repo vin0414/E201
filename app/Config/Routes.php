@@ -91,10 +91,14 @@ $routes->group('',['filter'=>'AlreadyLoggedIn'],function($routes)
     $routes->get('/', 'Home::index');
 });
 
+
 //employee
 $routes->group('',['filter'=>'EmployeeAuthCheck'],function($routes)
 {
-    $routes->get('Employee/overview','Employee:overview');
+    $routes->get('Employee/overview','Employee::overview');
+    $routes->get('Employee/profile','Employee::profile');
+    $routes->get('Employee/memo','Employee::memo');
+    $routes->get('Employee/account','Employee::account');
 });
 
 $routes->group('',['filter'=>'EmployeeAlreadyLoggedIn'],function($routes)

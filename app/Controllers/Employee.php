@@ -22,4 +22,9 @@ class Employee extends BaseController
         return view('Employee/index');
     }
 
+    public function account()
+    {
+        return view('Employee/account');
+    }
+
 }
