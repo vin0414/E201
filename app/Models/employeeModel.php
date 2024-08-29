@@ -14,7 +14,7 @@ class employeeModel extends Model
     protected $returnType = 'array';
     protected $userSoftDelete = false;
     protected $protectFields = true;
-    protected $allowedFields = ['DateCreated','Surname','Firstname','MI','Suffix',
+    protected $allowedFields = ['DateCreated','CompanyID','PIN','Surname','Firstname','MI','Suffix',
                                 'BirthDate','MaritalStatus','PlaceOfBirth',
                                 'Address','ContactNo','EmailAddress','DateHired','Designation','EmployeeStatus',
                                 'SalaryGrade','Guardian1','Guardian2',

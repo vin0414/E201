@@ -107,7 +107,7 @@ class Auth extends BaseController
                 session()->set('employeeUser', $user_info['employeeID']);
                 session()->set('fullname', $fullname);
                 session()->set('designation',$user_info['Designation']);
-                return redirect()->to('employee-portal/overview');
+                return redirect()->to('Employee/overview');
             }
         }
     }

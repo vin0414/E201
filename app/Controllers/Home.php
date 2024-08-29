@@ -86,6 +86,9 @@ class Home extends BaseController
         $firstname = $this->request->getPost('firstname');
         $mi = $this->request->getPost('middlename');
         $suffix = $this->request->getPost('suffix');
+        $companyID = $this->request->getPost('companyID');
+        $contactNo = $this->request->getPost('contactNo');
+        $emailAdd = $this->request->getPost('email');
         $maritalStatus = $this->request->getPost('maritalStatus');
         $dob = $this->request->getPost('dob');
         $place_of_birth = $this->request->getPost('place_of_birth');
@@ -112,9 +115,9 @@ class Home extends BaseController
         //save the employee records
         if(!empty($originalName))
         {
-            $values =  ['Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
+            $values =  ['CompanyID'=>$companyID,'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
             'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
-            'Address'=>$address,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
+            'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
             'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
             'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
             'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,
@@ -123,9 +126,9 @@ class Home extends BaseController
         }
         else
         {
-            $values =  ['Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
+            $values =  ['CompanyID'=>$companyID,'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
             'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
-            'Address'=>$address,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
+            'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
             'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
             'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
             'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,'Status'=>$status];
@@ -174,6 +177,9 @@ class Home extends BaseController
         $firstname = $this->request->getPost('firstname');
         $mi = $this->request->getPost('middlename');
         $suffix = $this->request->getPost('suffix');
+        $companyID = $this->request->getPost('companyID');
+        $contactNo = $this->request->getPost('contactNo');
+        $emailAdd = $this->request->getPost('email');
         $maritalStatus = $this->request->getPost('maritalStatus');
         $dob = $this->request->getPost('dob');
         $place_of_birth = $this->request->getPost('place_of_birth');
@@ -200,6 +206,8 @@ class Home extends BaseController
         $validation = $this->validate([
             'surname'=>'required',
             'firstname'=>'required',
+            'companyID'=>'required',
+            'contactNo'=>'required|min_length[11]|max_length[11]',
             'maritalStatus'=>'required',
             'dob'=>'required',
             'place_of_birth'=>'required',
@@ -220,10 +228,20 @@ class Home extends BaseController
         }
         else
         {
+            //generate pin from tblrecords
+            $pin = "";
+            $builder = $this->db->table('tblemployee');
+            $builder->select('COUNT(*)+1 as total');
+            $result = $builder->get();
+            if($row = $result->getRow())
+            {
+                $pin = str_pad($row->total, 4, '0', STR_PAD_LEFT);
+            }
             //save the employee records
-            $values =  ['DateCreated'=>date('Y-m-d'),'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
+            $values =  ['DateCreated'=>date('Y-m-d'),'CompanyID'=>$companyID,'PIN'=>$pin,'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
                         'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
-                        'Address'=>$address,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
+                        'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,
+                        'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
                         'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
                         'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
                         'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,

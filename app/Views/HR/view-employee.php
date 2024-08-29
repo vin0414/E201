@@ -751,6 +751,22 @@
                                                     <div class="fv-row mb-4">
                                                         <div class="d-flex flex-wrap gap-5">
                                                             <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Company ID</span>
+                                                                <input type="text" name="CompanyID" id="CompanyID" value="<?php echo $employee['CompanyID'] ?>" class="form-control bg-transparent"/>    
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Contact No</span>
+                                                                <input type="phone" name="contactNo" id="contactNo" value="<?php echo $employee['ContactNo'] ?>" class="form-control bg-transparent"/> 
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Email Address</span>
+                                                                <input type="email" name="email" id="email" value="<?php echo $employee['EmailAddress'] ?>" class="form-control bg-transparent"/> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <div class="d-flex flex-wrap gap-5">
+                                                            <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Marital Status</span>
                                                                 <input type="text" name="maritalStatus" id="maritalStatus" value="<?php echo $employee['MaritalStatus'] ?>" class="form-control bg-transparent"/>    
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'maritalStatus') : '' ?></span>

@@ -750,6 +750,24 @@
                                                     <div class="fv-row mb-4">
                                                         <div class="d-flex flex-wrap gap-5">
                                                             <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Company ID</span>
+                                                                <input type="text" name="companyID" id="companyID" value="<?=set_value('companyID')?>" class="form-control bg-transparent"/>   
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'companyID') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Contact Number</span>
+                                                                <input type="phone" name="contactNo" id="contactNo" value="<?=set_value('contactNo')?>" maxlength="11" minlength="11" name="phone" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'contactNo') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Email Address</span>
+                                                                <input type="email" name="email" id="email" value="" class="form-control bg-transparent"/> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <div class="d-flex flex-wrap gap-5">
+                                                            <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Marital Status</span>
                                                                 <select class="form-select mb-2" data-control="select2" name="maritalStatus" id="maritalStatus">
                                                                     <option value="">Choose</option>
