@@ -640,6 +640,16 @@
                                         <div class="card-title"><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;Restore</div>
                                     </div>
                                     <div class="card-body pt-0">
+                                        <?php if(!empty(session()->getFlashdata('fail'))) : ?>
+                                            <div class="alert alert-danger" role="alert">
+                                            <?= session()->getFlashdata('fail'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if(!empty(session()->getFlashdata('success'))) : ?>
+                                            <div class="alert alert-success" role="alert">
+                                            <?= session()->getFlashdata('success'); ?>
+                                            </div>
+                                        <?php endif; ?>
                                         <form method="POST" class="form w-100" enctype="multipart/form-data" action="<?=base_url('restore')?>">
                                             <div class="fv-row mb-4">
                                                 <span class="menu-title">Server/Host</span>
