@@ -56,6 +56,9 @@ $routes->post('upload-file','Memo::uploadFile');
 $routes->post('move-to-archive','Memo::archive');
 $routes->post('move-to-unarchive','Memo::unarchive');
 $routes->post('update-memo','Memo::updateMemo');
+//maintenance
+$routes->post('restore','Restore::restoreFile');
+$routes->post('download','Download::downloadFile');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {
@@ -84,6 +87,8 @@ $routes->group('',['filter'=>'AuthCheck'],function($routes)
     $routes->get('HR/Evaluation','Home::Evaluation');
     //Report
     $routes->get('HR/report','Home::Report');
+    //maintenance
+    $routes->get('HR/maintenance','Home::Maintenance');
 });
 
 $routes->group('',['filter'=>'AlreadyLoggedIn'],function($routes)

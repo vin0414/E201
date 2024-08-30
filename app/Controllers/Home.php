@@ -690,6 +690,11 @@ class Home extends BaseController
         return view('HR/system-logs',$data);
     }
 
+    public function Maintenance()
+    {
+        return view('HR/system-config');
+    }
+
     public function Account()
     {
         $accountModel = new \App\Models\accountModel();
