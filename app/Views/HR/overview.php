@@ -485,31 +485,6 @@
                                         </span>
                                         <span class="menu-title" >Summary</span>
                                     </a><!--end:Menu link-->
-                                </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
-                                <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item menu-lg-down-accordion me-0 me-lg-2" >
-                                    <!--begin:Menu link-->
-                                    <span class="menu-link">
-                                        <span  class="menu-icon" ><i class="fa-solid fa-toolbox"></i></span>
-                                        <span  class="menu-title" >My Widgets</span><span  class="menu-arrow" ></span>
-                                    </span><!--end:Menu link-->
-                                    <!--begin:Menu sub-->
-                                    <div  class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-200px" >
-                                        <!--begin:Menu item-->
-                                        <div  class="menu-item" ><!--begin:Menu link-->
-                                            <a class="menu-link"  href="" >
-                                                <span  class="menu-icon" ><i class="fa-solid fa-list-check"></i></span>
-                                                <span  class="menu-title" >Add Task</span>
-                                            </a><!--end:Menu link-->
-                                        </div><!--end:Menu item-->
-                                        <!--begin:Menu item-->
-                                        <div  class="menu-item" ><!--begin:Menu link-->
-                                            <a class="menu-link"  href="">
-                                                <span  class="menu-icon" ><i class="fa-regular fa-calendar"></i></span>
-                                                <span  class="menu-title" >Task Calendar</span>
-                                            </a><!--end:Menu link-->
-                                        </div><!--end:Menu item-->
-                                    </div><!--end:Menu sub-->
                                 </div><!--end:Menu item-->		
                                 <!--begin:Menu item-->
                                 <div  class="menu-item" >

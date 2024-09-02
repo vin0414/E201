@@ -322,16 +322,6 @@
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
-                                <div  class="menu-item" ><!--begin:Menu content-->
-                                    <div  class="menu-content" ><div class="menu-separator"></div></div><!--end:Menu content-->
-                                </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
-                                <div  class="menu-item " >
-                                    <!--begin:Menu link-->
-                                    <a class="menu-link"  href="<?=site_url('Employee/profile')?>"><span  class="menu-title" >Employee Profile</span></a>
-                                    <!--end:Menu link-->
-                                </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
                                 <div  class="menu-item" >
                                     <!--begin:Menu content--><div  class="menu-content" ><div class="menu-separator"></div></div>
                                     <!--end:Menu content-->
