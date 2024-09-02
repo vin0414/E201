@@ -12,6 +12,7 @@
         <link href="<?=base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             thead,th{background-color:#0096ff;}
@@ -625,32 +626,20 @@
                     <!--end::Toolbar container-->
                 </div>
                 <!--end::Toolbar-->
-                <div id="kt_app_content" class="app-content  app-content-stretch " >
+                <div id="kt_app_content" class="app-content  app-content-stretch" >
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container  container-fluid ">
                             <!--begin::Products-->
                             <div class="card card-flush">
-                                <!--begin::Card header-->
-                                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                                    <form method="GET" class="d-flex flex-column flex-lg-row gap-3 w-100"  id="frmSearch">
-                                        <div class="col-lg-10">
-                                            <input type="search" class="form-control" name="search" placeholder="Search"/>
-                                        </div>
-                                        <div class="col-lg-1">
-                                            <input type="submit" class="form-control btn btn-primary" id="btnSearch" value="Search"/>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!--end::Card header-->
                                 <!--begin::Card body-->
-                                <div class="card-body pt-0">
+                                <div class="card-body">
                                     <?php if(!empty(session()->getFlashdata('success'))) : ?>
                                         <div class="alert alert-success" role="alert">
                                         <?= session()->getFlashdata('success'); ?>
                                         </div>
                                     <?php endif; ?>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
+                                        <table class="table table-bordered table-striped" id="tblusers">
                                             <thead>
                                                 <th class="text-white w-275">Complete Name</th>
                                                 <th class="text-white">Username</th>
@@ -659,7 +648,7 @@
                                                 <th class="text-white">Status</th>
                                                 <th class="text-white w-125px">More</th>
                                             </thead>
-                                            <tbody id="tblaccount">
+                                            <tbody>
                                             <?php foreach($account as $row): ?>
                                                 <tr>
                                                     <td><?php echo $row['Fullname'] ?></td>
@@ -702,7 +691,6 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <span class="badge bg-primary btn-sm text-white" id="total">Total : <?php echo $total ?></span>
                                 <!--end::Card body-->
                                 </div>
                             <!--end::Products-->        
@@ -743,25 +731,13 @@
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
+            <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+            <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
 	    <!--end::Javascript-->
         <script>
-            $('#btnSearch').on('click',function(e){
-                e.preventDefault();
-                var data = $('#frmSearch').serialize();
-                $('#tblaccount').html("<tr><td colspan='6' class='text-center'>Loading...</td></tr>");
-                $.ajax({
-                    url:"<?=site_url('search-account')?>",method:"GET",
-                    data:data,success:function(response)
-                    {
-                        if(response==="")
-                        {$('#tblaccount').html("<tr><td colspan='6' class='text-center'>No Record(s)</td></tr>");}
-                        else
-                        {$('#tblaccount').html(response);}
-                        var count = $('#tblaccount').children('tr').length;
-                        $('#total').html("Total : "+count);
-                    }
-                });
-            });
+            new DataTable('#tblusers');
+        </script>
+        <script>
             $(document).on('click','.reset',function(){
                 Swal.fire({
                     icon:"question",

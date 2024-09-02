@@ -553,57 +553,6 @@ class Home extends BaseController
         return redirect()->to('HR/users')->withInput();
     }
 
-    public function searchAccount()
-    {
-        $search = "%".$this->request->getGet('search')."%";
-        $builder = $this->db->table('tblaccount');
-        $builder->select('*');
-        $builder->LIKE('Fullname',$search);
-        $data = $builder->get();
-        foreach($data->getResult() as $row)
-        {
-            ?>
-            <tr>
-                <td><?php echo $row->Fullname ?></td>
-                <td><?php echo $row->Username ?></td>
-                <td><?php echo $row->Designation ?></td>
-                <td><?php echo $row->Role ?></td>
-                <td class="text-center">
-                    <?php 
-                    if($row->Status==1){ ?>
-                    <span class="badge bg-primary text-white">Active</span>
-                    <?php } else { ?>
-                    <span class="badge bg-danger text-white">Inactive</span>
-                    <?php } ?>
-                </td>
-                <td class="text-center">
-                    <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                        Actions&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
-                    </a>
-                    <!--begin::Menu-->
-                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                            <a href="<?=site_url('HR/edit/')?><?php echo $row->Token ?>" class="menu-link px-3">
-                                Edit
-                            </a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                            <a href="javascript:void(0);" class="menu-link btn-outline-default px-3 reset">
-                                Reset
-                            </a>
-                        </div>
-                        <!--end::Menu item-->
-                    </div>
-                    <!--end::Menu-->
-                </td>
-            </tr>
-            <?php
-        }
-    }
-
     public function resetPassword()
     {
         $accountModel = new \App\Models\accountModel();

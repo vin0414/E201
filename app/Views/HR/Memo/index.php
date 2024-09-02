@@ -637,7 +637,7 @@
                             <!--begin::Products-->
                             <div class="card card-flush">
                                 <!--begin::Card body-->
-                                <div class="card-body pt-0">
+                                <div class="card-body">
                                     <?php if(!empty(session()->getFlashdata('success'))) : ?>
                                         <div class="alert alert-success" role="alert">
                                             <?= session()->getFlashdata('success'); ?>

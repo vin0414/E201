@@ -40,7 +40,6 @@ $routes->get('/signout','Auth::employeeLogout');
 //functions for User Accounts
 $routes->post('save-account','Home::saveUserData');
 $routes->post('modify-account','Home::modifyAccount');
-$routes->get('search-account','Home::searchAccount');
 $routes->post('reset-password','Home::resetPassword');
 $routes->post('account-security','Home::accountSecurity');
 //employee functions
@@ -58,7 +57,7 @@ $routes->post('move-to-unarchive','Memo::unarchive');
 $routes->post('update-memo','Memo::updateMemo');
 //maintenance
 $routes->post('restore','Restore::restoreFile');
-$routes->post('download','Download::downloadFile');
+$routes->get('download','Download::downloadFile');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {

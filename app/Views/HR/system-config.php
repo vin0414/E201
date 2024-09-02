@@ -689,7 +689,7 @@
                                     </div>
                                     <div class="card-body pt-0">
                                         <p class="text-muted">Backing up collected data is an important part of data management. Backups protect against human error, hardware failure, virus attacks, power outages and natural disasters.</p>
-                                        <a href="<?=base_url('download')?>" class="btn btn-primary"><i class="fa-solid fa-circle-arrow-down"></i>&nbsp;Download Data</a>
+                                        <a href="<?=site_url('download')?>" class="btn btn-primary"><i class="fa-solid fa-circle-arrow-down"></i>&nbsp;Download Data</a>
                                     </div>
                                 </div>
                             </div>

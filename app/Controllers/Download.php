@@ -10,7 +10,7 @@ class Download extends BaseController
         $host = "localhost";
         $username = "root";
         $password = "Fastcat_01";
-        $database_name = "db_poll_survey";
+        $database_name = "hris";
 
         // Get connection object and set the charset
         $conn = mysqli_connect($host, $username, $password, $database_name);
