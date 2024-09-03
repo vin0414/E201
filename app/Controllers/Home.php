@@ -634,8 +634,19 @@ class Home extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+        //concerns
+        $sql = "SELECT a.Title,COUNT(b.ecID)total FROM 
+                tblconcern a LEFT JOIN tblemployee_concern b ON a.concernID=b.concernID GROUP BY a.concernID";
+        $query = $this->db->query($sql);
+        $concern = $query->getResult();
+        //all concerns
+        $sql = "Select a.*,b.Title,c.Surname,c.Firstname,c.MI,c.Suffix from tblemployee_concern a 
+                LEFT JOIN tblconcern b ON b.concernID=a.concernID 
+                LEFT JOIN tblemployee c ON c.employeeID=a.employeeID GROUP BY a.ecID";
+        $query = $this->db->query($sql);
+        $alldata = $query->getResult();
 
-        $data = ['regular'=>$employee,'celebrants'=>$celebrants,];
+        $data = ['regular'=>$employee,'celebrants'=>$celebrants,'concerns'=>$concern,'alldata'=>$alldata];
         return view('HR/report',$data);
     }
 

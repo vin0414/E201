@@ -637,7 +637,15 @@
                                         <div class="card-title">Concerns</div>
                                     </div>
                                     <div class="card-body pt-0" style="height:250px;overflow-y:auto;">
-                                    
+                                    <?php foreach($concerns as $row): ?>
+                                        <div class="justify-content-between mb-4">
+                                            <div class="fw-bold"><?php echo $row->Title ?>
+                                            <span class="badge bg-primary text-white" style="float:right;"><?php echo $row->total ?></span>
+                                            </div>
+                                        </div>
+                                        <div class="separator separator-dashed"></div>
+                                        <br/>
+                                    <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
@@ -709,6 +717,16 @@
                                             <th class="text-white w-125px">More</th>
                                         </thead>
                                         <tbody>
+                                            <?php foreach($alldata as $rows): ?>
+                                                <tr>
+                                                    <td><?php echo $rows->Date ?></td>
+                                                    <td><?php echo $rows->Title ?></td>
+                                                    <td><?php echo $rows->Details ?></td>
+                                                    <td><?php echo $rows->Surname ?> <?php echo $rows->Suffix ?>, <?php echo $rows->Firstname ?> <?php echo $rows->MI ?></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -803,7 +821,7 @@
                         {
                             Swal.fire({
                                 title: "Great!",
-                                text: "Successfully saved",
+                                text: "Successfully saved. Please reload the page",
                                 icon: "success"
                             });
                             $('#frmConcern')[0].reset();
