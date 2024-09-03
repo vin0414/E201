@@ -720,12 +720,13 @@
                                         <div class="card-title"><h2>Recent Employees</h2></div>
                                         <?php foreach($employee as $row): ?>
                                         <div class="justify-content-between mb-4">
-                                            <div class="fw-bold text-white" style="background-color:#0096FF;padding:0.5rem;"><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></div>
+                                            <div class="fw-bold"><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></div>
                                             <div class="fw-semibold">
                                             <?php echo $row->Designation ?>
                                             </div>
                                         </div>
                                         <div class="separator separator-dashed"></div>
+                                        <br/>
                                         <?php endforeach; ?> 
                                     </div>
                                 </div>

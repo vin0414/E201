@@ -621,7 +621,22 @@ class Home extends BaseController
     //report
     public function Report()
     {
-        return view('HR/report');
+        //for regularization
+        $builder = $this->db->table('tblemployee');
+        $builder->select('*');
+        $builder->WHERE('TIMESTAMPDIFF(MONTH, DateHired, Now())>=',5)
+                ->WHERE('EmployeeStatus','Probationary');
+        $employee = $builder->get()->getResult();
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+
+        $data = ['regular'=>$employee,'celebrants'=>$celebrants];
+        return view('HR/report',$data);
     }
 
     //logs

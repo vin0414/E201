@@ -612,7 +612,14 @@
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
-                            <!--end::Page title-->   
+                            <!--end::Page title-->  
+                            <!--begin::Actions-->
+                            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                <a href="javascript:void(0);" class="btn btn-sm btn-flex btn-primary setup">
+                                    <i class="fa-solid fa-gear"></i>&nbsp;Setup
+                                </a>          
+                            </div>
+                            <!--end::Actions--> 
                         </div>
                     <!--end::Toolbar wrapper-->        
                     </div>
@@ -620,18 +627,80 @@
                 </div>
                 <!--end::Toolbar-->  
                 <!--begin::Content-->
-                <div id="kt_app_content" class="app-content  app-content-stretch " >
+                <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-                            <!--begin::Products-->
-                            <div class="card card-flush">
-                                <!--begin::Card body-->
-                                <div class="card-body">
-                                <!--end::Card body-->
+                        <div class="d-flex flex-wrap gap-5">
+                            <div class="fv-row w-100 flex-md-root">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title">Concerns</div>
+                                    </div>
+                                    <div class="card-body pt-0" style="height:250px;overflow-y:auto;">
+
+                                    </div>
                                 </div>
-                            <!--end::Products-->        
                             </div>
-                        <!--end::Content container-->
+                            <div class="fv-row w-100 flex-md-root">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title">For Regularization</div>
+                                    </div>
+                                    <div class="card-body pt-0" style="height:250px;overflow-y:auto;">
+                                    <?php if(empty($regular)){ ?>
+                                        <div class="justify-content-between mb-4">
+                                            <div class="fw-bold">No record(s)</div>
+                                        </div>
+                                    <?php }else{ ?>
+                                    <?php foreach($regular as $row): ?>
+                                        <div class="justify-content-between mb-4">
+                                            <div class="fw-bold"><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></div>
+                                            <div class="fw-semibold">
+                                            <?php echo $row->Designation ?>
+                                            </div>
+                                        </div>
+                                        <div class="separator separator-dashed"></div>
+                                        <br/>
+                                    <?php endforeach; ?> 
+                                    <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fv-row w-100 flex-md-root">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title">Birthday Celebrants</div>
+                                    </div>
+                                    <div class="card-body pt-0" style="height:250px;overflow-y:auto;">
+                                    <?php if(empty($celebrants)){ ?>
+                                        <div class="justify-content-between mb-4">
+                                            <div class="fw-bold">No Birthday Celebrant(s)</div>
+                                        </div>
+                                    <?php }else{ ?>
+                                    <?php foreach($celebrants as $row): ?>
+                                        <div class="justify-content-between mb-4">
+                                            <div class="fw-bold"><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></div>
+                                            <div class="fw-semibold">
+                                            <?php echo $row->BirthDate ?>
+                                            </div>
+                                        </div>
+                                        <div class="separator separator-dashed"></div>
+                                        <br/>
+                                    <?php endforeach; ?> 
+                                    <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="card card-flush py-4">
+                            <div class="card-header">
+                                <div class="card-title">Issues/Concerns</div>
+                            </div>
+                            <div class="card-body pt-0">
+
+                            </div>
+                        </div>
                     </div>
                 <!--end::Content-->	
 
