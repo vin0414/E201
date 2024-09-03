@@ -58,6 +58,8 @@ $routes->post('update-memo','Memo::updateMemo');
 //maintenance
 $routes->post('restore','Restore::restoreFile');
 $routes->get('download','Download::downloadFile');
+//concern entry
+$routes->post('save-entry','Home::saveEntry');
 
 $routes->group('',['filter'=>'AuthCheck'],function($routes)
 {

@@ -616,7 +616,7 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 <a href="javascript:void(0);" class="btn btn-sm btn-flex btn-primary setup">
-                                    <i class="fa-solid fa-gear"></i>&nbsp;Setup
+                                    <i class="fa-solid fa-gear"></i>&nbsp;Additional Setup
                                 </a>          
                             </div>
                             <!--end::Actions--> 
@@ -637,7 +637,7 @@
                                         <div class="card-title">Concerns</div>
                                     </div>
                                     <div class="card-body pt-0" style="height:250px;overflow-y:auto;">
-
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -698,7 +698,20 @@
                                 <div class="card-title">Issues/Concerns</div>
                             </div>
                             <div class="card-body pt-0">
-
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="tblconcern">
+                                        <thead>
+                                            <th class="text-white w-275">Date</th>
+                                            <th class="text-white">Title</th>
+                                            <th class="text-white">Details</th>
+                                            <th class="text-white">Employee</th>
+                                            <th class="text-white">Status</th>
+                                            <th class="text-white w-125px">More</th>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -712,10 +725,38 @@
             
         </div>
         <!--end::Wrapper-->
-
-        
-            </div>
+    </div>
     <!--end::Page-->
+</div>
+<div class="modal fade" id="concernModal" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header pb-0 border-0">
+                <h2 class="modal-title">New Concern</h2>
+            </div>
+            <!--begin::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body">
+                <form method="POST" class="form w-100" id="frmConcern">
+                    <div class="fv-row mb-4">
+                        <span class="menu-title">Title</span>
+                        <input type="text" name="title" class="form-control bg-transparent"/>
+                    </div>
+                    <div class="fv-row mb-4" id="btnConfirm">
+                        <button type="submit" class="btn btn-primary" id="Add"><i class="fa-solid fa-circle-plus"></i>&nbsp;Save Entry</button>
+                    </div>
+                    <div class="fv-row mb-4" id="btnLoad" style="display:none;">
+                        <button type="button" class="btn btn-primary">
+                            Please wait...    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </button>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </div>
 </div>
 <!--end::App-->		
 		<!--begin::Scrolltop-->
@@ -739,7 +780,47 @@
         <!--data tables -->
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
-	<!--end::Javascript-->
+	    <!--end::Javascript-->
+        <script>
+            new DataTable('#tblconcern');
+        </script>
+        <script>
+            $(document).on('click','.setup',function(){
+                $('#concernModal').modal('show');
+            });
+            $('#frmConcern').on('submit',function(e){
+                e.preventDefault();
+                var data = $(this).serialize();
+                document.getElementById('btnConfirm').style="display:none";
+                document.getElementById('btnLoad').style="display:block";
+                $.ajax({
+                    url:"<?=site_url('save-entry')?>",method:"POST",
+                    data:data,success:function(response)
+                    {
+                        document.getElementById('btnConfirm').style="display:block";
+                        document.getElementById('btnLoad').style="display:none";
+                        if(response=="success")
+                        {
+                            Swal.fire({
+                                title: "Great!",
+                                text: "Successfully saved",
+                                icon: "success"
+                            });
+                            $('#frmConcern')[0].reset();
+                            $('#concernModal').modal('hide'); 
+                        }
+                        else
+                        {
+                            Swal.fire({
+                                title: "Warning!",
+                                text: response,
+                                icon: "warning"
+                            });
+                        }
+                    }
+                });
+            });
+        </script>
     </body>
     <!--end::Body-->
 </html>

@@ -635,8 +635,41 @@ class Home extends BaseController
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
 
-        $data = ['regular'=>$employee,'celebrants'=>$celebrants];
+        $data = ['regular'=>$employee,'celebrants'=>$celebrants,];
         return view('HR/report',$data);
+    }
+
+    public function saveEntry()
+    {
+        date_default_timezone_set('Asia/Manila');
+        $concernModel = new \App\Models\concernModel();
+        $logModel = new \App\Models\logModel();
+        //data
+        $title = $this->request->getPost('title');
+        $validation = $this->validate([
+            'title'=>'is_unique[tblconcern.Title]'
+        ]);
+
+        if(!$validation)
+        {
+            echo "Entry already exist. Please enter new entry";
+        }
+        else
+        {
+            if(empty($title))
+            {
+                echo "Please enter the title";
+            }
+            else
+            {
+                $values = ['Date'=>date('Y-m-d'),'Title'=>$title];
+                $concernModel->save($values);
+                //logs
+                $values = ['accountID'=>session()->get('loggedUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Added new concern '.$title];
+                $logModel->save($values);
+                echo "success";
+            }
+        }
     }
 
     //logs
