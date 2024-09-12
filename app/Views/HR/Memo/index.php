@@ -679,7 +679,7 @@
                                                                 <?php if($row['Status']==1){ ?>
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
-                                                                    <button type="button" class="menu-link w-100 border-0 px-3 archive" value="<?php echo $row['memoID'] ?>">
+                                                                    <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 archive" value="<?php echo $row['memoID'] ?>">
                                                                         Archive
                                                                     </button>
                                                                 </div>
@@ -687,7 +687,7 @@
                                                                 <?php }else{ ?>
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
-                                                                    <button type="button" class="menu-link w-100 border-0 px-3 unarchive" value="<?php echo $row['memoID'] ?>">
+                                                                    <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 unarchive" value="<?php echo $row['memoID'] ?>">
                                                                         Unarchive
                                                                     </button>
                                                                 </div>

@@ -636,7 +636,7 @@ class Home extends BaseController
         $celebrants = $builder->get()->getResult();
         //concerns
         $sql = "SELECT a.Title,COUNT(b.ecID)total FROM 
-                tblconcern a LEFT JOIN tblemployee_concern b ON a.concernID=b.concernID GROUP BY a.concernID";
+                tblconcern a LEFT JOIN (Select concernID, ecID,Status from tblemployee_concern) b ON a.concernID=b.concernID GROUP BY a.concernID";
         $query = $this->db->query($sql);
         $concern = $query->getResult();
         //all concerns

@@ -393,31 +393,11 @@
                                     <!--begin:Menu link-->
                                     <a class="menu-link active"  href="<?=site_url('HR/overview')?>">
                                         <span  class="menu-icon" >
-                                            <i class="fa-solid fa-chart-simple"></i>
+                                            <i class="fa-solid fa-user-tie"></i>
                                         </span>
-                                        <span class="menu-title" >Summary</span>
+                                        <span class="menu-title" >Employee Overview</span>
                                     </a><!--end:Menu link-->
                                 </div><!--end:Menu item-->	
-                                <!--begin:Menu item-->
-                                <div  class="menu-item" >
-                                    <!--begin:Menu link-->
-                                    <a class="menu-link"  href="">
-                                        <span  class="menu-icon" >
-                                            <i class="fa-solid fa-print"></i>
-                                        </span>
-                                        <span class="menu-title" >Print</span>
-                                    </a><!--end:Menu link-->
-                                </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
-                                <div  class="menu-item" >
-                                    <!--begin:Menu link-->
-                                    <a class="menu-link"  href="">
-                                        <span  class="menu-icon" >
-                                            <i class="fa-solid fa-download"></i>
-                                        </span>
-                                        <span class="menu-title" >Export</span>
-                                    </a><!--end:Menu link-->
-                                </div><!--end:Menu item-->
                             </div>
                             <!--end::Menu-->	
                         </div>	
@@ -447,33 +427,16 @@
 				>
 					<!--begin::Filter-->
 				<div class="mb-4">
-                    <a href="<?=site_url('HR/Memo/Upload')?>" class="btn btn-sm d-flex flex-stack border border-300 bg-gray-100i btn-color-gray-700 btn-active-color-gray-900 px-3 mb-2">               
-                        <span class="d-flex align-item-center"><i class="fa-solid fa-upload"></i>&nbsp;&nbsp;&nbsp;Upload File</span>         
+                    <a href="<?=site_url('Employee/write')?>" class="btn btn-sm d-flex flex-stack border border-300 bg-gray-100i btn-color-gray-700 btn-active-color-gray-900 px-3 mb-2">               
+                        <span class="d-flex align-item-center"><i class="fa-solid fa-clipboard-question"></i>&nbsp;&nbsp;&nbsp;New Concern</span>         
                     </a> 
 					<!--begin::Items-->
 					<div class="m-0">
                         <!--begin::Item-->
-						<a href="<?=site_url('HR/Memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+						<a href="<?=site_url('Employee/memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
                             <i class="fa-solid fa-envelope-open-text"></i>&nbsp;&nbsp;All Memos          
 						</a>  
 						<!--end::Item-->
-                        <!--begin::Item-->
-						<a href="<?=site_url('HR/new-employee')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
-                            <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
-						</a>  
-						<!--end::Item-->
-                        <?php if(session()->get('role')=="Administrator"){ ?>
-						<!--begin::Item-->
-						<a href="<?=site_url('HR/new-account')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
-                            <i class="fa-solid fa-user-plus"></i>&nbsp;New Account           
-						</a>  
-						<!--end::Item-->
-                        <!--begin::Item-->
-						<a href="<?=site_url('HR/users')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
-                            <i class="fa-solid fa-users"></i>&nbsp;All Accounts          
-						</a>  
-						<!--end::Item-->
-                        <?php } ?> 
 					</div>
 					<!--end::Items-->   
 				</div>
@@ -526,7 +489,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                Overview
+                                Welcome
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -545,7 +508,7 @@
                                     <!--end::Item-->                 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Overview                                        
+                                        Welcome                                        
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
@@ -558,9 +521,80 @@
                     <!--end::Toolbar container-->
                 </div>
                 <!--end::Toolbar-->  
-                <div id="kt_app_content" class="app-content  flex-column-fluid " >
+                <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <div id="kt_app_content_container" class="app-container container-fluid ">
+                        <div class="d-flex flex-column flex-lg-row gap-3 w-100">
+                            <div class="col-lg-9">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title"><i class="fa-solid fa-user-tie"></i>&nbsp;Profile</div>
+                                    </div> 
+                                    <div class="card-body pt-0">
+                                        <?php if($employee):?>
+                                        <div class="d-flex flex-column flex-lg-row gap-3 w-100">
+                                            <div class="col-lg-3">
+                                                <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+                                                    <!--begin::Preview existing avatar-->
+                                                    <div class="image-input-wrapper w-150px h-150px" style="background-image: url('/Profile/<?php echo $employee['Photo'] ?>')"></div>
+                                                    <!--end::Preview existing avatar-->
 
+                                                    <!--begin::Label-->
+                                                    <label class="bg-body shadow">
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                                <!--end::Image input-->
+                                            </div>
+                                            <div class="col-lg-9">
+                                                
+                                                <div class="form w-100">
+                                                    <div class="fv-row mb-4">
+                                                        <span class="menu-title">Complete Name</span>
+                                                        <h3><?php echo session()->get('fullname') ?></h3>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <div class="d-flex flex-wrap gap-5">
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Designation</span>
+                                                                <h3><?php echo session()->get('designation') ?></h3>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Employee ID</span>
+                                                                <h3><?php echo $employee['CompanyID'] ?></h3>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Date Hired</span>
+                                                                <h3><?php echo $employee['DateHired'] ?></h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php endif; ?>
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title"><i class="fa-solid fa-bullhorn"></i>&nbsp;Announcement/Memo</div>
+                                    </div> 
+                                    <div class="card-body pt-0">
+                                        <label>Recent(s)</label><a href="<?=site_url('Employee/memo')?>" class="ms-auto" style="float:right;">View All</a>
+                                        <?php foreach($memo as $row): ?>
+                                            <div class="justify-content-between mb-4">
+                                                <small class="fw-bold"><?php echo $row->Subject ?></small><br/>
+                                                <a href="<?=base_url('Memo')?>/<?php echo $row->File ?>" alt="<?php echo $row->File ?>" target="_BLANK"><small><?php echo substr($row->File,0,30) ?>...</small></a>
+                                                <div class="fw-semibold"><small><?php echo $row->Date ?></small></div>
+                                            </div>
+                                            <div class="separator separator-dashed"></div>
+                                            <br/>
+                                        <?php endforeach; ?> 
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div> 
             </div>         

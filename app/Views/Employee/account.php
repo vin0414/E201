@@ -393,31 +393,11 @@
                                     <!--begin:Menu link-->
                                     <a class="menu-link active"  href="<?=site_url('HR/overview')?>">
                                         <span  class="menu-icon" >
-                                            <i class="fa-solid fa-chart-simple"></i>
+                                            <i class="fa-solid fa-user-tie"></i>
                                         </span>
-                                        <span class="menu-title" >Summary</span>
+                                        <span class="menu-title" >Employee Overview</span>
                                     </a><!--end:Menu link-->
                                 </div><!--end:Menu item-->	
-                                <!--begin:Menu item-->
-                                <div  class="menu-item" >
-                                    <!--begin:Menu link-->
-                                    <a class="menu-link"  href="">
-                                        <span  class="menu-icon" >
-                                            <i class="fa-solid fa-print"></i>
-                                        </span>
-                                        <span class="menu-title" >Print</span>
-                                    </a><!--end:Menu link-->
-                                </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
-                                <div  class="menu-item" >
-                                    <!--begin:Menu link-->
-                                    <a class="menu-link"  href="">
-                                        <span  class="menu-icon" >
-                                            <i class="fa-solid fa-download"></i>
-                                        </span>
-                                        <span class="menu-title" >Export</span>
-                                    </a><!--end:Menu link-->
-                                </div><!--end:Menu item-->
                             </div>
                             <!--end::Menu-->	
                         </div>	

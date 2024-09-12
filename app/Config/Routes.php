@@ -55,6 +55,9 @@ $routes->post('upload-file','Memo::uploadFile');
 $routes->post('move-to-archive','Memo::archive');
 $routes->post('move-to-unarchive','Memo::unarchive');
 $routes->post('update-memo','Memo::updateMemo');
+//concern
+$routes->post('resolve','Employee::resolve');
+$routes->post('denied','Employee::denied');
 //maintenance
 $routes->post('restore','Restore::restoreFile');
 $routes->get('download','Download::downloadFile');

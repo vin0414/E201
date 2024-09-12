@@ -719,12 +719,39 @@
                                         <tbody>
                                             <?php foreach($alldata as $rows): ?>
                                                 <tr>
-                                                    <td><?php echo $rows->Date ?></td>
+                                                    <td><?php echo date('d M, Y', strtotime($rows->Date)) ?></td>
                                                     <td><?php echo $rows->Title ?></td>
                                                     <td><?php echo $rows->Details ?></td>
                                                     <td><?php echo $rows->Surname ?> <?php echo $rows->Suffix ?>, <?php echo $rows->Firstname ?> <?php echo $rows->MI ?></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>
+                                                        <?php 
+                                                        if($rows->Status==0){ ?><span class="badge bg-warning text-white">PENDING</span><?php }
+                                                        else if($rows->Status==1){?><span class="badge bg-primary text-white">RESOLVED</span><?php }
+                                                        else { ?><span class="badge bg-danger text-white">DENIED</span><?php }
+                                                         ?>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <?php if($rows->Status==0){ ?>
+                                                        <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                            Action&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
+                                                        </a>
+                                                        <!--begin::Menu-->
+                                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                                            <div class="menu-item px-3">
+                                                                <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 resolve" value="<?php echo $rows->ecID ?>">
+                                                                    <i class="fa-regular fa-circle-check"></i>&nbsp;Resolve
+                                                                </button>
+                                                            </div>
+                                                            <div class="menu-item px-3">
+                                                                <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 denied" value="<?php echo $rows->ecID ?>">
+                                                                <i class="fa-regular fa-circle-xmark"></i>&nbsp;Denied
+                                                                </button>
+                                                            </div>
+                                                            <!--end::Menu item-->
+                                                        </div>
+                                                        <!--end::Menu-->
+                                                        <?php } ?>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -806,6 +833,65 @@
             $(document).on('click','.setup',function(){
                 $('#concernModal').modal('show');
             });
+
+            $(document).on('click','.resolve',function(){
+                Swal.fire({
+                    icon:"question",
+                    title: "Do you want to tag as resolve this selected concern?",
+                    showDenyButton: true,
+                    confirmButtonText: "Yes",
+                    denyButtonText: "Cancel"
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        //update 
+                        $.ajax({
+                            url:"<?=site_url('resolve')?>",method:"POST",
+                            data:{value:$(this).val()},
+                            success:function(response)
+                            {
+                                if(response==="success")
+                                {
+                                    location.reload();
+                                }
+                                else{
+                                    Swal.fire({title: "Invalid!",text: response,icon: "error"});
+                                }
+                            }
+                        });
+                    } 
+                });
+            });
+
+            $(document).on('click','.denied',function(){
+                Swal.fire({
+                    icon:"question",
+                    title: "Do you want to tag as denied this selected concern?",
+                    showDenyButton: true,
+                    confirmButtonText: "Yes",
+                    denyButtonText: "Cancel"
+                    }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        //update 
+                        $.ajax({
+                            url:"<?=site_url('denied')?>",method:"POST",
+                            data:{value:$(this).val()},
+                            success:function(response)
+                            {
+                                if(response==="success")
+                                {
+                                    location.reload();
+                                }
+                                else{
+                                    Swal.fire({title: "Invalid!",text: response,icon: "error"});
+                                }
+                            }
+                        });
+                    } 
+                });
+            });
+
             $('#frmConcern').on('submit',function(e){
                 e.preventDefault();
                 var data = $(this).serialize();

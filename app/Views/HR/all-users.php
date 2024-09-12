@@ -678,7 +678,7 @@
                                                             <!--end::Menu item-->
                                                             <!--begin::Menu item-->
                                                             <div class="menu-item px-3">
-                                                                <button type="button" class="menu-link w-100 border-0 px-3 reset" value="<?php echo $row['accountID'] ?>">
+                                                                <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 reset" value="<?php echo $row['accountID'] ?>">
                                                                     Reset
                                                                 </button>
                                                             </div>
