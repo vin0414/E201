@@ -117,10 +117,33 @@
                                         <!--begin:Menu item-->
                                         <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2" ><!--begin:Menu link-->
                                             <span class="menu-link"  >
-                                                <span  class="menu-title" >Dashboards</span>
+                                                <span  class="menu-title" >Dashboard</span>
                                             </span>
                                             <!--end:Menu link--><!--begin:Menu sub-->
                                             <div  class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px" ><!--begin:Dashboards menu-->
+                                            </div><!--end:Menu sub-->
+                                        </div><!--end:Menu item-->
+                                        <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2" ><!--begin:Menu link-->
+                                            <span class="menu-link"  >
+                                                <span  class="menu-title" >Other</span>
+                                            </span>
+                                            <!--end:Menu link--><!--begin:Menu sub-->
+                                            <div  class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-250px" ><!--begin:Dashboards menu-->
+                                                <!--begin:Menu item-->
+                                                <div  data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="right-start"  class="menu-item menu-lg-down-accordion" >
+                                                    <div  class="menu-item" ><!--begin:Menu link-->
+                                                        <a class="menu-link"  href="<?=site_url('Employee/concerns')?>"  >
+                                                            <span  class="menu-icon" ><i class="fa-solid fa-scale-balanced"></i></span>
+                                                            <span  class="menu-title" >All Concerns</span>
+                                                        </a><!--end:Menu link-->
+                                                    </div><!--end:Menu item-->
+                                                    <div  class="menu-item" ><!--begin:Menu link-->
+                                                        <a class="menu-link"  href="<?=site_url('Employee/request')?>"  >
+                                                            <span  class="menu-icon" ><i class="fa-solid fa-pen-to-square"></i></span>
+                                                            <span  class="menu-title" >All Request</span>
+                                                        </a><!--end:Menu link-->
+                                                    </div><!--end:Menu item-->
+                                                </div>
                                             </div><!--end:Menu sub-->
                                         </div><!--end:Menu item-->
                                     </div>
@@ -316,7 +339,7 @@
                                 data-kt-menu="true"
                             >        
                                 <!--begin:Menu item-->
-                                <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item" >
+                                <div class="menu-item" >
                                     <!--begin:Menu link-->
                                     <a class="menu-link"  href="<?=site_url('Employee/overview')?>"><span  class="menu-title" >Overview</span></a>
                                     <!--end:Menu link-->
@@ -427,33 +450,25 @@
 				>
 					<!--begin::Filter-->
 				<div class="mb-4">
-                    <a href="<?=site_url('HR/Memo/Upload')?>" class="btn btn-sm d-flex flex-stack border border-300 bg-gray-100i btn-color-gray-700 btn-active-color-gray-900 px-3 mb-2">               
-                        <span class="d-flex align-item-center"><i class="fa-solid fa-upload"></i>&nbsp;&nbsp;&nbsp;Upload File</span>         
+                    <a href="<?=site_url('Employee/write')?>" class="btn btn-sm d-flex flex-stack border border-300 bg-gray-100i btn-color-gray-700 btn-active-color-gray-900 px-3 mb-2">               
+                        <span class="d-flex align-item-center"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;&nbsp;New Concern</span>         
                     </a> 
 					<!--begin::Items-->
 					<div class="m-0">
                         <!--begin::Item-->
-						<a href="<?=site_url('HR/Memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+						<a href="<?=site_url('Employee/concerns')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-scale-balanced"></i>&nbsp;All Concerns          
+						</a>  
+						<!--end::Item-->
+					</div>
+					<!--end::Items--> 
+                    <!--begin::Items-->
+					<div class="m-0">
+                        <!--begin::Item-->
+						<a href="<?=site_url('Employee/memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
                             <i class="fa-solid fa-envelope-open-text"></i>&nbsp;&nbsp;All Memos          
 						</a>  
 						<!--end::Item-->
-                        <!--begin::Item-->
-						<a href="<?=site_url('HR/new-employee')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
-                            <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
-						</a>  
-						<!--end::Item-->
-                        <?php if(session()->get('role')=="Administrator"){ ?>
-						<!--begin::Item-->
-						<a href="<?=site_url('HR/new-account')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
-                            <i class="fa-solid fa-user-plus"></i>&nbsp;New Account           
-						</a>  
-						<!--end::Item-->
-                        <!--begin::Item-->
-						<a href="<?=site_url('HR/users')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
-                            <i class="fa-solid fa-users"></i>&nbsp;All Accounts          
-						</a>  
-						<!--end::Item-->
-                        <?php } ?> 
 					</div>
 					<!--end::Items-->   
 				</div>
@@ -485,7 +500,21 @@
                     </div><!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" ><!--begin:Menu link-->
-                        
+                        <span class="menu-title">Birthdays</span>
+                        <?php if(empty($celebrants)){ ?>
+                            <div class="justify-content-between mb-4">
+                                <div class="fw-bold"><small>No Birthday Celebrant(s)</small></div>
+                            </div>
+                        <?php }else{ ?>
+                        <?php foreach($celebrants as $row): ?>
+                            <div class="justify-content-between mb-4">
+                                <div class="fw-bold"><small><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></small></div>
+                                <div class="fw-semibold"><small><?php echo $row->BirthDate ?></small></div>
+                            </div>
+                            <div class="separator separator-dashed"></div>
+                            <br/>
+                        <?php endforeach; ?> 
+                        <?php } ?>
                     </div><!--end:Menu item-->
                 </div>
 				<!--end::Menu-->
@@ -513,7 +542,7 @@
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="<?=site_url('HR/overview')?>" class="text-muted text-hover-primary">
+                                        <a href="<?=site_url('Employee/overview')?>" class="text-muted text-hover-primary">
                                         E201                           
                                         </a>
                                     </li>
@@ -538,9 +567,199 @@
                     <!--end::Toolbar container-->
                 </div>
                 <!--end::Toolbar-->  
-                <div id="kt_app_content" class="app-content  flex-column-fluid " >
+                <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <div id="kt_app_content_container" class="app-container container-fluid ">
+                        <?php if($employee):?>
+                        <div class="d-flex flex-column flex-lg-row gap-3 w-100">
+                            <div class="col-lg-9">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title"><i class="fa-solid fa-user-tie"></i>&nbsp;Account Details</div>
+                                    </div> 
+                                    <div class="card-body pt-0">
+                                        <div class="d-flex flex-column flex-lg-row gap-3 w-100">
+                                            <div class="col-lg-3">
+                                                <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+                                                    <!--begin::Preview existing avatar-->
+                                                    <div class="image-input-wrapper w-150px h-150px" style="background-image: url('/Profile/<?php echo $employee['Photo'] ?>')"></div>
+                                                    <!--end::Preview existing avatar-->
 
+                                                    <!--begin::Label-->
+                                                    <label class="bg-body shadow">
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                                <!--end::Image input-->
+                                            </div>
+                                            <div class="col-lg-9">
+                                                
+                                                <div class="form w-100">
+                                                    <div class="fv-row mb-4">
+                                                        <span class="menu-title">Complete Name</span>
+                                                        <h3><?php echo session()->get('fullname') ?></h3>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <div class="d-flex flex-wrap gap-5">
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Designation</span>
+                                                                <h3><?php echo session()->get('designation') ?></h3>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Employee ID</span>
+                                                                <h3><?php echo $employee['CompanyID'] ?></h3>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Date Hired</span>
+                                                                <h3><?php echo $employee['DateHired'] ?></h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fv-row mb-4">
+                                                        <div class="d-flex flex-column flex-lg-row gap-3 w-100">
+                                                            <div class="col-lg-8">
+                                                                <span class="menu-title">Email Address</span>
+                                                                <h3>
+                                                                    <?php if(empty($employee['EmailAddress'])){ ?>
+                                                                        N/A
+                                                                    <?php }else{ ?>
+                                                                        <?php echo $employee['EmailAddress'] ?>
+                                                                    <?php } ?>
+                                                                </h3>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <span class="menu-title">Contact #</span>
+                                                                <h3><?php echo $employee['ContactNo'] ?></h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form w-100">
+                                            <div class="fv-row mb-4">
+                                                <div class="d-flex flex-column flex-lg-row gap-3 w-100">
+                                                    <div class="col-lg-6">
+                                                        <span class="menu-title">Complete Address</span>
+                                                        <h3><?php echo $employee['Address'] ?></h3>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <span class="menu-title">Birth Date</span>
+                                                        <h3><?php echo $employee['BirthDate'] ?></h3>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <span class="menu-title">Birth Place</span>
+                                                        <h3><?php echo $employee['PlaceOfBirth'] ?></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <div class="d-flex flex-column flex-lg-row gap-3 w-100">
+                                                    <div class="col-lg-4">
+                                                        <span class="menu-title">Marital Status</span>
+                                                        <h3><?php echo $employee['MaritalStatus'] ?></h3>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <span class="menu-title">Status</span>
+                                                        <h3><?php echo $employee['EmployeeStatus'] ?></h3>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <span class="menu-title">Educational Level</span>
+                                                        <h3><?php echo $employee['Education'] ?></h3>
+                                                    </div>
+                                                </div>                        
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <br/>
+                                <div class="d-flex flex-column flex-lg-row gap-3">
+                                    <div class="col-md-4">
+                                        <div class="card card-flush py-4">
+                                            <div class="card-header">
+                                                <div class="card-title">Govt. Issues</div>
+                                            </div>
+                                            <div class="card-body pt-0">
+                                                <div class="justify-content-between mb-4">
+                                                    <small class="fw-bold">SSS #</small><br/>
+                                                    <a href="#"><small><?php echo $employee['SSS'] ?></small></a>
+                                                </div>
+                                                <div class="separator separator-dashed"></div>
+                                                <br/>
+                                                <div class="justify-content-between mb-4">
+                                                    <small class="fw-bold">PAG-IBIG #</small><br/>
+                                                    <a href="#"><small><?php echo $employee['HDMF'] ?></small></a>
+                                                </div>
+                                                <div class="separator separator-dashed"></div>
+                                                <br/>
+                                                <div class="justify-content-between mb-4">
+                                                    <small class="fw-bold">PHILHEALTH #</small><br/>
+                                                    <a href="#"><small><?php echo $employee['PhilHealth'] ?></small></a>
+                                                </div>
+                                                <div class="separator separator-dashed"></div>
+                                                <br/>
+                                                <div class="justify-content-between mb-4">
+                                                    <small class="fw-bold">TIN #</small><br/>
+                                                    <a href="#"><small><?php echo $employee['TIN'] ?></small></a>
+                                                </div>
+                                                <div class="separator separator-dashed"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card card-flush py-4" style="width:98.9%;">
+                                            <div class="card-header">
+                                                <div class="card-title">Employment History</div>
+                                            </div>
+                                            <div class="card-body pt-0">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead class="bg-primary">
+                                                            <th class="text-white">Company</th>
+                                                            <th class="text-white">Designation</th>
+                                                            <th class="text-white">Date</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php foreach($work as $row): ?>
+                                                                <tr style="font-size:12px;">
+                                                                    <td>
+                                                                        <?php echo $row['Company'] ?><br/>
+                                                                        <p><small><?php echo $row['Address'] ?></small></p>
+                                                                    </td>
+                                                                    <td><?php echo $row['Designation'] ?></td>
+                                                                    <td>
+                                                                    <?php echo date('d M, Y', strtotime($row['From'])) ?> - <?php echo date('d M, Y', strtotime($row['To'])) ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title"><i class="fa-solid fa-bullhorn"></i>&nbsp;Announcement/Memo</div>
+                                    </div> 
+                                    <div class="card-body pt-0">
+                                        <label>Recent(s)</label><a href="<?=site_url('Employee/memo')?>" class="ms-auto" style="float:right;">View All</a>
+                                        <?php foreach($memo as $row): ?>
+                                            <div class="justify-content-between mb-4">
+                                                <small class="fw-bold"><?php echo $row->Subject ?></small><br/>
+                                                <a href="<?=base_url('Memo')?>/<?php echo $row->File ?>" alt="<?php echo $row->File ?>" target="_BLANK"><small><?php echo substr($row->File,0,30) ?>...</small></a>
+                                                <div class="fw-semibold"><small><?php echo $row->Date ?></small></div>
+                                            </div>
+                                            <div class="separator separator-dashed"></div>
+                                            <br/>
+                                        <?php endforeach; ?> 
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </div> 
             </div>         
@@ -554,7 +773,7 @@
 <!--end::App-->		
 		<!--begin::Scrolltop-->
 		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-			<i class="ki-outline ki-arrow-up"></i>
+            <i class="fa-solid fa-arrow-up"></i>
 		</div>
 		<!--end::Scrolltop-->
 		<!--begin::Global Javascript Bundle(mandatory for all pages)-->

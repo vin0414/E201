@@ -117,10 +117,33 @@
                                         <!--begin:Menu item-->
                                         <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2" ><!--begin:Menu link-->
                                             <span class="menu-link"  >
-                                                <span  class="menu-title" >Dashboards</span>
+                                                <span  class="menu-title" >Dashboard</span>
                                             </span>
                                             <!--end:Menu link--><!--begin:Menu sub-->
                                             <div  class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px" ><!--begin:Dashboards menu-->
+                                            </div><!--end:Menu sub-->
+                                        </div><!--end:Menu item-->
+                                        <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2" ><!--begin:Menu link-->
+                                            <span class="menu-link"  >
+                                                <span  class="menu-title" >Other</span>
+                                            </span>
+                                            <!--end:Menu link--><!--begin:Menu sub-->
+                                            <div  class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-250px" ><!--begin:Dashboards menu-->
+                                                <!--begin:Menu item-->
+                                                <div  data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-placement="right-start"  class="menu-item menu-lg-down-accordion" >
+                                                    <div  class="menu-item" ><!--begin:Menu link-->
+                                                        <a class="menu-link"  href="<?=site_url('Employee/concerns')?>"  >
+                                                            <span  class="menu-icon" ><i class="fa-solid fa-scale-balanced"></i></span>
+                                                            <span  class="menu-title" >All Concerns</span>
+                                                        </a><!--end:Menu link-->
+                                                    </div><!--end:Menu item-->
+                                                    <div  class="menu-item" ><!--begin:Menu link-->
+                                                        <a class="menu-link"  href="<?=site_url('Employee/request')?>"  >
+                                                            <span  class="menu-icon" ><i class="fa-solid fa-pen-to-square"></i></span>
+                                                            <span  class="menu-title" >All Request</span>
+                                                        </a><!--end:Menu link-->
+                                                    </div><!--end:Menu item-->
+                                                </div>
                                             </div><!--end:Menu sub-->
                                         </div><!--end:Menu item-->
                                     </div>
@@ -428,9 +451,18 @@
 					<!--begin::Filter-->
 				<div class="mb-4">
                     <a href="<?=site_url('Employee/write')?>" class="btn btn-sm d-flex flex-stack border border-300 bg-gray-100i btn-color-gray-700 btn-active-color-gray-900 px-3 mb-2">               
-                        <span class="d-flex align-item-center"><i class="fa-solid fa-clipboard-question"></i>&nbsp;&nbsp;&nbsp;New Concern</span>         
+                        <span class="d-flex align-item-center"><i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;&nbsp;New Concern</span>         
                     </a> 
 					<!--begin::Items-->
+					<div class="m-0">
+                        <!--begin::Item-->
+						<a href="<?=site_url('Employee/concerns')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-scale-balanced"></i>&nbsp;All Concerns          
+						</a>  
+						<!--end::Item-->
+					</div>
+					<!--end::Items--> 
+                    <!--begin::Items-->
 					<div class="m-0">
                         <!--begin::Item-->
 						<a href="<?=site_url('Employee/memo')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
@@ -468,7 +500,21 @@
                     </div><!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" ><!--begin:Menu link-->
-                        
+                        <span class="menu-title">Birthdays</span>
+                        <?php if(empty($celebrants)){ ?>
+                            <div class="justify-content-between mb-4">
+                                <div class="fw-bold"><small>No Birthday Celebrant(s)</small></div>
+                            </div>
+                        <?php }else{ ?>
+                        <?php foreach($celebrants as $row): ?>
+                            <div class="justify-content-between mb-4">
+                                <div class="fw-bold"><small><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></small></div>
+                                <div class="fw-semibold"><small><?php echo $row->BirthDate ?></small></div>
+                            </div>
+                            <div class="separator separator-dashed"></div>
+                            <br/>
+                        <?php endforeach; ?> 
+                        <?php } ?>
                     </div><!--end:Menu item-->
                 </div>
 				<!--end::Menu-->
@@ -489,14 +535,14 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                Welcome
+                                Gabales Engineering Services
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
                                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="<?=site_url('HR/overview')?>" class="text-muted text-hover-primary">
+                                        <a href="<?=site_url('Employee/overview')?>" class="text-muted text-hover-primary">
                                         E201                           
                                         </a>
                                     </li>
@@ -508,7 +554,7 @@
                                     <!--end::Item-->                 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Welcome                                        
+                                        Employee Portal                                        
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
@@ -525,14 +571,11 @@
                     <div id="kt_app_content_container" class="app-container container-fluid ">
                         <div class="d-flex flex-column flex-lg-row gap-3 w-100">
                             <div class="col-lg-9">
-                                <div class="card card-flush py-4">
-                                    <div class="card-header">
-                                        <div class="card-title"><i class="fa-solid fa-user-tie"></i>&nbsp;Profile</div>
-                                    </div> 
-                                    <div class="card-body pt-0">
+                                <div class="card mb-5 mb-xl-10">
+                                    <div class="card-body pt-9 pb-0">
                                         <?php if($employee):?>
-                                        <div class="d-flex flex-column flex-lg-row gap-3 w-100">
-                                            <div class="col-lg-3">
+                                        <div class="d-flex flex-wrap flex-sm-nowrap">
+                                            <div class="me-7 mb-4">
                                                 <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
                                                     <!--begin::Preview existing avatar-->
                                                     <div class="image-input-wrapper w-150px h-150px" style="background-image: url('/Profile/<?php echo $employee['Photo'] ?>')"></div>
@@ -545,26 +588,45 @@
                                                 </div>
                                                 <!--end::Image input-->
                                             </div>
-                                            <div class="col-lg-9">
-                                                
+                                            <div class="flex-grow-1">
                                                 <div class="form w-100">
                                                     <div class="fv-row mb-4">
-                                                        <span class="menu-title">Complete Name</span>
-                                                        <h3><?php echo session()->get('fullname') ?></h3>
+                                                        <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1"><?php echo session()->get('fullname') ?></a>
                                                     </div>
                                                     <div class="fv-row mb-4">
-                                                        <div class="d-flex flex-wrap gap-5">
-                                                            <div class="fv-row w-100 flex-md-root">
-                                                                <span class="menu-title">Designation</span>
-                                                                <h3><?php echo session()->get('designation') ?></h3>
-                                                            </div>
-                                                            <div class="fv-row w-100 flex-md-root">
-                                                                <span class="menu-title">Employee ID</span>
-                                                                <h3><?php echo $employee['CompanyID'] ?></h3>
-                                                            </div>
-                                                            <div class="fv-row w-100 flex-md-root">
-                                                                <span class="menu-title">Date Hired</span>
-                                                                <h3><?php echo $employee['DateHired'] ?></h3>
+                                                        <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+                                                            <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
+                                                                <i class="fa-solid fa-briefcase"></i>&nbsp;<?php echo session()->get('designation') ?>
+                                                            </a>
+                                                            <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
+                                                                <i class="fa-solid fa-square-phone"></i>&nbsp;<?php echo $employee['ContactNo'] ?>
+                                                            </a>
+                                                            <a href="mailto:<?php echo $employee['EmailAddress'] ?>" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
+                                                                <i class="fa-solid fa-envelope"></i>&nbsp;<?php echo $employee['EmailAddress'] ?>
+                                                            </a>
+                                                        </div>
+                                                        <div class="d-flex flex-wrap flex-stack">
+                                                            <div class="d-flex flex-column flex-grow-1 pe-8">
+                                                                <div class="d-flex flex-wrap">
+                                                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div class="fs-2 fw-bold">0</div>
+                                                                        </div>
+                                                                        <div class="fw-semibold fs-6 text-gray-500">Concerns</div>
+                                                                    </div>
+                                                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div class="fs-2 fw-bold">0</div>
+                                                                        </div>
+                                                                        <div class="fw-semibold fs-6 text-gray-500">Request</div>
+                                                                    </div>
+                                                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div class="fs-2 fw-bold">0</div>
+                                                                        </div>
+                                                                        <div class="fw-semibold fs-6 text-gray-500">Login Session</div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -608,7 +670,7 @@
 <!--end::App-->		
 		<!--begin::Scrolltop-->
 		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-			<i class="ki-outline ki-arrow-up"></i>
+            <i class="fa-solid fa-arrow-up"></i>
 		</div>
 		<!--end::Scrolltop-->
 		<!--begin::Global Javascript Bundle(mandatory for all pages)-->

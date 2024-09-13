@@ -26,13 +26,64 @@ class Employee extends BaseController
         $builder->select('File,Subject,Date');
         $builder->orderby('memoID','DESC')->limit(3);
         $memo = $builder->get()->getResult();
-        $data = ['memo'=>$memo,'employee'=>$employee];
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+
+        $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants];
         return view('Employee/index',$data);
+    }
+
+    public function memo()
+    {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants];
+        return view('Employee/memo',$data);
+    }
+
+    public function writeConcern()
+    {
+        return view('Employee/create');
+    }
+
+    public function concerns()
+    {
+        return view('Employee/concerns');
     }
 
     public function account()
     {
-        return view('Employee/account');
+        $employeeModel = new \App\Models\employeeModel();
+        $employee = $employeeModel->WHERE('employeeID',session()->get('employeeUser'))->first();
+        //memo
+        $builder = $this->db->table('tblmemo');
+        $builder->select('File,Subject,Date');
+        $builder->orderby('memoID','DESC')->limit(3);
+        $memo = $builder->get()->getResult();
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //history
+        $workHistoryModel = new \App\Models\workHistoryModel();
+        $work = $workHistoryModel->WHERE('employeeID',session()->get('employeeUser'))->findAll();
+
+        $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,'work'=>$work];
+        return view('Employee/account',$data);
     }
 
 
