@@ -143,6 +143,12 @@
                                                             <span  class="menu-title" >All Request</span>
                                                         </a><!--end:Menu link-->
                                                     </div><!--end:Menu item-->
+                                                    <div  class="menu-item" ><!--begin:Menu link-->
+                                                        <a class="menu-link"  href="<?=site_url('Employee/evaluate')?>"  >
+                                                            <span  class="menu-icon" ><i class="fa-solid fa-pen-to-square"></i></span>
+                                                            <span  class="menu-title" >Take Evaluation</span>
+                                                        </a><!--end:Menu link-->
+                                                    </div><!--end:Menu item-->
                                                 </div>
                                             </div><!--end:Menu sub-->
                                         </div><!--end:Menu item-->
@@ -571,7 +577,7 @@
                     <div id="kt_app_content_container" class="app-container container-fluid ">
                         <div class="d-flex flex-column flex-lg-row gap-3 w-100">
                             <div class="col-lg-9">
-                                <div class="card mb-5 mb-xl-10">
+                                <div class="card mb-4 mb-xl-10">
                                     <div class="card-body pt-9 pb-0">
                                         <?php if($employee):?>
                                         <div class="d-flex flex-wrap flex-sm-nowrap">
@@ -624,6 +630,12 @@
                                                                         <div class="d-flex align-items-center">
                                                                             <div class="fs-2 fw-bold">0</div>
                                                                         </div>
+                                                                        <div class="fw-semibold fs-6 text-gray-500">Performance</div>
+                                                                    </div>
+                                                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div class="fs-2 fw-bold">0</div>
+                                                                        </div>
                                                                         <div class="fw-semibold fs-6 text-gray-500">Login Session</div>
                                                                     </div>
                                                                 </div>
@@ -635,6 +647,28 @@
                                         </div>
                                         <?php endif; ?>
                                     </div> 
+                                </div>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <div class="fv-row w-100 flex-md-root">
+                                        <div class="card card-flush py-4">
+                                            <div class="card-header">
+                                                <div class="card-title"><i class="fa-solid fa-chart-simple"></i>&nbsp;Previous</div>
+                                            </div>
+                                            <div class="card-body pt-0">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fv-row w-100 flex-md-root">
+                                        <div class="card card-flush py-4">
+                                            <div class="card-header">
+                                                <div class="card-title"><i class="fa-solid fa-chart-simple"></i>&nbsp;Current</div>
+                                            </div>
+                                            <div class="card-body pt-0">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-3">

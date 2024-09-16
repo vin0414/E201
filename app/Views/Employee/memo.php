@@ -143,6 +143,12 @@
                                                             <span  class="menu-title" >All Request</span>
                                                         </a><!--end:Menu link-->
                                                     </div><!--end:Menu item-->
+                                                    <div  class="menu-item" ><!--begin:Menu link-->
+                                                        <a class="menu-link"  href="<?=site_url('Employee/evaluate')?>"  >
+                                                            <span  class="menu-icon" ><i class="fa-solid fa-pen-to-square"></i></span>
+                                                            <span  class="menu-title" >Take Evaluation</span>
+                                                        </a><!--end:Menu link-->
+                                                    </div><!--end:Menu item-->
                                                 </div>
                                             </div><!--end:Menu sub-->
                                         </div><!--end:Menu item-->
@@ -569,7 +575,32 @@
                 <!--end::Toolbar-->  
                 <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-
+                        <form method="GET" class="form w-100" action="<?=base_url('search-memo')?>">
+                            <div class="fv-row mb-4">
+                                <input type="search" class="form-control" placeholder="" name="search"/>
+                            </div>
+                        </form>
+                        <div class="row g-6 g-xl-9">
+                        <?php foreach($list as $row): ?>
+                            <div class="col-lg-3">
+                                <div class="card card-flush py-4">
+                                    <div class="card-body">
+                                        <h6><?php echo $row['Subject'] ?></h6>
+                                        <p>
+                                            <small>
+                                            <?php echo date('d M, Y', strtotime($row['Date'])) ?> |
+                                            <?php echo $row['To'] ?>
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                        </div>
+                        <br/>
+                        <div style="float:right;">
+                        <?= $pager->makeLinks($page, $perPage, $total, 'custom_view') ?>
+                        </div>
                     </div>
                 </div> 
             </div>         

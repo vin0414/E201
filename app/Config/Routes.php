@@ -50,6 +50,7 @@ $routes->get('list-work','Home::listWork');
 $routes->get('fetch-data','Home::fetchData');
 $routes->post('update-data','Home::updateData');
 $routes->post('save-promotion','Home::savePromotion');
+$routes->post('change-pin','Employee::changePIN');
 //memo
 $routes->post('upload-file','Memo::uploadFile');
 $routes->post('move-to-archive','Memo::archive');

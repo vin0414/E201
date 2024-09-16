@@ -143,6 +143,12 @@
                                                             <span  class="menu-title" >All Request</span>
                                                         </a><!--end:Menu link-->
                                                     </div><!--end:Menu item-->
+                                                    <div  class="menu-item" ><!--begin:Menu link-->
+                                                        <a class="menu-link"  href="<?=site_url('Employee/evaluate')?>"  >
+                                                            <span  class="menu-icon" ><i class="fa-solid fa-pen-to-square"></i></span>
+                                                            <span  class="menu-title" >Take Evaluation</span>
+                                                        </a><!--end:Menu link-->
+                                                    </div><!--end:Menu item-->
                                                 </div>
                                             </div><!--end:Menu sub-->
                                         </div><!--end:Menu item-->
@@ -574,7 +580,7 @@
                             <div class="col-lg-9">
                                 <div class="card card-flush py-4">
                                     <div class="card-header">
-                                        <div class="card-title"><i class="fa-solid fa-user-tie"></i>&nbsp;Account Details</div>
+                                        <div class="card-title"><i class="fa-solid fa-user-gear"></i>&nbsp;Account Details</div>
                                     </div> 
                                     <div class="card-body pt-0">
                                         <div class="d-flex flex-column flex-lg-row gap-3 w-100">
@@ -673,7 +679,7 @@
                                 </div>
                                 <br/>
                                 <div class="d-flex flex-column flex-lg-row gap-3">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="card card-flush py-4">
                                             <div class="card-header">
                                                 <div class="card-title">Govt. Issues</div>
@@ -705,7 +711,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-9">
                                         <div class="card card-flush py-4" style="width:98.9%;">
                                             <div class="card-header">
                                                 <div class="card-title">Employment History</div>
@@ -742,19 +748,36 @@
                             <div class="col-lg-3">
                                 <div class="card card-flush py-4">
                                     <div class="card-header">
-                                        <div class="card-title"><i class="fa-solid fa-bullhorn"></i>&nbsp;Announcement/Memo</div>
+                                        <div class="card-title"><i class="fa-solid fa-user-lock"></i>&nbsp;Account Security</div>
                                     </div> 
                                     <div class="card-body pt-0">
-                                        <label>Recent(s)</label><a href="<?=site_url('Employee/memo')?>" class="ms-auto" style="float:right;">View All</a>
-                                        <?php foreach($memo as $row): ?>
-                                            <div class="justify-content-between mb-4">
-                                                <small class="fw-bold"><?php echo $row->Subject ?></small><br/>
-                                                <a href="<?=base_url('Memo')?>/<?php echo $row->File ?>" alt="<?php echo $row->File ?>" target="_BLANK"><small><?php echo substr($row->File,0,30) ?>...</small></a>
-                                                <div class="fw-semibold"><small><?php echo $row->Date ?></small></div>
+                                        <?php if(!empty(session()->getFlashdata('fail'))) : ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                <?= session()->getFlashdata('fail'); ?>
                                             </div>
-                                            <div class="separator separator-dashed"></div>
-                                            <br/>
-                                        <?php endforeach; ?> 
+                                        <?php endif; ?>
+                                        <?php if(!empty(session()->getFlashdata('success'))) : ?>
+                                            <div class="alert alert-primary" role="alert">
+                                                <?= session()->getFlashdata('success'); ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <form method="POST" class="form w-100" action="<?=base_url('change-pin')?>" id="frmSecurity">
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">Current PIN</span>
+                                                <input type="password" placeholder="PIN" name="current_pin" value="<?=set_value('current_pin')?>" minlength="4" maxlength="4" autocomplete="off" class="form-control bg-transparent" required/>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">New PIN</span>
+                                                <input type="password" placeholder="New PIN" name="new_pin" value="<?=set_value('new_pin')?>" minlength="4" maxlength="4" autocomplete="off" class="form-control bg-transparent" required/>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">Confirm PIN</span>
+                                                <input type="password" placeholder="Confirm PIN" name="confirm_pin" minlength="4" maxlength="4" autocomplete="off" class="form-control bg-transparent" required/>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Save Changes</button>
+                                            </div>
+                                        </form>
                                     </div> 
                                 </div>
                             </div>
