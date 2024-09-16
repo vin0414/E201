@@ -33,6 +33,11 @@
                 width: 0px;               /* width of vertical scrollbar */
                 border: 1px solid #d5d5d5;
             }  
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                }
         </style>
     </head>
     <body  id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-header-stacked="true" data-kt-app-header-primary-enabled="true" data-kt-app-header-secondary-enabled="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true"  class="app-default" >
@@ -577,25 +582,34 @@
                     <div id="kt_app_content_container" class="app-container container-fluid ">
                         <form method="GET" class="form w-100" action="<?=base_url('search-memo')?>">
                             <div class="fv-row mb-4">
-                                <input type="search" class="form-control" placeholder="" name="search"/>
+                                <input type="text" class="form-control" value="<?php if(empty($_GET['search'])){echo "";}else{ echo $_GET['search'];} ?>" placeholder="Search" name="search"/>
                             </div>
                         </form>
                         <div class="row g-6 g-xl-9">
+                        <?php if(empty($list))
+                        { ?>
+                        <div class="col-lg-12">No Result found</div>
+                        <?php }else{ ?>
                         <?php foreach($list as $row): ?>
                             <div class="col-lg-3">
-                                <div class="card card-flush py-4">
+                                <div class="card card-flush py-4 border border-gray-300 border-dashed">
                                     <div class="card-body">
-                                        <h6><?php echo $row['Subject'] ?></h6>
+                                        <h6><?php echo substr($row['Subject'],0,30) ?>...</h6>
                                         <p>
                                             <small>
                                             <?php echo date('d M, Y', strtotime($row['Date'])) ?> |
                                             <?php echo $row['To'] ?>
                                             </small>
+                                            <br/>
+                                            <a href="<?=base_url('Memo/')?><?php echo $row['File'] ?>">
+                                            <img src="<?=base_url('assets/img/pdf-icon.png')?>"  class="center" width="150px;"/>
+                                            </a>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
+                        <?php } ?>
                         </div>
                         <br/>
                         <div style="float:right;">

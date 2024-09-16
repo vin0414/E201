@@ -43,8 +43,30 @@ class Employee extends BaseController
         $memoModel = new \App\Models\memoModel();
         $page = (int) ($this->request->getGet('page') ?? 1);
         $perpage = 8;
-        $total = $memoModel->WHERE('Status',1)->countAll();
+        $total = $memoModel->countAll();
         $list = $memoModel->WHERE('Status',1)->paginate($perpage);
+        $pager = $memoModel->WHERE('Status',1)->pager;
+
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants,'page'=>$page,'perPage'=>$perpage,'total'=>$total,'list'=>$list,'pager'=>$pager];
+        return view('Employee/memo',$data);
+    }
+
+    public function searchMemo()
+    {
+        $memoModel = new \App\Models\memoModel();
+        $val = "%".$this->request->getGet('search')."%";
+        $page = (int) ($this->request->getGet('page') ?? 1);
+        $perpage = 8;
+        $total = $memoModel->countAll();
+        $list = $memoModel->WHERE('Status',1)->LIKE('Subject',$val)->paginate($perpage);
         $pager = $memoModel->WHERE('Status',1)->pager;
 
         //celebrants

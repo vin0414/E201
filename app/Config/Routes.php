@@ -51,6 +51,7 @@ $routes->get('fetch-data','Home::fetchData');
 $routes->post('update-data','Home::updateData');
 $routes->post('save-promotion','Home::savePromotion');
 $routes->post('change-pin','Employee::changePIN');
+$routes->get('search-memo','Employee::searchMemo');
 //memo
 $routes->post('upload-file','Memo::uploadFile');
 $routes->post('move-to-archive','Memo::archive');
