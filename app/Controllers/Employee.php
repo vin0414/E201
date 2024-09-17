@@ -21,6 +21,11 @@ class Employee extends BaseController
     {
         $employeeModel = new \App\Models\employeeModel();
         $employee = $employeeModel->WHERE('employeeID',session()->get('employeeUser'))->first();
+        //concern
+        $builder = $this->db->table('tblemployee_concern');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('employeeID',session()->get('employeeUser'));
+        $concern = $builder->get()->getResult();
         //memo
         $builder = $this->db->table('tblmemo');
         $builder->select('File,Subject,Date');
@@ -34,7 +39,7 @@ class Employee extends BaseController
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
 
-        $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants];
+        $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,'concern'=>$concern];
         return view('Employee/index',$data);
     }
 
@@ -83,6 +88,8 @@ class Employee extends BaseController
 
     public function writeConcern()
     {
+        $concernModel = new \App\Models\concernModel();
+        $concern = $concernModel->findAll();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -91,8 +98,32 @@ class Employee extends BaseController
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,];
+        $data = ['celebrants'=>$celebrants,'concern'=>$concern];
         return view('Employee/create',$data);
+    }
+
+    public function createConcern()
+    {
+        $employeeConcernModel = new \App\Models\employeeConcernModel();
+        //data
+        $title = $this->request->getPost('title');
+        $details = $this->request->getPost('details');
+        $date = date('Y-m-d');
+        //validate
+        $validation = $this->validate([
+            'title'=>'required',
+            'details'=>'required'
+        ]);
+        if(!$validation)
+        {
+            echo "Invalid! Please fill in the form to continue";
+        }
+        else
+        {
+            $values = ['Date'=>$date,'concernID'=>$title,'Details'=>$details,'employeeID'=>session()->get('employeeUser'),'Status'=>0];
+            $employeeConcernModel->save($values);
+            echo "success";
+        }
     }
 
     public function concerns()
@@ -104,23 +135,15 @@ class Employee extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+        //concerns
+        $builder = $this->db->table('tblemployee_concern  a');
+        $builder->select('a.Date,b.Title,a.Details,a.Status');
+        $builder->join('tblconcern b','b.concernID=a.concernID','LEFT');
+        $builder->WHERE('a.employeeID',session()->get('employeeUser'));
+        $list = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,];
+        $data = ['celebrants'=>$celebrants,'list'=>$list];
         return view('Employee/concerns',$data);
-    }
-
-    public function request()
-    {
-        //celebrants
-        $month = date('m');
-        $builder = $this->db->table('tblemployee');
-        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
-        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
-        $builder->orderby('BirthDate','ASC');
-        $celebrants = $builder->get()->getResult();
-
-        $data = ['celebrants'=>$celebrants,];
-        return view('Employee/request',$data);
     }
 
     public function account()

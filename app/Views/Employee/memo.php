@@ -143,12 +143,6 @@
                                                         </a><!--end:Menu link-->
                                                     </div><!--end:Menu item-->
                                                     <div  class="menu-item" ><!--begin:Menu link-->
-                                                        <a class="menu-link"  href="<?=site_url('Employee/request')?>"  >
-                                                            <span  class="menu-icon" ><i class="fa-solid fa-pen-to-square"></i></span>
-                                                            <span  class="menu-title" >All Request</span>
-                                                        </a><!--end:Menu link-->
-                                                    </div><!--end:Menu item-->
-                                                    <div  class="menu-item" ><!--begin:Menu link-->
                                                         <a class="menu-link"  href="<?=site_url('Employee/evaluate')?>"  >
                                                             <span  class="menu-icon" ><i class="fa-solid fa-pen-to-square"></i></span>
                                                             <span  class="menu-title" >Take Evaluation</span>
@@ -600,9 +594,8 @@
                                             <?php echo date('d M, Y', strtotime($row['Date'])) ?> |
                                             <?php echo $row['To'] ?>
                                             </small>
-                                            <br/>
                                             <a href="<?=base_url('Memo/')?><?php echo $row['File'] ?>">
-                                            <img src="<?=base_url('assets/img/pdf-icon.png')?>"  class="center" width="150px;"/>
+                                            <img src="<?=base_url('assets/img/pdf-icon.png')?>" style="margin-top:20px;" class="center" width="150px;"/>
                                             </a>
                                         </p>
                                     </div>
@@ -612,7 +605,7 @@
                         <?php } ?>
                         </div>
                         <br/>
-                        <div style="float:right;">
+                        <div style="float:left;">
                         <?= $pager->makeLinks($page, $perPage, $total, 'custom_view') ?>
                         </div>
                     </div>

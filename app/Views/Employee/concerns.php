@@ -12,6 +12,7 @@
         <link href="<?=base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             /* Track */
@@ -33,6 +34,8 @@
                 width: 0px;               /* width of vertical scrollbar */
                 border: 1px solid #d5d5d5;
             }  
+            thead,th{background-color:#0096ff;}
+        </style>
         </style>
     </head>
     <body  id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-header-stacked="true" data-kt-app-header-primary-enabled="true" data-kt-app-header-secondary-enabled="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true"  class="app-default" >
@@ -135,12 +138,6 @@
                                                         <a class="menu-link"  href="<?=site_url('Employee/concerns')?>"  >
                                                             <span  class="menu-icon" ><i class="fa-solid fa-scale-balanced"></i></span>
                                                             <span  class="menu-title" >All Concerns</span>
-                                                        </a><!--end:Menu link-->
-                                                    </div><!--end:Menu item-->
-                                                    <div  class="menu-item" ><!--begin:Menu link-->
-                                                        <a class="menu-link"  href="<?=site_url('Employee/request')?>"  >
-                                                            <span  class="menu-icon" ><i class="fa-solid fa-pen-to-square"></i></span>
-                                                            <span  class="menu-title" >All Request</span>
                                                         </a><!--end:Menu link-->
                                                     </div><!--end:Menu item-->
                                                     <div  class="menu-item" ><!--begin:Menu link-->
@@ -367,7 +364,7 @@
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " ><!--begin:Menu link-->
-                                    <a class="menu-link"  href="<?=site_url('Employee/account')?>"><span  class="menu-title" >Account</span></a>
+                                    <a class="menu-link active"  href="<?=site_url('Employee/concerns')?>"><span  class="menu-title" >All Concerns</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -377,7 +374,7 @@
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " ><!--begin:Menu link-->
-                                    <a class="menu-link active"  href="<?=site_url('Employee/concerns')?>"><span  class="menu-title" >All Concerns</span></a>
+                                    <a class="menu-link"  href="<?=site_url('Employee/account')?>"><span  class="menu-title" >Account</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -575,7 +572,14 @@
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
-                            <!--end::Page title-->   
+                            <!--end::Page title--> 
+                            <!--begin::Actions-->
+                            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                <a href="<?=site_url('Employee/write')?>" class="btn btn-sm btn-flex btn-primary">
+                                    <i class="fa-solid fa-pen-to-square"></i>&nbsp;New Concern
+                                </a>          
+                            </div>
+                            <!--end::Actions-->  
                         </div>
                     <!--end::Toolbar wrapper-->        
                     </div>
@@ -584,7 +588,39 @@
                 <!--end::Toolbar-->  
                 <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-
+                        <div class="card card-flush py-4">
+                            <div class="card-header">
+                                <div class="card-title">Employee Concerns</div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="tblconcern">
+                                        <thead>
+                                            <th class="text-white w-275">Date</th>
+                                            <th class="text-white">Title</th>
+                                            <th class="text-white">Details</th>
+                                            <th class="text-white">Status</th>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach($list as $row): ?>
+                                            <tr>
+                                                <td><?php echo date('d M, Y', strtotime($row->Date)) ?></td>
+                                                <td><?php echo $row->Title ?></td>
+                                                <td><?php echo $row->Details ?></td>
+                                                <td>
+                                                    <?php 
+                                                    if($row->Status==0){ ?><span class="badge bg-warning text-white">PENDING</span><?php }
+                                                    else if($row->Status==1){?><span class="badge bg-primary text-white">RESOLVED</span><?php }
+                                                    else { ?><span class="badge bg-danger text-white">DENIED</span><?php }
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div> 
             </div>         
@@ -615,6 +651,11 @@
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
 	    <!--end::Javascript-->
+            <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+            <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
+            <script>
+                new DataTable('#tblconcern');
+            </script>
     </body>
     <!--end::Body-->
 </html>

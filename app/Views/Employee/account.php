@@ -138,12 +138,6 @@
                                                         </a><!--end:Menu link-->
                                                     </div><!--end:Menu item-->
                                                     <div  class="menu-item" ><!--begin:Menu link-->
-                                                        <a class="menu-link"  href="<?=site_url('Employee/request')?>"  >
-                                                            <span  class="menu-icon" ><i class="fa-solid fa-pen-to-square"></i></span>
-                                                            <span  class="menu-title" >All Request</span>
-                                                        </a><!--end:Menu link-->
-                                                    </div><!--end:Menu item-->
-                                                    <div  class="menu-item" ><!--begin:Menu link-->
                                                         <a class="menu-link"  href="<?=site_url('Employee/evaluate')?>"  >
                                                             <span  class="menu-icon" ><i class="fa-solid fa-pen-to-square"></i></span>
                                                             <span  class="menu-title" >Take Evaluation</span>

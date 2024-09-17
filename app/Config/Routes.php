@@ -52,6 +52,7 @@ $routes->post('update-data','Home::updateData');
 $routes->post('save-promotion','Home::savePromotion');
 $routes->post('change-pin','Employee::changePIN');
 $routes->get('search-memo','Employee::searchMemo');
+$routes->post('create','Employee::createConcern');
 //memo
 $routes->post('upload-file','Memo::uploadFile');
 $routes->post('move-to-archive','Memo::archive');
@@ -109,7 +110,6 @@ $routes->group('',['filter'=>'EmployeeAuthCheck'],function($routes)
     $routes->get('Employee/overview','Employee::overview');
     $routes->get('Employee/write','Employee::writeConcern');
     $routes->get('Employee/concerns','Employee::concerns');
-    $routes->get('Employee/request','Employee::request');
     $routes->get('Employee/memo','Employee::memo');
     $routes->get('Employee/account','Employee::account');
 });
