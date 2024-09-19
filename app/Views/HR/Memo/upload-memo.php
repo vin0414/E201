@@ -576,7 +576,23 @@
                             <div class="separator separator-dashed"></div>
                         </div><!--end:Menu content-->
                     </div><!--end:Menu item-->
-                    
+                    <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" ><!--begin:Menu link-->
+                    <span class="menu-title">Birthdays</span>
+                        <?php if(empty($celebrants)){ ?>
+                            <div class="justify-content-between mb-4">
+                                <div class="fw-bold"><small>No Birthday Celebrant(s)</small></div>
+                            </div>
+                        <?php }else{ ?>
+                        <?php foreach($celebrants as $row): ?>
+                            <div class="justify-content-between mb-4">
+                                <div class="fw-bold"><small><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></small></div>
+                                <div class="fw-semibold"><small><?php echo $row->BirthDate ?></small></div>
+                            </div>
+                            <div class="separator separator-dashed"></div>
+                            <br/>
+                        <?php endforeach; ?> 
+                        <?php } ?> 
+                    </div><!--end:Menu item-->
                 </div>
 				<!--end::Menu-->
 			</div>

@@ -17,6 +17,12 @@
         <style>
             thead,th{background-color:#0096ff;}
         </style>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+		<script type="text/javascript">
+			google.charts.load('visualization', "1", {
+				packages: ['corechart']
+			});
+		</script>
     </head>
     <body  id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-header-stacked="true" data-kt-app-header-primary-enabled="true" data-kt-app-header-secondary-enabled="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true"  class="app-default" >
     <script>
@@ -567,6 +573,23 @@
                             <div class="separator separator-dashed"></div>
                         </div><!--end:Menu content-->
                     </div><!--end:Menu item-->
+                    <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" ><!--begin:Menu link-->
+                    <span class="menu-title">Birthdays</span>
+                        <?php if(empty($celebrants)){ ?>
+                            <div class="justify-content-between mb-4">
+                                <div class="fw-bold"><small>No Birthday Celebrant(s)</small></div>
+                            </div>
+                        <?php }else{ ?>
+                        <?php foreach($celebrants as $row): ?>
+                            <div class="justify-content-between mb-4">
+                                <div class="fw-bold"><small><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></small></div>
+                                <div class="fw-semibold"><small><?php echo $row->BirthDate ?></small></div>
+                            </div>
+                            <div class="separator separator-dashed"></div>
+                            <br/>
+                        <?php endforeach; ?> 
+                        <?php } ?> 
+                    </div><!--end:Menu item-->
                 </div>
 				<!--end::Menu-->
 			</div>
@@ -652,6 +675,16 @@
                             <div class="fv-row w-100 flex-md-root">
                                 <div class="card card-flush py-4">
                                     <div class="card-header">
+                                        <div class="card-title">Chart of Concerns</div>
+                                    </div>
+                                    <div class="card-body pt-0" id="chartContainer" style="height:250px;">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fv-row w-100 flex-md-root">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
                                         <div class="card-title">For Regularization</div>
                                     </div>
                                     <div class="card-body pt-0" style="height:250px;overflow-y:auto;">
@@ -665,31 +698,6 @@
                                             <div class="fw-bold"><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></div>
                                             <div class="fw-semibold">
                                             <?php echo $row->Designation ?>
-                                            </div>
-                                        </div>
-                                        <div class="separator separator-dashed"></div>
-                                        <br/>
-                                    <?php endforeach; ?> 
-                                    <?php } ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="fv-row w-100 flex-md-root">
-                                <div class="card card-flush py-4">
-                                    <div class="card-header">
-                                        <div class="card-title">Birthday Celebrants</div>
-                                    </div>
-                                    <div class="card-body pt-0" style="height:250px;overflow-y:auto;">
-                                    <?php if(empty($celebrants)){ ?>
-                                        <div class="justify-content-between mb-4">
-                                            <div class="fw-bold">No Birthday Celebrant(s)</div>
-                                        </div>
-                                    <?php }else{ ?>
-                                    <?php foreach($celebrants as $row): ?>
-                                        <div class="justify-content-between mb-4">
-                                            <div class="fw-bold"><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></div>
-                                            <div class="fw-semibold">
-                                            <?php echo $row->BirthDate ?>
                                             </div>
                                         </div>
                                         <div class="separator separator-dashed"></div>
@@ -830,6 +838,27 @@
             new DataTable('#tblconcern');
         </script>
         <script>
+            google.charts.setOnLoadCallback(requestChart);
+            function requestChart() 
+			{
+				var data = google.visualization.arrayToDataTable([
+					["Title", "Total"],
+					<?php 
+					foreach ($query as $row){
+					echo "['".$row->Title."',".$row->total."],";
+					}
+					?>
+				]);
+
+				var options = {
+				title: '',
+				curveType: 'function',
+				legend: { position: 'bottom' },
+				};
+				/* Instantiate and draw the chart.*/
+				var chart = new google.visualization.PieChart(document.getElementById('chartContainer'));
+				chart.draw(data, options);
+			}
             $(document).on('click','.setup',function(){
                 $('#concernModal').modal('show');
             });

@@ -47,30 +47,63 @@ class Home extends BaseController
         $builder->select('COUNT(*)total');
         $builder->WHERE('Status<>',1);
         $inactive = $builder->get()->getRow();
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
 
-        $data = ['employee'=>$employee,'regular'=>$regular,'probationary'=>$newlyHired,'total'=>$total,'inactive'=>$inactive,'query'=>$query];
+        $data = ['employee'=>$employee,'regular'=>$regular,'probationary'=>$newlyHired,
+        'total'=>$total,'inactive'=>$inactive,'query'=>$query,'celebrants'=>$celebrants];
         return view('HR/overview',$data);
     }
 
     //employee
     public function Employee()
     {
+         //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //employee
         $employeeModel = new \App\Models\employeeModel();
         $employee = $employeeModel->findAll();
-        $data = ['employee'=>$employee];
+        $data = ['employee'=>$employee,'celebrants'=>$celebrants];
         return view('HR/employee-records',$data);
     }
 
     public function newEmployee()
     {
-        return view('HR/new-employee');
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants];
+        return view('HR/new-employee',$data);
     }
 
     public function editEmployee($id)
     {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //employee
         $employeeModel = new \App\Models\employeeModel();
         $employee = $employeeModel->WHERE('Token',$id)->first();
-        $data = ['employee'=>$employee];
+        $data = ['employee'=>$employee,'celebrants'=>$celebrants];
         return view('HR/edit-employee',$data);
     }
 
@@ -153,6 +186,14 @@ class Home extends BaseController
 
     public function viewEmployee($id)
     {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //employee
         $employeeModel = new \App\Models\employeeModel();
         $employee = $employeeModel->WHERE('Token',$id)->first();
         //movement
@@ -161,7 +202,7 @@ class Home extends BaseController
         $builder->WHERE('employeeID',$employee['employeeID'])
                 ->orderBy('movementID','DESC');
         $job = $builder->get()->getResult();
-        $data = ['employee'=>$employee,'job'=>$job];
+        $data = ['employee'=>$employee,'job'=>$job,'celebrants'=>$celebrants];
         return view('HR/view-employee',$data);
     }
 
@@ -445,43 +486,86 @@ class Home extends BaseController
     //memorandum
     public function Memo()
     {
+         //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //memo
         $memoModel = new \App\Models\memoModel();
         $memo = $memoModel->findAll();
-        $data = ['memo'=>$memo];
+        $data = ['memo'=>$memo,'celebrants'=>$celebrants];
         return view('HR/Memo/index',$data);
     }
 
     public function Upload()
     {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //memo
         $builder = $this->db->table('tblmemo');
         $builder->select('File,Subject,Date');
         $builder->orderby('memoID','DESC')->limit(3);
         $memo = $builder->get()->getResult();
-        $data = ['memo'=>$memo];
+
+        $data = ['memo'=>$memo,'celebrants'=>$celebrants];
         return view('HR/Memo/upload-memo',$data);
     }
 
     public function editMemo($id)
     {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //memo
         $memoModel = new \App\Models\memoModel();
         $memo = $memoModel->WHERE('memoID',$id)->first();
-        $data = ['memo'=>$memo];
+        $data = ['memo'=>$memo,'celebrants'=>$celebrants];
         return view('HR/Memo/edit-memo',$data);
     }
 
     //user accounts
     public function Users()
     {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //users
         $accountModel = new \App\Models\accountModel();
         $account = $accountModel->findAll();
         $total = $accountModel->countAll();
-        $data = ['account'=>$account,'total'=>$total];
+
+        $data = ['account'=>$account,'total'=>$total,'celebrants'=>$celebrants];
         return view('HR/all-users',$data);
     }
 
     public function newUser()
     {
-        return view('HR/new-user');
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants];
+        return view('HR/new-user',$data);
     }
 
     //function to save user data
@@ -525,9 +609,17 @@ class Home extends BaseController
 
     public function editUser($id)
     {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //account
         $accountModel = new \App\Models\accountModel();
         $account = $accountModel->WHERE('Token',$id)->first();
-        $data = ['account'=>$account];
+        $data = ['account'=>$account,'celebrants'=>$celebrants];
         return view('HR/edit-user',$data);
     }
 
@@ -610,23 +702,20 @@ class Home extends BaseController
     //performance
     public function Performance()
     {
-        return view('HR/performance');
+         //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants];
+        return view('HR/performance',$data);
     }
     //evaluation
     public function Evaluation()
     {
-        return view('HR/Evaluation/index');
-    }
-
-    //report
-    public function Report()
-    {
-        //for regularization
-        $builder = $this->db->table('tblemployee');
-        $builder->select('*');
-        $builder->WHERE('TIMESTAMPDIFF(MONTH, DateHired, Now())>=',5)
-                ->WHERE('EmployeeStatus','Probationary');
-        $employee = $builder->get()->getResult();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -634,6 +723,32 @@ class Home extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants];
+        return view('HR/Evaluation/index',$data);
+    }
+
+    //report
+    public function Report()
+    {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //chart
+        $sql = "SELECT a.Title,COUNT(b.ecID)total FROM 
+                tblconcern a LEFT JOIN (Select concernID, ecID,Status from tblemployee_concern) b ON a.concernID=b.concernID GROUP BY a.concernID";
+        $query = $this->db->query($sql);
+        $queries = $query->getResult();
+        //for regularization
+        $builder = $this->db->table('tblemployee');
+        $builder->select('*');
+        $builder->WHERE('TIMESTAMPDIFF(MONTH, DateHired, Now())>=',5)
+                ->WHERE('EmployeeStatus','Probationary');
+        $employee = $builder->get()->getResult();
         //concerns
         $sql = "SELECT a.Title,COUNT(b.ecID)total FROM 
                 tblconcern a LEFT JOIN (Select concernID, ecID,Status from tblemployee_concern) b ON a.concernID=b.concernID GROUP BY a.concernID";
@@ -646,7 +761,7 @@ class Home extends BaseController
         $query = $this->db->query($sql);
         $alldata = $query->getResult();
 
-        $data = ['regular'=>$employee,'celebrants'=>$celebrants,'concerns'=>$concern,'alldata'=>$alldata];
+        $data = ['regular'=>$employee,'concerns'=>$concern,'alldata'=>$alldata,'query'=>$queries,'celebrants'=>$celebrants];
         return view('HR/report',$data);
     }
 
@@ -686,6 +801,14 @@ class Home extends BaseController
     //logs
     public function systemLogs()
     {
+         //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //logs
         $model = new \App\Models\logModel();
         $builder = $this->db->table('tblsystem_logs a');
         $builder->select('a.Date,a.Activity,b.Fullname');
@@ -694,20 +817,37 @@ class Home extends BaseController
         $logs = $builder->get()->getResult();
         //page
         $total = $model->countAll();
-        $data = ['logs'=>$logs,'total'=>$total];
+        $data = ['logs'=>$logs,'total'=>$total,'celebrants'=>$celebrants];
         return view('HR/system-logs',$data);
     }
 
     public function Maintenance()
     {
-        return view('HR/system-config');
+         //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants];
+        return view('HR/system-config',$data);
     }
 
     public function Account()
     {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //account
         $accountModel = new \App\Models\accountModel();
         $account = $accountModel->WHERE('accountID',session()->get('loggedUser'))->first();
-        $data = ['account'=>$account];
+        $data = ['account'=>$account,'celebrants'=>$celebrants];
         return view('HR/account',$data);
     }
 
