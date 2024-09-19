@@ -640,6 +640,13 @@
                                 <!--end::Breadcrumb-->
                             </div>
                             <!--end::Page title-->   
+                            <!--begin::Actions-->
+                            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                <a href="<?=site_url('HR/employee')?>" class="btn btn-sm btn-flex btn-primary">
+                                    <i class="fa-solid fa-arrow-left"></i>&nbsp;Back
+                                </a>          
+                            </div>
+                            <!--end::Actions--> 
                         </div>
                     <!--end::Toolbar wrapper-->        
                     </div>

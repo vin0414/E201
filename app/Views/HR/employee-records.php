@@ -632,7 +632,7 @@
                             <!--end::Page title-->   
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <button type="button" class="btn btn-sm btn-flex btn-primary">
+                                <button type="button" class="btn btn-sm btn-flex btn-primary upload">
                                     <i class="fa-solid fa-upload"></i>&nbsp;Upload
                                 </button>          
                             </div>
@@ -775,6 +775,12 @@
         <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
         <script>
             new DataTable('#tblemployee');
+        </script>
+        <script>
+            $(document).on('click','.upload',function()
+            {
+                alert("Please contact IT Support to add this feature");
+            });
         </script>
 	<!--end::Javascript-->
     </body>
