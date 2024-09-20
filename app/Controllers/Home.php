@@ -723,9 +723,29 @@ class Home extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+        //load the evaluation
+        $evaluationModel = new \App\Models\evaluationModel();
+        $evaluation = $evaluationModel->findAll();
 
-        $data = ['celebrants'=>$celebrants];
+        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation];
         return view('HR/Evaluation/index',$data);
+    }
+
+    public function view($id)
+    {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //evaluation
+        $evaluationModel = new \App\Models\evaluationModel();
+        $evaluation = $evaluationModel->WHERE('evaluationID',$id)->first();
+
+        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation];
+        return view('HR/Evaluation/view-question',$data);
     }
 
     //report

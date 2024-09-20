@@ -61,6 +61,11 @@ $routes->post('update-memo','Memo::updateMemo');
 //concern
 $routes->post('resolve','Employee::resolve');
 $routes->post('denied','Employee::denied');
+//evaluation
+$routes->post('save-evaluation','Evaluation::save');
+$routes->get('view-evaluation','Evaluation::view');
+$routes->post('update-evaluation','Evaluation::update');
+$routes->post('save-question','Evaluation:saveQuestion');
 //maintenance
 $routes->post('restore','Restore::restoreFile');
 $routes->get('download','Download::downloadFile');
@@ -92,6 +97,7 @@ $routes->group('',['filter'=>'AuthCheck'],function($routes)
     $routes->get('HR/performance','Home::Performance');
     //Evaluation
     $routes->get('HR/Evaluation','Home::Evaluation');
+    $routes->get('HR/Evaluation/view/(:any)','Home::view/$1');
     //Report
     $routes->get('HR/report','Home::Report');
     //maintenance

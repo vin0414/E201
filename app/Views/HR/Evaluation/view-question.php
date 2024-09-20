@@ -2,7 +2,7 @@
 <html lang="en" >
     <!--begin::Head-->
     <head>
-        <title>E201 - Evaluation</title>
+        <title>E201 - <?=$evaluation['Title']?></title>
         <meta charset="utf-8"/>
         <meta name="description" content="employee information management system, e201"/>
         <meta name="keywords" content="e201, employee information, ems"/>
@@ -385,7 +385,7 @@
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " ><!--begin:Menu link-->
-                                    <a class="menu-link active"  href="<?=site_url('HR/Evaluation')?>"><span  class="menu-title" >Evaluation</span></a>
+                                    <a class="menu-link active"  href="javascript:void(0);"><span  class="menu-title" >Questions</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -613,7 +613,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                Evaluation
+                                <?=$evaluation['Title']?>
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -629,10 +629,22 @@
                                     <li class="breadcrumb-item">
                                         <span class="bullet bg-gray-500 w-5px h-2px"></span>
                                     </li>
-                                    <!--end::Item-->                 
+                                    <!--end::Item-->  
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Evaluation                                     
+                                        <a href="<?=site_url('HR/Evaluation')?>" class="text-muted text-hover-primary">
+                                        Evaluation                           
+                                        </a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->                
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                    <?=$evaluation['Title']?>                                    
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
@@ -642,8 +654,11 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 <a href="javascript:void(0);" class="btn btn-sm btn-flex btn-primary add">
-                                    <i class="fa-solid fa-circle-plus"></i>&nbsp;Add Event
-                                </a>          
+                                    <i class="fa-solid fa-circle-plus"></i>&nbsp;Add
+                                </a>   
+                                <a href="<?=site_url('HR/Evaluation')?>" class="btn btn-sm btn-flex btn-primary add">
+                                    <i class="fa-solid fa-arrow-left"></i>&nbsp;Back
+                                </a>        
                             </div>
                             <!--end::Actions-->   
                         </div>
@@ -658,65 +673,19 @@
                     <div id="kt_app_content_container" class="app-container container-fluid ">
                         <div class="card card-flush py-4">
                             <div class="card-header">
-                                <div class="card-title">Evaluation</div>
+                                <div class="card-title"><?=$evaluation['Title']?></div>
                             </div>
                             <div class="card-body pt-0">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped" id="tblexam">
+                            <div class="table-responsive">
+                                    <table class="table table-bordered table-striped" id="tblquestion">
                                         <thead>
                                             <th class="text-white">Date Created</th>
-                                            <th class="text-white">Title</th>
                                             <th class="text-white">Details</th>
                                             <th class="text-white">Status</th>
                                             <th class="text-white">Action</th>
                                         </thead>
                                         <tbody>
-                                        <?php foreach($evaluation as $row): ?>
-                                            <tr>
-                                                <td><?php echo date('d M, Y', strtotime($row['DateCreated'])) ?></td>
-                                                <td><?php echo $row['Title'] ?></td>
-                                                <td><?php echo $row['Details'] ?></td>
-                                                <td>
-                                                    <?php if($row['Status']==1){ ?>
-                                                    <span class="badge bg-primary text-white">Active</span>
-                                                    <?php }else{ ?>
-                                                    <span class="badge bg-danger text-white">Inactive</span>
-                                                    <?php } ?>
-                                                </td>
-                                                <td>
-                                                    <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                        Action&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
-                                                    </a>
-                                                    <!--begin::Menu-->
-                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" data-kt-menu="true">
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 edit" value="<?php echo $row['evaluationID'] ?>">
-                                                                Edit Event
-                                                            </button>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                        <?php if($row['Status']==1){ ?>
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <a href="<?=site_url('HR/Evaluation/view/')?><?php echo $row['evaluationID'] ?>" class="menu-link px-3">
-                                                                View Questions
-                                                            </a>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 addquestion" value="<?php echo $row['evaluationID'] ?>">
-                                                                Add Question
-                                                            </button>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                        <?php } ?>
-                                                    </div>
-                                                    <!--end::Menu-->
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
+                                       
                                         </tbody>
                                     </table>
                                 </div>
@@ -759,135 +728,8 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
 	    <!--end::Javascript-->
-        <!-- add event-->
-        <div class="modal fade" id="evaluationModal" tabindex="-1" aria-hidden="true">
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog">
-                <!--begin::Modal content-->
-                <div class="modal-content">
-                    <!--begin::Modal header-->
-                    <div class="modal-header pb-0 border-0">
-                        <h2 class="modal-title">New Evaluation</h2>
-                    </div>
-                    <!--begin::Modal header-->
-                    <!--begin::Modal body-->
-                    <div class="modal-body">
-                        <form method="POST" class="form w-100" id="frmEvaluation">
-                            <div class="fv-row mb-4">
-                                <spanc class="menu-title">Title</span>
-                                <input type="text" class="form-control" name="title"/>
-                            </div>
-                            <div class="fv-row mb-4">
-                                <spanc class="menu-title">Details</span>
-                                <textarea class="form-control" name="details"></textarea>
-                            </div>
-                            <div class="fv-row mb-4" id="btnConfirm">
-                                <button type="submit" class="btn btn-primary" id="Add"><i class="fa-solid fa-circle-plus"></i>&nbsp;Save Entry</button>
-                            </div>
-                            <div class="fv-row mb-4" id="btnLoad" style="display:none;">
-                                <button type="button" class="btn btn-primary">
-                                    Please wait...    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                </button>
-                            </div>
-                        </form> 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--edit event-->
-        <div class="modal fade" id="editEvaluationModal" tabindex="-1" aria-hidden="true">
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog">
-                <!--begin::Modal content-->
-                <div class="modal-content">
-                    <!--begin::Modal header-->
-                    <div class="modal-header pb-0 border-0">
-                        <h2 class="modal-title">Edit Evaluation</h2>
-                    </div>
-                    <!--begin::Modal header-->
-                    <!--begin::Modal body-->
-                    <div class="modal-body">
-                        <div id="output"></div> 
-                    </div>
-                </div>
-            </div>
-        </div>
         <script>
-            new DataTable('#tblexam');
-        </script>
-        <script>
-            $(document).on('click','.add',function()
-            {
-                $('#evaluationModal').modal('show');
-            });
-            $(document).on('click','.edit',function()
-            {
-                $.ajax({
-                    url:"<?=site_url('view-evaluation')?>",method:"GET",
-                    data:{value:$(this).val()},
-                    success:function(response)
-                    {
-                        $('#editEvaluationModal').modal('show');
-                        $('#output').html(response);
-                    }
-                });
-            });
-            //save
-            $('#frmEvaluation').on('submit',function(e){
-                e.preventDefault();
-                var data = $(this).serialize();
-                document.getElementById('btnConfirm').style="display:none";
-                document.getElementById('btnLoad').style="display:block";
-                $.ajax({
-                    url:"<?=site_url('save-evaluation')?>",method:"POST",
-                    data:data,success:function(response)
-                    {
-                        document.getElementById('btnConfirm').style="display:block";
-                        document.getElementById('btnLoad').style="display:none";
-                        if(response=="success")
-                        {
-                            alert("Great! Successfully added");
-                            location.reload();
-                        }
-                        else
-                        {
-                            Swal.fire({
-                                title: "Warning!",
-                                text: response,
-                                icon: "warning"
-                            });
-                        }
-                    }
-                });
-            });
-            //update
-            $(document).on('click','.save',function(e){
-                e.preventDefault();
-                var data = $('#editEvaluation').serialize();
-                document.getElementById('btnConfirmation').style="display:none";
-                document.getElementById('btnLoading').style="display:block";
-                $.ajax({
-                    url:"<?=site_url('update-evaluation')?>",method:"POST",
-                    data:data,success:function(response)
-                    {
-                        document.getElementById('btnConfirmation').style="display:block";
-                        document.getElementById('btnLoading').style="display:none";
-                        if(response=="success")
-                        {
-                            alert("Great! Successfully applied changes");
-                            location.reload();
-                        }
-                        else
-                        {
-                            Swal.fire({
-                                title: "Warning!",
-                                text: response,
-                                icon: "warning"
-                            });
-                        }
-                    }
-                });
-            });
+            new DataTable('#tblquestion');
         </script>
     </body>
     <!--end::Body-->
