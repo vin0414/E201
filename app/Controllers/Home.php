@@ -128,6 +128,7 @@ class Home extends BaseController
         $address = $this->request->getPost('address');
         $date_hired = $this->request->getPost('date_hired');
         $designation = $this->request->getPost('designation');
+        $department = $this->request->getPost('department');
         $salary_grade = $this->request->getPost('salary_grade');
         $employeeStatus = $this->request->getPost('employeeStatus');
         $fathersName = $this->request->getPost('fathersName');
@@ -150,7 +151,8 @@ class Home extends BaseController
         {
             $values =  ['CompanyID'=>$companyID,'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
             'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
-            'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
+            'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,
+            'Designation'=>$designation,'Department'=>$department,'EmployeeStatus'=>$employeeStatus,
             'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
             'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
             'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,
@@ -161,7 +163,8 @@ class Home extends BaseController
         {
             $values =  ['CompanyID'=>$companyID,'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
             'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
-            'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
+            'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,
+            'DateHired'=>$date_hired,'Designation'=>$designation,'Department'=>$department,'EmployeeStatus'=>$employeeStatus,
             'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
             'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
             'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,'Status'=>$status];
@@ -227,6 +230,7 @@ class Home extends BaseController
         $address = $this->request->getPost('address');
         $date_hired = $this->request->getPost('date_hired');
         $designation = $this->request->getPost('designation');
+        $department = $this->request->getPost('department');
         $salary_grade = $this->request->getPost('salary_grade');
         $employeeStatus = $this->request->getPost('employeeStatus');
         $fathersName = $this->request->getPost('fathersName');
@@ -255,7 +259,7 @@ class Home extends BaseController
             'date_hired'=>'required',
             'address'=>'required',
             'designation'=>'required',
-            'salary_grade'=>'required',
+            'department'=>'required',
             'employeeStatus'=>'required',
             'education'=>'required',
             'sss_number'=>'required|min_length[8]|max_length[16]',
@@ -282,7 +286,7 @@ class Home extends BaseController
             $values =  ['DateCreated'=>date('Y-m-d'),'CompanyID'=>$companyID,'PIN'=>$pin,'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
                         'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
                         'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,
-                        'Designation'=>$designation,'EmployeeStatus'=>$employeeStatus,
+                        'Designation'=>$designation,'Department'=>$department,'EmployeeStatus'=>$employeeStatus,
                         'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
                         'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
                         'Education'=>$education,'SSS'=>$sss,'HDMF'=>$hdmf,'PhilHealth'=>$ph,'TIN'=>$tin,

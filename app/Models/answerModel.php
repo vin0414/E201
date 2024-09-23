@@ -4,21 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class employeeModel extends Model
+class answerModel extends Model
 {
-    protected $table      = 'tblemployee';
-    protected $primaryKey = 'employeeID';
+    protected $table      = 'tblanswer';
+    protected $primaryKey = 'answerID';
 
     protected $useAutoIncrement  = true;
     protected $insertID = 0;
     protected $returnType = 'array';
     protected $userSoftDelete = false;
     protected $protectFields = true;
-    protected $allowedFields = ['DateCreated','CompanyID','PIN','Surname','Firstname','MI','Suffix',
-                                'BirthDate','MaritalStatus','PlaceOfBirth','Address','ContactNo',
-                                'EmailAddress','DateHired','Designation','Department','EmployeeStatus',
-                                'SalaryGrade','Guardian1','Guardian2','Spouse','SpouseDOB','Children',
-                                'Education','SSS','HDMF','PhilHealth','TIN','Photo','Status','Token'];
+    protected $allowedFields = ['employeeID','evaluationID','questionID','score','Date'];
 
     protected $validationRules = [];
     protected $validationMessages = [];

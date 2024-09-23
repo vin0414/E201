@@ -629,7 +629,30 @@
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
-                            <!--end::Page title-->   
+                            <!--end::Page title--> 
+                            <!--begin::Actions-->
+                            <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                <form method="GET" class="d-flex flex-column flex-lg-row gap-5 w-100" id="frmSearch">
+                                    <div class="col-lg-6">
+                                        <select class="btn-sm btn-flex form-select" data-control="select2" name="year">
+                                            <option value="">Choose</option>
+                                            <option>2030</option>
+                                            <option>2029</option>
+                                            <option>2028</option>
+                                            <option>2027</option>
+                                            <option>2026</option>
+                                            <option>2025</option>
+                                            <option>2024</option>
+                                        </select>
+                                    </div> 
+                                    <div class="col-lg-2">
+                                        <button type="submit" class="btn btn-flex btn-primary" id="search">
+                                            <i class="fa-solid fa-filter"></i>&nbsp;Filter
+                                        </button>
+                                    </div>
+                                </form>       
+                            </div>
+                            <!--end::Actions-->   
                         </div>
                     <!--end::Toolbar wrapper-->        
                     </div>
@@ -637,32 +660,71 @@
                 </div>
                 <!--end::Toolbar-->  
                 <!--begin::Content-->
-                <div id="kt_app_content" class="app-content  app-content-stretch " >
+                <div id="kt_app_content" class="app-content flex-column-fluid">
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-                            <!--begin::Products-->
-                            <div class="card card-flush">
-                                <!--begin::Card body-->
-                                <div class="card-body">
-                                <!--end::Card body-->
-                                </div>
-                            <!--end::Products-->        
+                        <div class="d-flex flex-column flex-lg-row gap-5 w-100">
+                            <div class="col-lg-3">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title">Overall</div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="text-primary" style="font-size:50px;text-align:center;">0%</div>
+                                    </div>
+                                </div>  
+                                <br/>
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title">Department Performance</div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="table-responsive" style="height:280px;overflow-y:auto;">
+                                            <table class="table table-bordered table-striped" id="tblemployee">
+                                                <thead>
+                                                    <th class="text-white">Department</th>
+                                                    <th class="text-white">Rate</th>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div> 
                             </div>
-                        <!--end::Content container-->
+                            <div class="col-lg-9">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title">Employee Performance</div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="table-responsive" style="height:500px;overflow-y:auto;">
+                                            <table class="table table-bordered table-striped" id="tblemployee">
+                                                <thead>
+                                                    <th class="text-white">Date</th>
+                                                    <th class="text-white">Company ID</th>
+                                                    <th class="text-white">Employee's Name</th>
+                                                    <th class="text-white">Result</th>
+                                                    <th class="text-white w-125px">More</th>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 <!--end::Content-->	
 
                 </div>
                 <!--end::Content wrapper-->                          
             </div>
-            <!--end:::Main-->
-
-            
+            <!--end:::Main--> 
         </div>
-        <!--end::Wrapper-->
-
-        
-            </div>
+        <!--end::Wrapper--> 
+    </div>
     <!--end::Page-->
 </div>
 <!--end::App-->		

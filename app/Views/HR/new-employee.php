@@ -779,6 +779,11 @@
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'companyID') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Department</span>
+                                                                <input type="text" name="department" id="department" value="<?=set_value('department')?>" class="form-control bg-transparent"/>   
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'department') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Contact Number</span>
                                                                 <input type="phone" name="contactNo" id="contactNo" value="<?=set_value('contactNo')?>" maxlength="11" minlength="11" name="phone" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'contactNo') : '' ?></span>

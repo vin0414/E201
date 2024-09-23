@@ -772,6 +772,10 @@
                                                                 <input type="text" name="CompanyID" id="CompanyID" value="<?php echo $employee['CompanyID'] ?>" class="form-control bg-transparent"/>    
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Department</span>
+                                                                <input type="text" name="department" id="department" value="<?php echo $employee['Department'] ?>" class="form-control bg-transparent"/>   
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Contact No</span>
                                                                 <input type="phone" name="contactNo" id="contactNo" value="<?php echo $employee['ContactNo'] ?>" class="form-control bg-transparent"/> 
                                                             </div>
