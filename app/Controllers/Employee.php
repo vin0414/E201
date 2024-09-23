@@ -146,6 +146,20 @@ class Employee extends BaseController
         return view('Employee/concerns',$data);
     }
 
+    public function evaluate()
+    {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants];
+        return view('Employee/evaluation',$data);
+    }
+
     public function account()
     {
         $employeeModel = new \App\Models\employeeModel();

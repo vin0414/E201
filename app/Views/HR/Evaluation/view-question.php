@@ -656,7 +656,7 @@
                                 <a href="javascript:void(0);" class="btn btn-sm btn-flex btn-primary add">
                                     <i class="fa-solid fa-circle-plus"></i>&nbsp;Add
                                 </a>   
-                                <a href="<?=site_url('HR/Evaluation')?>" class="btn btn-sm btn-flex btn-primary add">
+                                <a href="<?=site_url('HR/Evaluation')?>" class="btn btn-sm btn-flex btn-primary">
                                     <i class="fa-solid fa-arrow-left"></i>&nbsp;Back
                                 </a>        
                             </div>
@@ -679,13 +679,41 @@
                             <div class="table-responsive">
                                     <table class="table table-bordered table-striped" id="tblquestion">
                                         <thead>
-                                            <th class="text-white">Date Created</th>
+                                            <th class="text-white w-150px">Date Created</th>
                                             <th class="text-white">Details</th>
-                                            <th class="text-white">Status</th>
-                                            <th class="text-white">Action</th>
+                                            <th class="text-white w-125px">Status</th>
+                                            <th class="text-white w-125px">Action</th>
                                         </thead>
                                         <tbody>
-                                       
+                                        <?php foreach($question as $row): ?>
+                                            <tr>
+                                                <td><?php echo date('d M, Y', strtotime($row['DateCreated'])) ?></td>
+                                                <td><?php echo $row['Details'] ?></td>
+                                                <td>
+                                                    <?php if($row['Status']==1){ ?>
+                                                    <span class="badge bg-primary text-white">Active</span>
+                                                    <?php }else{ ?>
+                                                    <span class="badge bg-danger text-white">Inactive</span>
+                                                    <?php } ?>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                        Action&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
+                                                    </a>
+                                                    <!--begin::Menu-->
+                                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" data-kt-menu="true">
+                                                        <!--begin::Menu item-->
+                                                        <div class="menu-item px-3">
+                                                            <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 edit" value="<?php echo $row['questionID'] ?>">
+                                                                Edit Question
+                                                            </button>
+                                                        </div>
+                                                        <!--end::Menu item-->
+                                                    </div>
+                                                    <!--end::Menu-->  
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -728,8 +756,132 @@
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
 	    <!--end::Javascript-->
+        <!-- add event-->
+        <div class="modal fade" id="questionModal" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header pb-0 border-0">
+                        <h2 class="modal-title">New Question</h2>
+                    </div>
+                    <!--begin::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body">
+                        <form method="POST" class="form w-100" id="frmQuestion">
+                            <input type="hidden" name="evaluationID" value="<?=$evaluation['evaluationID']?>"/>
+                            <div class="fv-row mb-4">
+                                <spanc class="menu-title">Details</span>
+                                <textarea class="form-control" name="details"></textarea>
+                            </div>
+                            <div class="fv-row mb-4" id="btnConfirm">
+                                <button type="submit" class="btn btn-primary" id="Add"><i class="fa-solid fa-circle-plus"></i>&nbsp;Save Entry</button>
+                            </div>
+                            <div class="fv-row mb-4" id="btnLoad" style="display:none;">
+                                <button type="button" class="btn btn-primary">
+                                    Please wait...    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </button>
+                            </div>
+                        </form> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- edit event-->
+        <div class="modal fade" id="editQuestionModal" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header pb-0 border-0">
+                        <h2 class="modal-title">Edit Question</h2>
+                    </div>
+                    <!--begin::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body">
+                        <div id="output"></div> 
+                    </div>
+                </div>
+            </div>
+        </div>
         <script>
             new DataTable('#tblquestion');
+        </script>
+        <script>
+            $(document).on('click','.add',function()
+            {
+                $('#questionModal').modal('show');
+            });
+            $(document).on('click','.edit',function()
+            {
+                $.ajax({
+                    url:"<?=site_url('view-question')?>",method:"GET",
+                    data:{value:$(this).val()},
+                    success:function(response)
+                    {
+                        $('#output').html(response);
+                        $('#editQuestionModal').modal('show');
+                    }
+                });
+            });
+            //save
+            $('#frmQuestion').on('submit',function(e){
+                e.preventDefault();
+                var data = $(this).serialize();
+                document.getElementById('btnConfirm').style="display:none";
+                document.getElementById('btnLoad').style="display:block";
+                $.ajax({
+                    url:"<?=site_url('save-question')?>",method:"POST",
+                    data:data,success:function(response)
+                    {
+                        document.getElementById('btnConfirm').style="display:block";
+                        document.getElementById('btnLoad').style="display:none";
+                        if(response=="success")
+                        {
+                            alert("Great! Successfully added");
+                            location.reload();
+                        }
+                        else
+                        {
+                            Swal.fire({
+                                title: "Warning!",
+                                text: response,
+                                icon: "warning"
+                            });
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click','.save',function(e){
+                e.preventDefault();
+                var data = $('#editQuestion').serialize();
+                document.getElementById('btnConfirmation').style="display:none";
+                document.getElementById('btnLoading').style="display:block";
+                $.ajax({
+                    url:"<?=site_url('edit-question')?>",method:"POST",
+                    data:data,success:function(response)
+                    {
+                        document.getElementById('btnConfirmation').style="display:block";
+                        document.getElementById('btnLoading').style="display:none";
+                        if(response=="success")
+                        {
+                            alert("Great! Successfully applied changes");
+                            location.reload();
+                        }
+                        else
+                        {
+                            Swal.fire({
+                                title: "Warning!",
+                                text: response,
+                                icon: "warning"
+                            });
+                        }
+                    }
+                });
+            });
         </script>
     </body>
     <!--end::Body-->

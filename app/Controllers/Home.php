@@ -743,8 +743,11 @@ class Home extends BaseController
         //evaluation
         $evaluationModel = new \App\Models\evaluationModel();
         $evaluation = $evaluationModel->WHERE('evaluationID',$id)->first();
+        //questions
+        $questionModel = new \App\Models\questionModel();
+        $question = $questionModel->WHERE('evaluationID',$id)->findAll();
 
-        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation];
+        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation,'question'=>$question];
         return view('HR/Evaluation/view-question',$data);
     }
 

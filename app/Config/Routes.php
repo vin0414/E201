@@ -65,7 +65,9 @@ $routes->post('denied','Employee::denied');
 $routes->post('save-evaluation','Evaluation::save');
 $routes->get('view-evaluation','Evaluation::view');
 $routes->post('update-evaluation','Evaluation::update');
-$routes->post('save-question','Evaluation:saveQuestion');
+$routes->post('save-question','Evaluation::saveQuestion');
+$routes->get('view-question','Evaluation::viewQuestion');
+$routes->post('edit-question','Evaluation::editQuestion');
 //maintenance
 $routes->post('restore','Restore::restoreFile');
 $routes->get('download','Download::downloadFile');
@@ -117,6 +119,7 @@ $routes->group('',['filter'=>'EmployeeAuthCheck'],function($routes)
     $routes->get('Employee/write','Employee::writeConcern');
     $routes->get('Employee/concerns','Employee::concerns');
     $routes->get('Employee/memo','Employee::memo');
+    $routes->get('Employee/evaluate','Employee::evaluate');
     $routes->get('Employee/account','Employee::account');
 });
 

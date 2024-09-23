@@ -664,11 +664,11 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped" id="tblexam">
                                         <thead>
-                                            <th class="text-white">Date Created</th>
+                                            <th class="text-white w-150px">Date Created</th>
                                             <th class="text-white">Title</th>
                                             <th class="text-white">Details</th>
-                                            <th class="text-white">Status</th>
-                                            <th class="text-white">Action</th>
+                                            <th class="text-white w-125px">Status</th>
+                                            <th class="text-white w-125px">Action</th>
                                         </thead>
                                         <tbody>
                                         <?php foreach($evaluation as $row): ?>
@@ -702,13 +702,6 @@
                                                             <a href="<?=site_url('HR/Evaluation/view/')?><?php echo $row['evaluationID'] ?>" class="menu-link px-3">
                                                                 View Questions
                                                             </a>
-                                                        </div>
-                                                        <!--end::Menu item-->
-                                                        <!--begin::Menu item-->
-                                                        <div class="menu-item px-3">
-                                                            <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 addquestion" value="<?php echo $row['evaluationID'] ?>">
-                                                                Add Question
-                                                            </button>
                                                         </div>
                                                         <!--end::Menu item-->
                                                         <?php } ?>

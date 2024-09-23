@@ -363,7 +363,7 @@
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " ><!--begin:Menu link-->
-                                    <a class="menu-link"  href="<?=site_url('Employee/account')?>"><span  class="menu-title" >Account</span></a>
+                                    <a class="menu-link active"  href="<?=site_url('Employee/write')?>"><span  class="menu-title" >Write a Concern</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -373,7 +373,7 @@
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " ><!--begin:Menu link-->
-                                    <a class="menu-link active"  href="<?=site_url('Employee/write')?>"><span  class="menu-title" >Write a Concern</span></a>
+                                    <a class="menu-link"  href="<?=site_url('Employee/account')?>"><span  class="menu-title" >Account</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
