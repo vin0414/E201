@@ -632,9 +632,12 @@
                             <!--end::Page title-->   
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
+                                <button type="button" class="btn btn-sm btn-flex btn-primary uploadLeave">
+                                    <i class="fa-solid fa-person-walking-arrow-right"></i>&nbsp;Leave Credits
+                                </button>
                                 <button type="button" class="btn btn-sm btn-flex btn-primary upload">
-                                    <i class="fa-solid fa-upload"></i>&nbsp;Upload
-                                </button>          
+                                    <i class="fa-solid fa-upload"></i>&nbsp;Upload File
+                                </button>           
                             </div>
                             <!--end::Actions-->
                         </div>
@@ -722,6 +725,15 @@
                                                                     </a>
                                                                 </div>
                                                                 <!--end::Menu item-->
+                                                                <?php if($row['Status']==1){ ?>
+                                                                <!--begin::Menu item-->
+                                                                <div class="menu-item px-3">
+                                                                    <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 add" value="<?php echo $row['employeeID'] ?>">
+                                                                        Leave Credit
+                                                                    </button>
+                                                                </div>
+                                                                <!--end::Menu item-->
+                                                                <?php } ?>
                                                             </div>
                                                             <!--end::Menu-->
                                                         </td>
@@ -776,10 +788,74 @@
         <script>
             new DataTable('#tblemployee');
         </script>
+        <!--employee form-->
+        <div class="modal fade" id="employeeModal" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-lg">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header pb-0 border-0">
+                        <h2 class="modal-title">Active Employees</h2>
+                    </div>
+                    <!--begin::Modal header-->
+
+                    <!--begin::Modal body-->
+                    <div class="modal-body">
+                        <div class="table-responsive" id="output"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script>
             $(document).on('click','.upload',function()
             {
                 alert("Please contact IT Support to add this feature");
+            });
+            $(document).on('click','.uploadLeave',function()
+            {
+                //get the active employee
+                $.ajax({
+                    url:"<?=site_url('active-employee')?>",method:"GET",
+                    success:function(response)
+                    {
+                        $('#output').html(response);
+                        $('#employeeModal').modal('show');
+                    }
+                });
+            });
+
+            $(document).on('click','.addLeave',function(e){
+                e.preventDefault();
+                var data = $('#frmLeave').serialize();
+                $('#frmLeave').css("opacity",".5");
+                document.getElementById('btnAction').style="display:none";
+                document.getElementById('btnConfirmation').style="display:block";
+                $.ajax({
+                    url:"<?=site_url('load-credit')?>",method:"POST",
+                    data:data,success:function(response)
+                    {
+                        $('#frmLeave').css("opacity","");
+                        document.getElementById('btnAction').style="display:block";
+                        document.getElementById('btnConfirmation').style="display:none";
+                        if(response=="success")
+                        {
+                            Swal.fire({
+                                title: "Great!",
+                                text: "Successfully applied changes",
+                                icon: "success"
+                            });
+                        }
+                        else
+                        {
+                            Swal.fire({
+                                title: "Warning!",
+                                text: response,
+                                icon: "warning"
+                            });
+                        }
+                    }
+                });
             });
         </script>
 	<!--end::Javascript-->

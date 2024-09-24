@@ -78,6 +78,69 @@ class Home extends BaseController
         return view('HR/employee-records',$data);
     }
 
+    public function activeEmployee()
+    {
+        $employeeModel = new \App\Models\employeeModel();
+        $employee = $employeeModel->WHERE('Status',1)->findAll();
+        ?>
+        <form method="POST" class="form w-100" id="frmLeave">
+            <div class="fv-row mb-4">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <th class="text-white">#</th>
+                        <th class="text-white">Employee ID</th>
+                        <th class="text-white">Complete Name</th>
+                        <th class="text-white w-100px">Vacation</th>
+                        <th class="text-white w-100px">Sick</th>
+                    </thead>
+                    <tbody>
+                <?php
+                foreach($employee as $row):
+                ?>
+                <tr>
+                    <td><input type="checkbox" style="height:15px;width:15px;" value="<?php echo $row['employeeID'] ?>" name="employeeID[]" id="employeeID" checked/></td>
+                    <td><?php echo $row['CompanyID'] ?></td>
+                    <td><?php echo $row['Firstname'] ?> <?php echo $row['MI'] ?> <?php echo $row['Surname'] ?> <?php echo $row['Suffix'] ?></td>
+                    <td><input type='text' class='form-control' value="0" name='item_vacation[]'/></td>
+                    <td><input type='text' class='form-control' value="0" name='item_sick[]'/></td>
+                </tr>
+                <?php
+                endforeach;
+                ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="fv-row mb-4" id="btnAction">
+                <button type="submit" class="btn btn-primary addLeave"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Submit</button>
+            </div>
+            <div class="fv-row mb-4" id="btnConfirmation" style="display:none;">
+                <button type="button" class="btn btn-primary">
+                    Please wait...    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </button>
+            </div>
+        </form>
+        <?php
+    }
+
+    public function loadCredit()
+    {
+        date_default_timezone_set('Asia/Manila');
+        $leaveModel = new \App\Models\leaveModel();
+        //data
+        $employeeID = $this->request->getPost('employeeID');
+        $item_vl = $this->request->getPost('item_vacation');
+        $item_sl = $this->request->getPost('item_sick');
+        $year = date('Y');
+        //save
+        $count = count($employeeID);
+        for($i=0;$i<$count;$i++)
+        {
+            $values = ['employeeID'=>$employeeID[$i],'Vacation'=>$item_vl[$i],'Sick'=>$item_sl[$i],'Year'=>$year];
+            $leaveModel->save($values);
+        }
+        echo "success";
+    }
+
     public function newEmployee()
     {
         //celebrants

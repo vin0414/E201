@@ -43,6 +43,8 @@ $routes->post('modify-account','Home::modifyAccount');
 $routes->post('reset-password','Home::resetPassword');
 $routes->post('account-security','Home::accountSecurity');
 //employee functions
+$routes->post('load-credit','Home::loadCredit');
+$routes->get('active-employee','Home::activeEmployee');
 $routes->post('save-employee','Home::saveEmployee');
 $routes->post('update-employee','Home::updateEmployee');
 $routes->post('save-work','Home::saveWork');
