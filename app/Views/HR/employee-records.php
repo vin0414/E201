@@ -568,10 +568,10 @@
                         </div><!--end:Menu content-->
                     </div><!--end:Menu item-->
                     <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" ><!--begin:Menu link-->
-                    <span class="menu-title">Birthdays</span>
+                    <span class="menu-title">Birthdays Celebrant</span>
                         <?php if(empty($celebrants)){ ?>
                             <div class="justify-content-between mb-4">
-                                <div class="fw-bold"><small>No Birthday Celebrant(s)</small></div>
+                                <div class="fw-bold"><small>No Record(s)</small></div>
                             </div>
                         <?php }else{ ?>
                         <?php foreach($celebrants as $row): ?>
@@ -660,11 +660,11 @@
                                         <table class="table table-bordered table-striped" id="tblemployee">
                                             <thead>
                                                 <th class="text-white">Employee</th>
-                                                <th class="text-white">Date Hired</th>
-                                                <th class="text-white">Work Status</th>
+                                                <th class="text-white w-125px">Date Hired</th>
+                                                <th class="text-white w-125px">Work Status</th>
                                                 <th class="text-white">Marital Status</th>
                                                 <th class="text-white">Permanent Address</th>
-                                                <th class="text-white">Status</th>
+                                                <th class="text-white w-125px">Status</th>
                                                 <th class="text-white w-125px">More</th>
                                             </thead>
                                             <tbody>

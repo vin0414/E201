@@ -593,10 +593,10 @@
                     </div><!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" ><!--begin:Menu link-->
-                    <span class="menu-title">Birthdays</span>
+                    <span class="menu-title">Birthdays Celebrant</span>
                         <?php if(empty($celebrants)){ ?>
                             <div class="justify-content-between mb-4">
-                                <div class="fw-bold"><small>No Birthday Celebrant(s)</small></div>
+                                <div class="fw-bold"><small>No Record(s)</small></div>
                             </div>
                         <?php }else{ ?>
                         <?php foreach($celebrants as $row): ?>
@@ -723,7 +723,7 @@
                                     <div class="card-header">
                                         <div class="card-title">Employee Charts</div> 
                                     </div>
-                                    <div class="card-body" id="chartContainer" style="height:300px;">
+                                    <div class="card-body" id="chartContainer" style="height:380px;">
                                         
                                     </div>
                                 </div>

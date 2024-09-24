@@ -577,10 +577,10 @@
                         </div><!--end:Menu content-->
                     </div><!--end:Menu item-->
                     <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" ><!--begin:Menu link-->
-                    <span class="menu-title">Birthdays</span>
+                    <span class="menu-title">Birthdays Celebrant</span>
                         <?php if(empty($celebrants)){ ?>
                             <div class="justify-content-between mb-4">
-                                <div class="fw-bold"><small>No Birthday Celebrant(s)</small></div>
+                                <div class="fw-bold"><small>No Record(s)</small></div>
                             </div>
                         <?php }else{ ?>
                         <?php foreach($celebrants as $row): ?>
