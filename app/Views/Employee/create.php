@@ -598,8 +598,8 @@
                                         <form method="POST" class="form w-100" id="frmConcern">
                                             <div class="fv-row mb-4">
                                                 <span class="menu-title">Title</span>
-                                                <select class="form-select mb-2" data-control="select2" name="title">
-                                                    <option value="">Choose</option>
+                                                
+                                                    <option value<select class="form-select mb-2" data-control="select2" name="title">="">Choose</option>
                                                     <?php foreach($concern as $row): ?>
                                                         <option value="<?php echo $row['concernID'] ?>"><?php echo $row['Title'] ?></option>
                                                     <?php endforeach; ?>

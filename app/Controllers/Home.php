@@ -31,16 +31,17 @@ class Home extends BaseController
         //regular
         $builder = $this->db->table('tblemployee');
         $builder->select('COUNT(*)total');
-        $builder->WHERE('EmployeeStatus','Regular');
+        $builder->WHERE('EmployeeStatus','Regular')->WHERE('Status',1);
         $regular = $builder->get()->getRow();
         //probationary
         $builder = $this->db->table('tblemployee');
         $builder->select('COUNT(*)total');
-        $builder->WHERE('EmployeeStatus','Probationary');
+        $builder->WHERE('EmployeeStatus','Probationary')->WHERE('Status',1);
         $newlyHired = $builder->get()->getRow();
         //total
         $builder = $this->db->table('tblemployee');
         $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',1);
         $total = $builder->get()->getRow();
         //resigned
         $builder = $this->db->table('tblemployee');

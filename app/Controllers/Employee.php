@@ -155,8 +155,11 @@ class Employee extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+        //load the evaluation
+        $evaluationModel = new \App\Models\evaluationModel();
+        $evaluation = $evaluationModel->WHERE('Status',1)->findAll();
 
-        $data = ['celebrants'=>$celebrants];
+        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation];
         return view('Employee/evaluation',$data);
     }
 

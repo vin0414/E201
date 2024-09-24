@@ -580,7 +580,66 @@
                 <!--end::Toolbar-->  
                 <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-                        
+                        <div class="d-flex flex-column flex-lg-row gap-5 w-100">
+                            <div class="col-lg-3">
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title">Recent Result</div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="text-center" style="font-size:30px;">0%</div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title">Previous Result</div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="text-center" style="font-size:30px;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                            <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title">Online Employee Performance Evaluation</div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <form method="POST" class="form w-100" id="frmExam">
+                                            <div class="fv-row mb-4">
+                                                <div class="d-flex flex-wrap gap-5">
+                                                    <div class="fv-row w-100 flex-md-root">
+                                                        <span class="menu-title">Employee's Name</span>
+                                                        <input type="text" class="form-control" name="fullname" value="<?php echo session()->get('fullname') ?>"/>
+                                                    </div>
+                                                    <div class="fv-row w-100 flex-md-root">
+                                                        <span class="menu-title">Designation</span>
+                                                        <input type="text" class="form-control" name="designation" value="<?php echo session()->get('designation') ?>"/>
+                                                    </div>
+                                                    <div class="fv-row w-100 flex-md-root">
+                                                        <span class="menu-title">Date</span>
+                                                        <input type="date" class="form-control" name="date" id="date"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">Title of Evaluation</span>
+                                                <select class="form-select" data-control="select2" name="title">
+                                                    <option value="">Choose</option>
+                                                    <?php foreach($evaluation as $row): ?>
+                                                        <option value="<?php echo $row['evaluationID'] ?>"><?php echo $row['Title'] ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <button type="submit" class="btn btn-primary">Continue&nbsp;<i class="fa-solid fa-arrow-right"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div> 
             </div>         
@@ -610,6 +669,22 @@
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
+            <script>
+                $(document).ready(function(){today();})
+                function today()
+                {
+                    var date = new Date(); // Now
+                    date.setDate(date.getDate());
+                    $('#date').val(convert(date));
+                    $('#date').attr('min',convert(date));
+                }
+                function convert(str) {
+                    var date = new Date(str),
+                    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                    day = ("0" + date.getDate()).slice(-2);
+                    return [date.getFullYear(), mnth, day].join("-");
+                }
+            </script>
 	    <!--end::Javascript-->
     </body>
     <!--end::Body-->
