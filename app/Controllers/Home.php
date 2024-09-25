@@ -80,8 +80,11 @@ class Home extends BaseController
 
     public function activeEmployee()
     {
-        $employeeModel = new \App\Models\employeeModel();
-        $employee = $employeeModel->WHERE('Status',1)->findAll();
+        $builder = $this->db->table('tblemployee a');
+        $builder->select('a.*,IFNULL(b.Vacation,0)Vacation,IFNULL(b.Sick,0)Sick');
+        $builder->join('tblcredit b','b.employeeID=a.employeeID','LEFT');
+        $builder->WHERE('a.Status',1);
+        $employee = $builder->get()->getResult();
         ?>
         <form method="POST" class="form w-100" id="frmLeave">
             <div class="fv-row mb-4">
@@ -98,11 +101,11 @@ class Home extends BaseController
                 foreach($employee as $row):
                 ?>
                 <tr>
-                    <td><input type="checkbox" style="height:15px;width:15px;" value="<?php echo $row['employeeID'] ?>" name="employeeID[]" id="employeeID" checked/></td>
-                    <td><?php echo $row['CompanyID'] ?></td>
-                    <td><?php echo $row['Firstname'] ?> <?php echo $row['MI'] ?> <?php echo $row['Surname'] ?> <?php echo $row['Suffix'] ?></td>
-                    <td><input type='text' class='form-control' value="0" name='item_vacation[]'/></td>
-                    <td><input type='text' class='form-control' value="0" name='item_sick[]'/></td>
+                    <td><input type="checkbox" style="height:15px;width:15px;" value="<?php echo $row->employeeID ?>" name="employeeID[]" id="employeeID" checked/></td>
+                    <td><?php echo $row->CompanyID ?></td>
+                    <td><?php echo $row->Firstname ?> <?php echo $row->MI ?> <?php echo $row->Surname ?> <?php echo $row->Suffix ?></td>
+                    <td><input type='text' class='form-control' value="<?php echo $row->Vacation ?>" name='item_vacation[]'/></td>
+                    <td><input type='text' class='form-control' value="<?php echo $row->Sick ?>" name='item_sick[]'/></td>
                 </tr>
                 <?php
                 endforeach;
@@ -135,8 +138,17 @@ class Home extends BaseController
         $count = count($employeeID);
         for($i=0;$i<$count;$i++)
         {
-            $values = ['employeeID'=>$employeeID[$i],'Vacation'=>$item_vl[$i],'Sick'=>$item_sl[$i],'Year'=>$year];
-            $leaveModel->save($values);
+            $leave = $leaveModel->WHERE('employeeID',$employeeID[$i])->first();
+            if(empty($leave['employeeID']))
+            {
+                $values = ['employeeID'=>$employeeID[$i],'Vacation'=>$item_vl[$i],'Sick'=>$item_sl[$i],'Year'=>$year];
+                $leaveModel->save($values);
+            }
+            else
+            {
+                $values = ['employeeID'=>$employeeID[$i],'Vacation'=>$item_vl[$i],'Sick'=>$item_sl[$i],'Year'=>$year];
+                $leaveModel->update($leave['creditID'],$values);
+            }
         }
         echo "success";
     }
@@ -338,14 +350,7 @@ class Home extends BaseController
         else
         {
             //generate pin from tblrecords
-            $pin = "";
-            $builder = $this->db->table('tblemployee');
-            $builder->select('COUNT(*)+1 as total');
-            $result = $builder->get();
-            if($row = $result->getRow())
-            {
-                $pin = str_pad($row->total, 4, '0', STR_PAD_LEFT);
-            }
+            $pin = "1234";
             //save the employee records
             $values =  ['DateCreated'=>date('Y-m-d'),'CompanyID'=>$companyID,'PIN'=>$pin,'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
                         'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,

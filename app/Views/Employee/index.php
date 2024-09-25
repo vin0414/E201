@@ -625,7 +625,7 @@
                                                                     </div>
                                                                     <div class="border border-gray-300 border-dashed rounded min-w-150px py-3 px-4 me-6 mb-3">
                                                                         <div class="d-flex align-items-center">
-                                                                            <div class="fs-2 fw-bold">0</div>
+                                                                            <div class="fs-2 fw-bold"><?php foreach($credit as $row): ?><?php echo $row->total ?><?php endforeach; ?></div>
                                                                         </div>
                                                                         <div class="fw-semibold fs-6 text-gray-500">Leave Credits</div>
                                                                     </div>

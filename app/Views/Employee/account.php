@@ -719,6 +719,12 @@
                                                             <th class="text-white">Date</th>
                                                         </thead>
                                                         <tbody>
+                                                        <?php if(empty($work))
+                                                        {
+                                                            ?>
+                                                            <tr><td colspan="3"><center>No Record(s)</center></td></tr>
+                                                            <?php
+                                                        } else { ?>
                                                             <?php foreach($work as $row): ?>
                                                                 <tr style="font-size:12px;">
                                                                     <td>
@@ -731,6 +737,7 @@
                                                                     </td>
                                                                 </tr>
                                                             <?php endforeach; ?>
+                                                        <?php } ?>
                                                         </tbody>
                                                     </table>
                                                 </div>

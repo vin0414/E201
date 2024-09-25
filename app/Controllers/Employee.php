@@ -19,6 +19,8 @@ class Employee extends BaseController
 
     public function overview()
     {
+        date_default_timezone_set('Asia/Manila');
+        $year = date('Y');
         $employeeModel = new \App\Models\employeeModel();
         $employee = $employeeModel->WHERE('employeeID',session()->get('employeeUser'))->first();
         //concern
@@ -38,8 +40,13 @@ class Employee extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+        //leave credits
+        $builder = $this->db->table('tblcredit');
+        $builder->select('(Vacation + Sick)total');
+        $builder->WHERE('employeeID',session()->get('employeeUser'))->WHERE('Year',$year);
+        $credit = $builder->get()->getResult();
 
-        $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,'concern'=>$concern];
+        $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,'credit'=>$credit,'concern'=>$concern];
         return view('Employee/index',$data);
     }
 
