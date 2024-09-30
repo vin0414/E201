@@ -556,6 +556,35 @@ class Home extends BaseController
         }
     }
 
+    public function employeeLeave()
+    {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //memo
+        $memoModel = new \App\Models\memoModel();
+        $memo = $memoModel->findAll();
+        //approved leave
+        $builder = $this->db->table('tblemployee_leave a');
+        $builder->select('a.*,b.Surname,b.Firstname,b.MI');
+        $builder->join('tblemployee b','b.employeeID=a.employeeID','LEFT');
+        $builder->WHERE('a.Status',1)->groupBy('a.leaveID');
+        $leave = $builder->get()->getResult();
+        //ongoing leave
+        $builder = $this->db->table('tblemployee_leave a');
+        $builder->select('a.*,b.Surname,b.Firstname,b.MI');
+        $builder->join('tblemployee b','b.employeeID=a.employeeID','LEFT');
+        $builder->WHERE('a.Status<>',1)->groupBy('a.leaveID')->orderBy('a.leaveID','DESC')->limit(5);
+        $leaveOnProcess = $builder->get()->getResult();
+
+        $data = ['memo'=>$memo,'celebrants'=>$celebrants,'leave'=>$leave,'ongoing'=>$leaveOnProcess];
+        return view('HR/employee-leave',$data);
+    }
+
     //memorandum
     public function Memo()
     {

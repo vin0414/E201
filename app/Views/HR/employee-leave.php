@@ -2,7 +2,7 @@
 <html lang="en" >
     <!--begin::Head-->
     <head>
-        <title>E201 - Dashboard</title>
+        <title>E201 - Leave</title>
         <meta charset="utf-8"/>
         <meta name="description" content="employee information management system, e201"/>
         <meta name="keywords" content="e201, employee information, ems"/>
@@ -12,27 +12,10 @@
         <link href="<?=base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
-            /* Track */
-            ::-webkit-scrollbar-track {
-              background: #f1f1f1; 
-            }
-
-            /* Handle */
-            ::-webkit-scrollbar-thumb {
-              background: #888; 
-            }
-
-            /* Handle on hover */
-            ::-webkit-scrollbar-thumb:hover {
-              background: #555; 
-            }
-            ::-webkit-scrollbar {
-                height: 4px;              /* height of horizontal scrollbar ← You're missing this */
-                width: 0px;               /* width of vertical scrollbar */
-                border: 1px solid #d5d5d5;
-            }  
+            thead,th{background-color:#0096ff;}
         </style>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
 		<script type="text/javascript">
@@ -66,7 +49,7 @@
     </script>
 <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
     <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">     
-        <div id="kt_app_header" class="app-header">
+        <div id="kt_app_header" class="app-header ">
             <div class="app-header-primary">
                 <div class="app-container  container-fluid d-flex align-items-stretch justify-content-between " id="kt_app_header_primary_container">
                     <div class="d-flex flex-stack flex-grow-1">
@@ -377,12 +360,11 @@
                                 data-kt-menu="true"
                             >        
                                 <!--begin:Menu item-->
-                                <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item here show " >
+                                <div  class="menu-item " >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link active"  href="<?=site_url('HR/overview')?>"><span  class="menu-title" >Overview</span></a>
+                                    <a class="menu-link"  href="<?=site_url('HR/overview')?>"><span  class="menu-title" >Overview</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
                                 <div  class="menu-item" ><!--begin:Menu content-->
                                     <div  class="menu-content" ><div class="menu-separator"></div></div><!--end:Menu content-->
                                 </div><!--end:Menu item-->
@@ -399,6 +381,16 @@
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " ><!--begin:Menu link-->
+                                    <a class="menu-link active"  href="<?=site_url('HR/leave')?>"><span  class="menu-title" >Employee Leave</span></a>
+                                    <!--end:Menu link-->
+                                </div><!--end:Menu item-->
+                                <!--begin:Menu item-->
+                                <div  class="menu-item" ><!--begin:Menu content-->
+                                    <div  class="menu-content" ><div class="menu-separator"></div></div><!--end:Menu content-->
+                                </div>
+                                <!--end:Menu item-->
+                                <!--begin:Menu item-->
+                                <div  class="menu-item " ><!--begin:Menu link-->
                                     <a class="menu-link"  href="<?=site_url('HR/performance')?>"><span  class="menu-title" >Performance</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
@@ -412,7 +404,6 @@
                                     <a class="menu-link"  href="<?=site_url('HR/report')?>"><span  class="menu-title" >Report</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
-                                <!--begin:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item flex-grow-1" ></div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -485,7 +476,7 @@
                                         </span>
                                         <span class="menu-title" >Summary</span>
                                     </a><!--end:Menu link-->
-                                </div><!--end:Menu item-->		
+                                </div><!--end:Menu item-->	
                                 <!--begin:Menu item-->
                                 <div  class="menu-item" >
                                     <!--begin:Menu link-->
@@ -494,6 +485,16 @@
                                             <i class="fa-solid fa-print"></i>
                                         </span>
                                         <span class="menu-title" >Print</span>
+                                    </a><!--end:Menu link-->
+                                </div><!--end:Menu item-->
+                                <!--begin:Menu item-->
+                                <div  class="menu-item" >
+                                    <!--begin:Menu link-->
+                                    <a class="menu-link"  href="javascript:void(0);" onclick="exportf(this)">
+                                        <span  class="menu-icon" >
+                                            <i class="fa-solid fa-download"></i>
+                                        </span>
+                                        <span class="menu-title" >Export</span>
                                     </a><!--end:Menu link-->
                                 </div><!--end:Menu item-->
                             </div>
@@ -581,7 +582,6 @@
                             <div class="separator separator-dashed"></div>
                         </div><!--end:Menu content-->
                     </div><!--end:Menu item-->
-                    <!--begin:Menu item-->
                     <div  data-kt-menu-trigger="click"  class="menu-item menu-accordion show" ><!--begin:Menu link-->
                     <span class="menu-title">Birthdays Celebrant</span>
                         <?php if(empty($celebrants)){ ?>
@@ -605,9 +605,10 @@
 			<!--end::Sidebar wrapper-->    
 		</div>
 		<!--end::Sidebar-->                
-        <!--begin::Main-->
-        <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
-            <div class="d-flex flex-column flex-column-fluid">
+            <!--begin::Main-->
+            <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
+                <!--begin::Content wrapper-->
+                <div class="d-flex flex-column flex-column-fluid">
                 <!--begin::Toolbar-->
                 <div id="kt_app_toolbar" class="app-toolbar  pt-10 mb-0 ">                        
                     <!--begin::Toolbar container-->
@@ -618,7 +619,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                Overview
+                                Employee Leave
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -637,113 +638,114 @@
                                     <!--end::Item-->                 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Overview                                        
+                                        Employee Leave                                     
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
-                            <!--end::Page title-->   
+                            <!--end::Page title-->  
                         </div>
                     <!--end::Toolbar wrapper-->        
                     </div>
                     <!--end::Toolbar container-->
                 </div>
                 <!--end::Toolbar-->  
-                <div id="kt_app_content" class="app-content  flex-column-fluid " >
+                <!--begin::Content-->
+                <div id="kt_app_content" class="app-content  flex-column-fluid" >
+                    <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-                        <div class="d-flex flex-column flex-lg-row gap-3">
-                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-                                <div class="card card-flush py-4" style="background-color:#0096FF;">
-                                    <div class="card-body">
-                                        <div class="fs-3 fw-bold text-gray-900">
-                                        <i class="fa-solid fa-user-tie text-white"></i>&nbsp;Regular       
-                                         </div>
-                                        <p class="text-white fw-semibold fs-5 mt-1 mb-7">
-                                        Regular Employees      
-                                        </p>
-                                        <h1 class="text-white text-center"><?php if($regular): ?><?php echo $regular->total ?><?php endif; ?></h1>
-                                    </div>
-                                </div>   
-                            </div>
-                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-                                <div class="card card-flush py-4" style="background-color:#0096FF;">
-                                    <div class="card-body">
-                                        <div class="fs-3 fw-bold text-gray-900">
-                                        <i class="fa-solid fa-user-tie text-white"></i>&nbsp;Probationary       
-                                         </div>
-                                        <p class="text-white fw-semibold fs-5 mt-1 mb-7">
-                                        Newly Hired      
-                                        </p>
-                                        <h1 class="text-white text-center"><?php if($probationary): ?><?php echo $probationary->total ?><?php endif; ?></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-                                <div class="card card-flush py-4" style="background-color:#0096FF;">
-                                    <div class="card-body">
-                                        <div class="fs-3 fw-bold text-gray-900">
-                                        <i class="fa-solid fa-user-tie text-white"></i>&nbsp;Total Employee       
-                                         </div>
-                                        <p class="text-white fw-semibold fs-5 mt-1 mb-7">
-                                        Regular & Probationary      
-                                        </p>
-                                        <h1 class="text-white text-center"><?php if($total): ?><?php echo $total->total ?><?php endif; ?></h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-                                <div class="card card-flush py-4" style="background-color:#0096FF;">
-                                    <div class="card-body">
-                                        <div class="fs-3 fw-bold text-gray-900">
-                                        <i class="fa-solid fa-user-tie text-white"></i>&nbsp;Resigned       
-                                         </div>
-                                        <p class="text-white fw-semibold fs-5 mt-1 mb-7">
-                                        Resigned/Terminated/AWOL      
-                                        </p>
-                                        <h1 class="text-white text-center"><?php if($inactive): ?><?php echo $inactive->total ?><?php endif; ?></h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="d-flex flex-column flex-lg-row gap-3">
-                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+                        <div class="d-flex flex-column flex-lg-row gap-3 w-100">
+                            <div class="col-lg-9">
                                 <div class="card card-flush py-4">
                                     <div class="card-header">
-                                        <div class="card-title">Employee Charts</div> 
+                                        <div class="card-title">Approved Leave</div>
                                     </div>
-                                    <div class="card-body" id="chartContainer" style="height:380px;">
-                                        
+                                    <div class="card-body pt-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped" id="tbl_leave">
+                                                <thead>
+                                                    <th class="text-white w-125px">Date Filed</th>
+                                                    <th class="text-white">Employee's Name</th>
+                                                    <th class="text-white">Type of Leave</th>
+                                                    <th class="text-white w-50px">Days</th>
+                                                    <th class="text-white w-50px">More</th>
+                                                </thead>
+                                                <tbody>
+                                                <?php foreach($leave as $row): ?>
+                                                    <tr>
+                                                        <td><?php echo date('d M, Y', strtotime($row->Date)) ?></td>
+                                                        <td><?php echo $row->Surname ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></td>
+                                                        <td><?php echo $row->leave_type ?></td>
+                                                        <td><?php echo $row->Days ?></td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                                                Action&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
+                                                            </a>
+                                                            <!--begin::Menu-->
+                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                                                <!--begin::Menu item-->
+                                                                <div class="menu-item px-3">
+                                                                    <a href="" class="menu-link px-3">
+                                                                        View Details
+                                                                    </a>
+                                                                </div>
+                                                                <!--end::Menu item-->
+                                                                <!--begin::Menu item-->
+                                                                <div class="menu-item px-3">
+                                                                    <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 accept" value="<?php echo $row->leaveID ?>">
+                                                                        Accept
+                                                                    </button>
+                                                                </div>
+                                                                <!--end::Menu item-->
+                                                            </div>
+                                                            <!--end::Menu-->
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-400px mb-7">
+                            <div class="col-lg-3">
                                 <div class="card card-flush py-4">
-                                    <div class="card-body">
-                                        <div class="card-title"><h2>Recent Employees</h2></div>
-                                        <?php foreach($employee as $row): ?>
+                                    <div class="card-header">
+                                        <div class="card-title">On-Process Leave</div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                    <?php if(empty($ongoing)){ ?>
                                         <div class="justify-content-between mb-4">
-                                            <div class="fw-bold"><?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></div>
-                                            <div class="fw-semibold">
-                                            <?php echo $row->Designation ?>
-                                            </div>
+                                            <div class="fw-bold"><small>No Record(s)</small></div>
+                                        </div>
+                                    <?php }else{ ?>
+                                    <?php foreach($ongoing as $row): ?>
+                                        <div class="justify-content-between mb-4">
+                                            <div class="fw-bold"><small><?php echo $row->leave_type ?></small></div>
+                                            <div class="fw-semibold"><?php echo $row->Surname ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?></div>
+                                            <div class="fw-semibold"><small><?php echo $row->Days ?> Days</small></div>
                                         </div>
                                         <div class="separator separator-dashed"></div>
                                         <br/>
-                                        <?php endforeach; ?> 
+                                    <?php endforeach; ?> 
+                                    <?php } ?> 
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> 
-            </div>         
+                <!--end::Content-->	
+
+                </div>
+                <!--end::Content wrapper-->                          
+            </div>
+            <!--end:::Main-->
+
+            
         </div>
         <!--end::Wrapper-->
-
-        
-            </div>
+    </div>
     <!--end::Page-->
 </div>
 <!--end::App-->		
@@ -764,31 +766,24 @@
 		<!--begin::Custom Javascript(used for this page only)-->
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
-			<!--end::Custom Javascript-->
+		<!--end::Custom Javascript-->
+        <!--data tables -->
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
 	    <!--end::Javascript-->
         <script>
-            google.charts.setOnLoadCallback(requestChart);
-            function requestChart() 
-			{
-				var data = google.visualization.arrayToDataTable([
-					["Date", "Total"],
-					<?php 
-					foreach ($query as $row){
-					echo "['".$row->DateCreated."',".$row->total."],";
-					}
-					?>
-				]);
-
-				var options = {
-				title: '',
-				curveType: 'function',
-				legend: { position: 'bottom' },
-                backgroundColor: { fill:'transparent' }
-				};
-				/* Instantiate and draw the chart.*/
-				var chart = new google.visualization.ColumnChart(document.getElementById('chartContainer'));
-				chart.draw(data, options);
-			}
+            new DataTable('#tbl_leave');
+        </script>
+        <script>
+            function exportf(elem) 
+            {
+			var table = document.getElementById("tbl_leave");
+			var html = table.outerHTML;
+			var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+			elem.setAttribute("href", url);
+			elem.setAttribute("download","employee_leave.xls"); // Choose the file name
+			return false;
+            }
             function Print() 
             {
                 var printContents = document.getElementById("kt_app_content_container").innerHTML;

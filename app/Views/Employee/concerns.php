@@ -599,7 +599,7 @@
                                             <th class="text-white w-275">Date</th>
                                             <th class="text-white">Title</th>
                                             <th class="text-white">Details</th>
-                                            <th class="text-white">Status</th>
+                                            <th class="text-white w-100px">Status</th>
                                         </thead>
                                         <tbody>
                                         <?php foreach($list as $row): ?>

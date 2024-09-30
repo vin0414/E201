@@ -85,6 +85,7 @@ $routes->group('',['filter'=>'AuthCheck'],function($routes)
     $routes->get('HR/new-employee','Home::newEmployee');
     $routes->get('HR/edit-employee/(:any)','Home::editEmployee/$1');
     $routes->get('HR/view/(:any)','Home::viewEmployee/$1');
+    $routes->get('HR/leave','Home::employeeLeave');
     //memo
     $routes->get('HR/Memo','Home::Memo');
     $routes->get('HR/Memo/Upload','Home::Upload');

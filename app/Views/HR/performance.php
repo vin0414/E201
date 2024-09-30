@@ -465,7 +465,7 @@
                                 <!--begin:Menu item-->
                                 <div  class="menu-item" >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link"  href="">
+                                    <a class="menu-link"  href="javascript:void(0);" onclick="Print()">
                                         <span  class="menu-icon" >
                                             <i class="fa-solid fa-print"></i>
                                         </span>
@@ -475,7 +475,7 @@
                                 <!--begin:Menu item-->
                                 <div  class="menu-item" >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link"  href="">
+                                    <a class="menu-link"  href="javascript:void(0);" onclick="exportf(this)">
                                         <span  class="menu-icon" >
                                             <i class="fa-solid fa-download"></i>
                                         </span>
@@ -743,6 +743,25 @@
         <!--data tables -->
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
+        <script>
+            function exportf(elem) 
+            {
+			var table = document.getElementById("tblemployee");
+			var html = table.outerHTML;
+			var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+			elem.setAttribute("href", url);
+			elem.setAttribute("download","performance_employee.xls"); // Choose the file name
+			return false;
+            }
+            function Print() 
+            {
+                var printContents = document.getElementById("kt_app_content_container").innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }
+        </script>
 	<!--end::Javascript-->
     </body>
     <!--end::Body-->

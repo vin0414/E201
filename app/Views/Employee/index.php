@@ -661,12 +661,31 @@
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-striped" id="tblleave">
                                                 <thead>
-                                                    <th class="text-white">Date</th>
-                                                    <th class="text-white">Type of Leave</th>
-                                                    <th class="text-white">No. of Days</th>
+                                                    <th class="text-white w-125px">Date</th>
+                                                    <th class="text-white w-200px">Type of Leave</th>
+                                                    <th class="text-white w-50px">Days</th>
                                                     <th class="text-white">Details</th>
-                                                    <th class="text-white">Status</th>
+                                                    <th class="text-white w-100px">Status</th>
                                                 </thead>
+                                                <tbody>
+                                                    <?php foreach($leave as $row): ?>
+                                                        <tr>
+                                                            <td><?php echo date('d M, Y', strtotime($row['Date'])) ?></td>
+                                                            <td><?php echo $row['leave_type'] ?></td>
+                                                            <td><?php echo $row['Days'] ?></td>
+                                                            <td><?php echo $row['Details'] ?></td>
+                                                            <td>
+                                                                <?php if($row['Status']==0){ ?>
+                                                                    <span class="badge bg-warning">PENDING</span>
+                                                                <?php }else if($row['Status']==1){ ?>
+                                                                    <span class="badge bg-primary text-white">APPROVED</span>
+                                                                <?php }else{ ?>
+                                                                    <span class="badge bg-danger">DENIED</span>
+                                                                <?php } ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach;?>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>

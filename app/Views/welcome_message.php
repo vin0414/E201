@@ -70,7 +70,7 @@
         <!--begin::Content-->
         <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100"> 
             <!--begin::Image-->                
-            <img class="theme-light-show mx-auto mw-100 mb-10 mb-lg-20" height="250px;" src="assets/img/cover-photo.png" alt=""/>                 
+            <img class="mx-auto mw-100 mb-10 mb-lg-20" height="250px;" src="assets/img/cover-photo.png" alt=""/>                 
             <!--end::Image-->
 
             <!--begin::Title-->

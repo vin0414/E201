@@ -51,16 +51,20 @@ class Employee extends BaseController
         $builder->select('Sick');
         $builder->WHERE('employeeID',session()->get('employeeUser'))->WHERE('Year',$year);
         $sick = $builder->get()->getResult();
+        //leave
+        $leaveModel = new \App\Models\employeeLeaveModel();
+        $leave = $leaveModel->WHERE('employeeID',session()->get('employeeUser'))->findAll();
 
-        $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,'vacation'=>$vacation,'sick'=>$sick,'concern'=>$concern];
+        $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,
+                'vacation'=>$vacation,'sick'=>$sick,'concern'=>$concern,'leave'=>$leave];
         return view('Employee/index',$data);
     }
 
     public function applyLeave()
     {
         //list of managers
-        $employeModel = new \App\Models\employeeModel();
-        $employee = $employeModel->WHERE('SalaryGrade','Managerial')->findAll();
+        $employeeModel = new \App\Models\employeeModel();
+        $employee = $employeeModel->WHERE('SalaryGrade','Managerial')->findAll();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');

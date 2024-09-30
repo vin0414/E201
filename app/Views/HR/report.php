@@ -471,7 +471,7 @@
                                 <!--begin:Menu item-->
                                 <div  class="menu-item" >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link"  href="">
+                                    <a class="menu-link"  href="javascript:void(0);" onclick="Print()">
                                         <span  class="menu-icon" >
                                             <i class="fa-solid fa-print"></i>
                                         </span>
@@ -481,7 +481,7 @@
                                 <!--begin:Menu item-->
                                 <div  class="menu-item" >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link"  href="">
+                                    <a class="menu-link"  href="javascript:void(0);" onclick="exportf(this)">
                                         <span  class="menu-icon" >
                                             <i class="fa-solid fa-download"></i>
                                         </span>
@@ -854,6 +854,7 @@
 				title: '',
 				curveType: 'function',
 				legend: { position: 'bottom' },
+                backgroundColor: { fill:'transparent' }
 				};
 				/* Instantiate and draw the chart.*/
 				var chart = new google.visualization.PieChart(document.getElementById('chartContainer'));
@@ -953,6 +954,23 @@
                     }
                 });
             });
+            function exportf(elem) 
+            {
+			var table = document.getElementById("tblconcern");
+			var html = table.outerHTML;
+			var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+			elem.setAttribute("href", url);
+			elem.setAttribute("download","concern.xls"); // Choose the file name
+			return false;
+            }
+            function Print() 
+            {
+                var printContents = document.getElementById("kt_app_content_container").innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }
         </script>
     </body>
     <!--end::Body-->

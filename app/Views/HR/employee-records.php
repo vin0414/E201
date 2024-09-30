@@ -465,7 +465,7 @@
                                 <!--begin:Menu item-->
                                 <div  class="menu-item" >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link"  href="">
+                                    <a class="menu-link"  href="javascript:void(0);" onclick="Print()">
                                         <span  class="menu-icon" >
                                             <i class="fa-solid fa-print"></i>
                                         </span>
@@ -475,7 +475,7 @@
                                 <!--begin:Menu item-->
                                 <div  class="menu-item" >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link"  href="">
+                                    <a class="menu-link"  href="javascript:void(0);" onclick="exportf(this)">
                                         <span  class="menu-icon" >
                                             <i class="fa-solid fa-download"></i>
                                         </span>
@@ -524,6 +524,11 @@
                         <!--begin::Item-->
 						<a href="<?=site_url('HR/new-employee')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
                             <i class="fa-solid fa-user-tie"></i>&nbsp;&nbsp;New Employee           
+						</a>  
+						<!--end::Item-->
+                        <!--begin::Item-->
+						<a href="<?=site_url('HR/leave')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-suitcase-rolling"></i>&nbsp;&nbsp;Employee Leave          
 						</a>  
 						<!--end::Item-->
                         <?php if(session()->get('role')=="Administrator"){ ?>
@@ -633,7 +638,7 @@
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
                                 <button type="button" class="btn btn-sm btn-flex btn-primary uploadLeave">
-                                    <i class="fa-solid fa-person-walking-arrow-right"></i>&nbsp;Leave Credits
+                                    <i class="fa-solid fa-suitcase-rolling"></i>&nbsp;Leave Credits
                                 </button>
                                 <button type="button" class="btn btn-sm btn-flex btn-primary upload">
                                     <i class="fa-solid fa-upload"></i>&nbsp;Upload File
@@ -848,6 +853,24 @@
                     }
                 });
             });
+
+            function exportf(elem) 
+            {
+			var table = document.getElementById("tblemployee");
+			var html = table.outerHTML;
+			var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+			elem.setAttribute("href", url);
+			elem.setAttribute("download","employee.xls"); // Choose the file name
+			return false;
+            }
+            function Print() 
+            {
+                var printContents = document.getElementById("kt_app_content_container").innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }
         </script>
 	<!--end::Javascript-->
     </body>
