@@ -118,6 +118,7 @@ $routes->group('',['filter'=>'AlreadyLoggedIn'],function($routes)
 $routes->group('',['filter'=>'EmployeeAuthCheck'],function($routes)
 {
     $routes->get('Employee/overview','Employee::overview');
+    $routes->get('Employee/apply-leave','Employee::applyLeave');
     $routes->get('Employee/write','Employee::writeConcern');
     $routes->get('Employee/concerns','Employee::concerns');
     $routes->get('Employee/memo','Employee::memo');

@@ -41,13 +41,36 @@ class Employee extends BaseController
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
         //leave credits
+        //vacation
         $builder = $this->db->table('tblcredit');
-        $builder->select('(Vacation + Sick)total');
+        $builder->select('Vacation');
         $builder->WHERE('employeeID',session()->get('employeeUser'))->WHERE('Year',$year);
-        $credit = $builder->get()->getResult();
+        $vacation = $builder->get()->getResult();
+        //sick
+        $builder = $this->db->table('tblcredit');
+        $builder->select('Sick');
+        $builder->WHERE('employeeID',session()->get('employeeUser'))->WHERE('Year',$year);
+        $sick = $builder->get()->getResult();
 
-        $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,'credit'=>$credit,'concern'=>$concern];
+        $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,'vacation'=>$vacation,'sick'=>$sick,'concern'=>$concern];
         return view('Employee/index',$data);
+    }
+
+    public function applyLeave()
+    {
+        //list of managers
+        $employeModel = new \App\Models\employeeModel();
+        $employee = $employeModel->WHERE('SalaryGrade','Managerial')->findAll();
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants,'employee'=>$employee];
+        return view('Employee/apply-leave',$data);
     }
 
     public function memo()

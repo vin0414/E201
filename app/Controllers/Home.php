@@ -87,10 +87,9 @@ class Home extends BaseController
         $employee = $builder->get()->getResult();
         ?>
         <form method="POST" class="form w-100" id="frmLeave">
-            <div class="fv-row mb-4">
+            <div class="fv-row mb-4" style="height:400px;overflow-y:auto;">
                 <table class="table table-bordered table-striped">
                     <thead>
-                        <th class="text-white">#</th>
                         <th class="text-white">Employee ID</th>
                         <th class="text-white">Complete Name</th>
                         <th class="text-white w-100px">Vacation</th>
@@ -101,7 +100,7 @@ class Home extends BaseController
                 foreach($employee as $row):
                 ?>
                 <tr>
-                    <td><input type="checkbox" style="height:15px;width:15px;" value="<?php echo $row->employeeID ?>" name="employeeID[]" id="employeeID" checked/></td>
+                    <td style="display:none;"><input type="checkbox" style="height:15px;width:15px;" value="<?php echo $row->employeeID ?>" name="employeeID[]" id="employeeID" checked/></td>
                     <td><?php echo $row->CompanyID ?></td>
                     <td><?php echo $row->Firstname ?> <?php echo $row->MI ?> <?php echo $row->Surname ?> <?php echo $row->Suffix ?></td>
                     <td><input type='text' class='form-control' value="<?php echo $row->Vacation ?>" name='item_vacation[]'/></td>
@@ -205,7 +204,7 @@ class Home extends BaseController
         $date_hired = $this->request->getPost('date_hired');
         $designation = $this->request->getPost('designation');
         $department = $this->request->getPost('department');
-        $salary_grade = $this->request->getPost('salary_grade');
+        $salary_grade = $this->request->getPost('rank');
         $employeeStatus = $this->request->getPost('employeeStatus');
         $fathersName = $this->request->getPost('fathersName');
         $mothersName = $this->request->getPost('mothersName');
@@ -307,7 +306,7 @@ class Home extends BaseController
         $date_hired = $this->request->getPost('date_hired');
         $designation = $this->request->getPost('designation');
         $department = $this->request->getPost('department');
-        $salary_grade = $this->request->getPost('salary_grade');
+        $salary_grade = $this->request->getPost('rank');
         $employeeStatus = $this->request->getPost('employeeStatus');
         $fathersName = $this->request->getPost('fathersName');
         $mothersName = $this->request->getPost('mothersName');
@@ -535,10 +534,11 @@ class Home extends BaseController
         //save the data
         $employeeID = $this->request->getPost('employeeID');
         $job = $this->request->getPost('job');
+        $rank = $this->request->getPost('rank');
         $date = $this->request->getPost('date');
 
         $validation = $this->validate([
-            'job'=>'required','date'=>'required'
+            'job'=>'required','date'=>'required','rank'=>'required'
         ]);
 
         if(!$validation)
@@ -550,7 +550,7 @@ class Home extends BaseController
             $values = ['employeeID'=>$employeeID,'Title'=>$job,'Date'=>$date];
             $employeeMovementModel->save($values);
             //update the designation
-            $value = ['Designation'=>$job];
+            $value = ['Designation'=>$job,'SalaryGrade'=>$rank];
             $employeeModel->update($employeeID,$value);
             echo "success";
         }

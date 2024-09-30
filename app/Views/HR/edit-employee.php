@@ -839,9 +839,15 @@
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'designation') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
-                                                                <span class="menu-title">Salary Grade</span>
-                                                                <input type="text" name="salary_grade" id="salary_grade" value="<?php echo $employee['SalaryGrade'] ?>" class="form-control bg-transparent"/> 
-                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'salary_grade') : '' ?></span>
+                                                            <span class="menu-title">Rank and File</span>
+                                                                <select class="form-select mb-2" data-control="select2" name="rank" id="rank">
+                                                                    <option value="">Choose</option>
+                                                                    <option <?php if($employee['SalaryGrade']=="Managerial") echo 'selected="selected"'; ?>>Managerial</option>
+                                                                    <option <?php if($employee['SalaryGrade']=="Supervisory") echo 'selected="selected"'; ?>>Supervisory</option>
+                                                                    <option <?php if($employee['SalaryGrade']=="Officer") echo 'selected="selected"'; ?>>Officer</option>
+                                                                    <option <?php if($employee['SalaryGrade']=="Rank and File") echo 'selected="selected"'; ?>>Rank and File</option>
+                                                                </select> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'rank') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Employment Status</span>

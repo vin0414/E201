@@ -838,9 +838,15 @@
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'designation') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
-                                                                <span class="menu-title">Salary Grade</span>
-                                                                <input type="text" name="salary_grade" id="salary_grade" value="<?=set_value('salary_grade')?>" class="form-control bg-transparent"/> 
-                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'salary_grade') : '' ?></span>
+                                                                <span class="menu-title">Rank and File</span>
+                                                                <select class="form-select mb-2" data-control="select2" name="rank" id="rank">
+                                                                    <option value="">Choose</option>
+                                                                    <option>Managerial</option>
+                                                                    <option>Supervisory</option>
+                                                                    <option>Officer</option>
+                                                                    <option>Rank and File</option>
+                                                                </select> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'rank') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Employee Status</span>

@@ -725,15 +725,6 @@
                                                                     </a>
                                                                 </div>
                                                                 <!--end::Menu item-->
-                                                                <?php if($row['Status']==1){ ?>
-                                                                <!--begin::Menu item-->
-                                                                <div class="menu-item px-3">
-                                                                    <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 add" value="<?php echo $row['employeeID'] ?>">
-                                                                        Leave Credit
-                                                                    </button>
-                                                                </div>
-                                                                <!--end::Menu item-->
-                                                                <?php } ?>
                                                             </div>
                                                             <!--end::Menu-->
                                                         </td>

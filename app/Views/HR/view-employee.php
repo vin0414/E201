@@ -817,9 +817,9 @@
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'date_hired') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
-                                                                <span class="menu-title">Salary Grade</span>
-                                                                <input type="text" name="salary_grade" id="salary_grade" value="<?php echo $employee['SalaryGrade'] ?>" class="form-control bg-transparent"/> 
-                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'salary_grade') : '' ?></span>
+                                                                <span class="menu-title">Rank and File</span>
+                                                                <input type="text" name="rank" id="rank" value="<?php echo $employee['SalaryGrade'] ?>" class="form-control bg-transparent"/> 
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'rank') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Employment Status</span>
@@ -1023,6 +1023,16 @@
                             <div class="fv-row mb-4">
                                 <span class="menu-title">Designation/Position</span>
                                 <input type="text" name="job" class="form-control bg-transparent"/>
+                            </div>
+                            <div class="fv-rpw mb-4">
+                                <span class="menu-title">Rank and File</span>
+                                <select class="form-select mb-2" data-control="select2" name="rank" id="rank">
+                                    <option value="">Choose</option>
+                                    <option>Managerial</option>
+                                    <option>Supervisory</option>
+                                    <option>Officer</option>
+                                    <option>Rank and File</option>
+                                </select> 
                             </div>
                             <div class="fv-row mb-4">
                                 <span class="menu-title">Date Effectivity</span>

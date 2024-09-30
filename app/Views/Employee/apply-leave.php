@@ -2,7 +2,7 @@
 <html lang="en" >
     <!--begin::Head-->
     <head>
-        <title>E201 - Dashboard</title>
+        <title>E201 - Apply Leave</title>
         <meta charset="utf-8"/>
         <meta name="description" content="employee information management system, e201"/>
         <meta name="keywords" content="e201, employee information, ems"/>
@@ -12,7 +12,6 @@
         <link href="<?=base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
-        <link href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             /* Track */
@@ -35,6 +34,7 @@
                 border: 1px solid #d5d5d5;
             }  
             thead,th{background-color:#0096ff;}
+        </style>
         </style>
     </head>
     <body  id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-header-stacked="true" data-kt-app-header-primary-enabled="true" data-kt-app-header-secondary-enabled="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true"  class="app-default" >
@@ -341,9 +341,9 @@
                                 data-kt-menu="true"
                             >        
                                 <!--begin:Menu item-->
-                                <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"  class="menu-item here show " >
+                                <div class="menu-item" >
                                     <!--begin:Menu link-->
-                                    <a class="menu-link active"  href="<?=site_url('Employee/overview')?>"><span  class="menu-title" >Overview</span></a>
+                                    <a class="menu-link"  href="<?=site_url('Employee/overview')?>"><span  class="menu-title" >Overview</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -363,10 +363,19 @@
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " ><!--begin:Menu link-->
-                                    <a class="menu-link"  href="<?=site_url('Employee/account')?>"><span  class="menu-title" >Account</span></a>
+                                    <a class="menu-link active"  href="<?=site_url('Employee/apply-leave')?>"><span  class="menu-title" >Leave</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
+                                <div  class="menu-item" ><!--begin:Menu content-->
+                                    <div  class="menu-content" ><div class="menu-separator"></div></div><!--end:Menu content-->
+                                </div>
+                                <!--end:Menu item-->
+                                <!--begin:Menu item-->
+                                <div  class="menu-item " ><!--begin:Menu link-->
+                                    <a class="menu-link"  href="<?=site_url('Employee/account')?>"><span  class="menu-title" >Account</span></a>
+                                    <!--end:Menu link-->
+                                </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item flex-grow-1" ></div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -537,7 +546,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                Gabales Engineering Services
+                                Apply Leave
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -556,20 +565,20 @@
                                     <!--end::Item-->                 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Employee Portal                                        
+                                        Apply Leave                                    
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
                                 <!--end::Breadcrumb-->
                             </div>
-                            <!--end::Page title-->   
+                            <!--end::Page title--> 
                             <!--begin::Actions-->
                             <div class="d-flex align-items-center gap-2 gap-lg-3">
-                                <a href="<?=site_url('Employee/apply-leave')?>" class="btn btn-sm btn-flex btn-primary">
-                                    <i class="fa-solid fa-file-circle-plus"></i>&nbsp;Apply Leave
+                                <a href="<?=site_url('Employee/overview')?>" class="btn btn-sm btn-flex btn-primary">
+                                    <i class="fa-solid fa-arrow-left"></i>&nbsp;Back
                                 </a>          
                             </div>
-                            <!--end::Actions--> 
+                            <!--end::Actions-->  
                         </div>
                     <!--end::Toolbar wrapper-->        
                     </div>
@@ -578,120 +587,7 @@
                 <!--end::Toolbar-->  
                 <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-                        <div class="d-flex flex-column flex-lg-row gap-3 w-100">
-                            <div class="col-lg-9">
-                                <div class="card mb-4 mb-xl-5">
-                                    <div class="card-body pt-9 pb-0">
-                                        <?php if($employee):?>
-                                        <div class="d-flex flex-wrap flex-sm-nowrap">
-                                            <div class="me-7 mb-4">
-                                                <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
-                                                    <!--begin::Preview existing avatar-->
-                                                    <div class="image-input-wrapper w-150px h-150px" style="background-image: url('/Profile/<?php echo $employee['Photo'] ?>')"></div>
-                                                    <!--end::Preview existing avatar-->
-
-                                                    <!--begin::Label-->
-                                                    <label class="bg-body shadow">
-                                                    </label>
-                                                    <!--end::Label-->
-                                                </div>
-                                                <!--end::Image input-->
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <div class="form w-100">
-                                                    <div class="fv-row mb-4">
-                                                        <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1"><?php echo session()->get('fullname') ?></a>
-                                                    </div>
-                                                    <div class="fv-row mb-4">
-                                                        <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                                                            <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
-                                                                <i class="fa-solid fa-briefcase"></i>&nbsp;<?php echo session()->get('designation') ?>
-                                                            </a>
-                                                            <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
-                                                                <i class="fa-solid fa-square-phone"></i>&nbsp;<?php echo $employee['ContactNo'] ?>
-                                                            </a>
-                                                            <a href="mailto:<?php echo $employee['EmailAddress'] ?>" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
-                                                                <i class="fa-solid fa-envelope"></i>&nbsp;<?php echo $employee['EmailAddress'] ?>
-                                                            </a>
-                                                        </div>
-                                                        <div class="d-flex flex-wrap flex-stack">
-                                                            <div class="d-flex flex-column flex-grow-1 pe-8">
-                                                                <div class="d-flex flex-wrap">
-                                                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <div class="fs-2 fw-bold"><?php foreach($concern as $row): ?><?php echo $row->total ?><?php endforeach; ?></div>
-                                                                        </div>
-                                                                        <div class="fw-semibold fs-6 text-gray-500">Concerns</div>
-                                                                    </div>
-                                                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <div class="fs-2 fw-bold"><?php foreach($vacation as $row): ?><?php echo $row->Vacation ?><?php endforeach; ?></div>
-                                                                        </div>
-                                                                        <div class="fw-semibold fs-6 text-gray-500">VL Credit</div>
-                                                                    </div>
-                                                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <div class="fs-2 fw-bold"><?php foreach($sick as $row): ?><?php echo $row->Sick ?><?php endforeach; ?></div>
-                                                                        </div>
-                                                                        <div class="fw-semibold fs-6 text-gray-500">SL Credit</div>
-                                                                    </div>
-                                                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <div class="fs-2 fw-bold">0</div>
-                                                                        </div>
-                                                                        <div class="fw-semibold fs-6 text-gray-500">Performance</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php endif; ?>
-                                    </div> 
-                                </div>
-                                <div class="card card-flush py-4">
-                                    <div class="card-header">
-                                        <div class="card-title">
-                                            <i class="fa-regular fa-clipboard"></i>&nbsp;Recent Leave
-                                        </div>
-                                    </div>
-                                    <div class="card-body pt-0">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-striped" id="tblleave">
-                                                <thead>
-                                                    <th class="text-white">Date</th>
-                                                    <th class="text-white">Type of Leave</th>
-                                                    <th class="text-white">No. of Days</th>
-                                                    <th class="text-white">Details</th>
-                                                    <th class="text-white">Status</th>
-                                                </thead>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="card card-flush py-4">
-                                    <div class="card-header">
-                                        <div class="card-title"><i class="fa-solid fa-bullhorn"></i>&nbsp;Announcement/Memo</div>
-                                    </div> 
-                                    <div class="card-body pt-0">
-                                        <label>Recent(s)</label><a href="<?=site_url('Employee/memo')?>" class="ms-auto" style="float:right;">View All</a>
-                                        <?php foreach($memo as $row): ?>
-                                            <div class="justify-content-between mb-4">
-                                                <small class="fw-bold"><?php echo $row->Subject ?></small><br/>
-                                                <a href="<?=base_url('Memo')?>/<?php echo $row->File ?>" alt="<?php echo $row->File ?>" target="_BLANK"><small><?php echo substr($row->File,0,30) ?>...</small></a>
-                                                <div class="fw-semibold"><small><?php echo $row->Date ?></small></div>
-                                            </div>
-                                            <div class="separator separator-dashed"></div>
-                                            <br/>
-                                        <?php endforeach; ?> 
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div> 
             </div>         
@@ -709,7 +605,7 @@
 		</div>
 		<!--end::Scrolltop-->
 		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
-				<script src="<?=base_url('assets/plugins/global/plugins.bundle.js')?>"></script>
+        <script src="<?=base_url('assets/plugins/global/plugins.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/scripts.bundle.js')?>"></script>
 			<!--end::Global Javascript Bundle-->
 
@@ -722,11 +618,7 @@
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
 	    <!--end::Javascript-->
-            <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-            <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
-            <script>
-                new DataTable('#tblleave');
-            </script>
+            
     </body>
     <!--end::Body-->
 </html>
