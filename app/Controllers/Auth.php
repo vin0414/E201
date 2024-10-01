@@ -106,6 +106,7 @@ class Auth extends BaseController
                 $fullname = $user_info['Firstname']." ".$user_info['MI']." ".$user_info['Surname']." ".$user_info['Suffix'];
                 session()->set('employeeUser', $user_info['employeeID']);
                 session()->set('fullname', $fullname);
+                session()->set('role',$user_info['SalaryGrade']);
                 session()->set('designation',$user_info['Designation']);
                 return redirect()->to('Employee/overview');
             }

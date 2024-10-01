@@ -665,15 +665,15 @@
                                         </div>
                                     <?php endif; ?>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-striped" id="tblemployee">
+                                        <table class="table table-bordered align-middle table-striped" id="tblemployee">
                                             <thead>
                                                 <th class="text-white">Employee</th>
                                                 <th class="text-white w-125px">Date Hired</th>
                                                 <th class="text-white w-125px">Work Status</th>
-                                                <th class="text-white">Marital Status</th>
+                                                <th class="text-white w-150px">Marital Status</th>
                                                 <th class="text-white">Permanent Address</th>
-                                                <th class="text-white w-125px">Status</th>
-                                                <th class="text-white w-125px">More</th>
+                                                <th class="text-white w-100px">Status</th>
+                                                <th class="text-white w-100px">More</th>
                                             </thead>
                                             <tbody>
                                                 <?php foreach($employee as $row): ?>

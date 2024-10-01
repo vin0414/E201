@@ -161,7 +161,8 @@
                         <div class="app-navbar-item ms-1">
                             <!--begin::Menu- wrapper-->
                             <div class="btn btn-sm btn-icon btn-custom h-35px w-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-								<i class="fa-regular fa-bell"></i>        
+								<i class="fa-regular fa-bell"></i>   
+                                <span class="bg-primary badge text-white"><?php foreach($notification as $row):{ echo $row->total; }endforeach;?></span>      
                             </div>
                             
                     <!--end::Menu-->        <!--end::Menu wrapper-->
@@ -482,6 +483,18 @@
 						<!--end::Item-->
 					</div>
 					<!--end::Items-->   
+                    <?php if(session()->get('role')=="Managerial"){ ?> 
+                    <!--begin::Items-->
+					<div class="m-0">
+                        <!--begin::Item-->
+						<a href="<?=site_url('Employee/authorization')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-envelope-circle-check"></i>&nbsp;&nbsp;For Approval 
+                            <span class="badge bg-primary text-white"><?php foreach($notification as $row):{ echo $row->total; }endforeach;?></span>         
+						</a>  
+						<!--end::Item-->
+					</div>
+					<!--end::Items-->  
+                    <?php } ?>
 				</div>
 				<!--end::Filter-->
 					
@@ -546,7 +559,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                Apply Leave
+                                Online Filing of Leave
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -565,7 +578,7 @@
                                     <!--end::Item-->                 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Apply Leave                                    
+                                        Online Filing of Leave                                    
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
@@ -587,7 +600,24 @@
                 <!--end::Toolbar-->  
                 <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <div id="kt_app_content_container" class="app-container container-fluid ">
-                        
+                        <div class="card card-flush py-4">
+                            <div class="card-header">
+                                <div class="card-title"><i class="fa-solid fa-file-circle-plus"></i>&nbsp;File Leave</div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <form method="POST" class="form w-100">
+                                    <div class="fv-row mb-4">
+                                        <span class="menu-title">Approved By</span>
+                                        <select class="form-select mb-2" data-control="select2" name="approver">
+                                            <option value="">Choose</option>
+                                            <?php foreach($employee as $row): ?>
+                                                <option value="<?php echo $row['employeeID'] ?>"><?php echo $row['Surname'] ?> <?php echo $row['Suffix'] ?>, <?php echo $row['Firstname'] ?> <?php echo $row['MI'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div> 
             </div>         

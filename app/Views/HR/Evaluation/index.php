@@ -662,7 +662,7 @@
                             </div>
                             <div class="card-body pt-0">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped" id="tblexam">
+                                    <table class="table table-bordered align-middle table-striped" id="tblexam">
                                         <thead>
                                             <th class="text-white w-150px">Date Created</th>
                                             <th class="text-white">Title</th>

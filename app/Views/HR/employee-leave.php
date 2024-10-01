@@ -663,13 +663,13 @@
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered table-striped" id="tbl_leave">
+                                            <table class="table table-bordered align-middle table-striped" id="tbl_leave">
                                                 <thead>
                                                     <th class="text-white w-125px">Date Filed</th>
                                                     <th class="text-white">Employee's Name</th>
                                                     <th class="text-white">Type of Leave</th>
                                                     <th class="text-white w-50px">Days</th>
-                                                    <th class="text-white w-50px">More</th>
+                                                    <th class="text-white w-100px">More</th>
                                                 </thead>
                                                 <tbody>
                                                 <?php foreach($leave as $row): ?>
@@ -679,27 +679,9 @@
                                                         <td><?php echo $row->leave_type ?></td>
                                                         <td><?php echo $row->Days ?></td>
                                                         <td>
-                                                            <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                                Action&nbsp;<i class="fa-solid fa-circle-chevron-down"></i>                   
-                                                            </a>
-                                                            <!--begin::Menu-->
-                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                                                                <!--begin::Menu item-->
-                                                                <div class="menu-item px-3">
-                                                                    <a href="" class="menu-link px-3">
-                                                                        View Details
-                                                                    </a>
-                                                                </div>
-                                                                <!--end::Menu item-->
-                                                                <!--begin::Menu item-->
-                                                                <div class="menu-item px-3">
-                                                                    <button type="button" class="btn btn-sm menu-link w-100 border-0 px-3 accept" value="<?php echo $row->leaveID ?>">
-                                                                        Accept
-                                                                    </button>
-                                                                </div>
-                                                                <!--end::Menu item-->
-                                                            </div>
-                                                            <!--end::Menu-->
+                                                            <button type="button" class="btn btn-primary btn-sm view" value="<?php echo $row->leaveID ?>">
+                                                            <i class="fa-solid fa-magnifying-glass"></i> View
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>
@@ -749,6 +731,23 @@
     <!--end::Page-->
 </div>
 <!--end::App-->		
+        <div class="modal fade" id="viewLeaveModal" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header pb-0 border-0">
+                        <h2 class="modal-title">Leave Details</h2>
+                    </div>
+                    <!--begin::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body" id="content">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
 		<!--begin::Scrolltop-->
 		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
 			<i class="ki-outline ki-arrow-up"></i>
@@ -775,6 +774,18 @@
             new DataTable('#tbl_leave');
         </script>
         <script>
+            $(document).on('click','.view',function()
+            {
+                $.ajax({
+                    url:"<?=site_url('view-details')?>",method:"GET",
+                    data:{value:$(this).val()},
+                    success:function(response)
+                    {
+                        $('#content').html(response);
+                        $('#viewLeaveModal').modal('show');
+                    }
+                });
+            });
             function exportf(elem) 
             {
 			var table = document.getElementById("tbl_leave");

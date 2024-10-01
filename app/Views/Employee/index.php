@@ -161,7 +161,8 @@
                         <div class="app-navbar-item ms-1">
                             <!--begin::Menu- wrapper-->
                             <div class="btn btn-sm btn-icon btn-custom h-35px w-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-								<i class="fa-regular fa-bell"></i>        
+								<i class="fa-regular fa-bell"></i> 
+                                <span class="bg-primary badge text-white"><?php foreach($notification as $row):{ echo $row->total; }endforeach;?></span>       
                             </div>
                             
                     <!--end::Menu-->        <!--end::Menu wrapper-->
@@ -472,7 +473,19 @@
 						</a>  
 						<!--end::Item-->
 					</div>
-					<!--end::Items-->   
+					<!--end::Items-->  
+                    <?php if(session()->get('role')=="Managerial"){ ?> 
+                    <!--begin::Items-->
+					<div class="m-0">
+                        <!--begin::Item-->
+						<a href="<?=site_url('Employee/authorization')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-envelope-circle-check"></i>&nbsp;&nbsp;For Approval   
+                            <span class="badge bg-primary text-white"><?php foreach($notification as $row):{ echo $row->total; }endforeach;?></span>      
+						</a>  
+						<!--end::Item-->
+					</div>
+					<!--end::Items-->  
+                    <?php } ?>
 				</div>
 				<!--end::Filter-->
 					
@@ -619,19 +632,19 @@
                                                                 <div class="d-flex flex-wrap">
                                                                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                                         <div class="d-flex align-items-center">
-                                                                            <div class="fs-2 fw-bold"><?php foreach($concern as $row): ?><?php echo $row->total ?><?php endforeach; ?></div>
+                                                                            <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="<?php foreach($concern as $row): ?><?php echo $row->total ?><?php endforeach; ?>">0</div>
                                                                         </div>
                                                                         <div class="fw-semibold fs-6 text-gray-500">Concerns</div>
                                                                     </div>
                                                                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                                         <div class="d-flex align-items-center">
-                                                                            <div class="fs-2 fw-bold"><?php foreach($vacation as $row): ?><?php echo $row->Vacation ?><?php endforeach; ?></div>
+                                                                            <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="<?php foreach($vacation as $row): ?><?php echo $row->Vacation ?><?php endforeach; ?>">0</div>
                                                                         </div>
                                                                         <div class="fw-semibold fs-6 text-gray-500">VL Credit</div>
                                                                     </div>
                                                                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                                                         <div class="d-flex align-items-center">
-                                                                            <div class="fs-2 fw-bold"><?php foreach($sick as $row): ?><?php echo $row->Sick ?><?php endforeach; ?></div>
+                                                                            <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="<?php foreach($sick as $row): ?><?php echo $row->Sick ?><?php endforeach; ?>">0</div>
                                                                         </div>
                                                                         <div class="fw-semibold fs-6 text-gray-500">SL Credit</div>
                                                                     </div>

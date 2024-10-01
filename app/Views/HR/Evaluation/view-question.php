@@ -677,7 +677,7 @@
                             </div>
                             <div class="card-body pt-0">
                             <div class="table-responsive">
-                                    <table class="table table-bordered table-striped" id="tblquestion">
+                                    <table class="table table-bordered align-middle table-striped" id="tblquestion">
                                         <thead>
                                             <th class="text-white w-150px">Date Created</th>
                                             <th class="text-white">Details</th>

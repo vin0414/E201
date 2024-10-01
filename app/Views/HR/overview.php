@@ -662,7 +662,7 @@
                                         <p class="text-white fw-semibold fs-5 mt-1 mb-7">
                                         Regular Employees      
                                         </p>
-                                        <h1 class="text-white text-center"><?php if($regular): ?><?php echo $regular->total ?><?php endif; ?></h1>
+                                        <h1 class="text-white text-center" data-kt-countup="true" data-kt-countup-value="<?php if($regular): ?><?php echo $regular->total ?><?php endif; ?>">0</h1>
                                     </div>
                                 </div>   
                             </div>
@@ -675,7 +675,7 @@
                                         <p class="text-white fw-semibold fs-5 mt-1 mb-7">
                                         Newly Hired      
                                         </p>
-                                        <h1 class="text-white text-center"><?php if($probationary): ?><?php echo $probationary->total ?><?php endif; ?></h1>
+                                        <h1 class="text-white text-center" data-kt-countup="true" data-kt-countup-value="<?php if($probationary): ?><?php echo $probationary->total ?><?php endif; ?>">0</h1>
                                     </div>
                                 </div>
                             </div>
@@ -688,7 +688,7 @@
                                         <p class="text-white fw-semibold fs-5 mt-1 mb-7">
                                         Regular & Probationary      
                                         </p>
-                                        <h1 class="text-white text-center"><?php if($total): ?><?php echo $total->total ?><?php endif; ?></h1>
+                                        <h1 class="text-white text-center" data-kt-countup="true" data-kt-countup-value="<?php if($total): ?><?php echo $total->total ?><?php endif; ?>">0</h1>
                                     </div>
                                 </div>
                             </div>
@@ -701,7 +701,7 @@
                                         <p class="text-white fw-semibold fs-5 mt-1 mb-7">
                                         Resigned/Terminated/AWOL      
                                         </p>
-                                        <h1 class="text-white text-center"><?php if($inactive): ?><?php echo $inactive->total ?><?php endif; ?></h1>
+                                        <h1 class="text-white text-center" data-kt-countup="true" data-kt-countup-value="<?php if($inactive): ?><?php echo $inactive->total ?><?php endif; ?>">0</h1>
                                     </div>
                                 </div>
                             </div>

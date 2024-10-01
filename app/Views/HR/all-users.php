@@ -655,7 +655,7 @@
                                         </div>
                                     <?php endif; ?>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-striped" id="tblusers">
+                                        <table class="table table-bordered align-middle table-striped" id="tblusers">
                                             <thead>
                                                 <th class="text-white w-275">Complete Name</th>
                                                 <th class="text-white">Username</th>

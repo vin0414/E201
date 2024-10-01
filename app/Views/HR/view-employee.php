@@ -880,7 +880,7 @@
                                                 <div class="form w-100">
                                                     <div class="fv-row mb-4">
                                                         <div class="table-responsive">
-                                                            <table class="table table-bordered table-striped">
+                                                            <table class="table table-bordered align-middle table-striped">
                                                                 <thead>
                                                                     <th class="text-white">Company/Designation</th>
                                                                     <th class="text-white">From</th>

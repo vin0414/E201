@@ -88,9 +88,9 @@ class Home extends BaseController
         ?>
         <form method="POST" class="form w-100" id="frmLeave">
             <div class="fv-row mb-4" style="height:400px;overflow-y:auto;">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered align-middle table-striped">
                     <thead>
-                        <th class="text-white">Employee ID</th>
+                        <th class="text-white w-100px">Employee ID</th>
                         <th class="text-white">Complete Name</th>
                         <th class="text-white w-100px">Vacation</th>
                         <th class="text-white w-100px">Sick</th>
@@ -583,6 +583,46 @@ class Home extends BaseController
 
         $data = ['memo'=>$memo,'celebrants'=>$celebrants,'leave'=>$leave,'ongoing'=>$leaveOnProcess];
         return view('HR/employee-leave',$data);
+    }
+
+    public function viewLeaveDetails()
+    {
+        $val = $this->request->getGet('value');
+        $leaveModel = new \App\Models\employeeLeaveModel();
+        $leave = $leaveModel->WHERE('leaveID',$val)->first();
+        if($leave):
+            ?>
+            <div class="form w-100">
+                <div class="fv-row mb-4">
+                    <span class="menu-title">Type of Leave</span>
+                    <input type="text" class="form-control" value="<?php echo $leave['leave_type'] ?>"/>
+                </div>
+                <div class="fv-row mb-4">
+                    <div class="d-flex flex-wrap gap-5">
+                        <div class="fv-row w-100 flex-md-root">
+                            <span class="menu-title">From</span>
+                            <input type="text" class="form-control" value="<?php echo $leave['From'] ?>"/>
+                        </div>
+                        <div class="fv-row w-100 flex-md-root">
+                            <span class="menu-title">To</span>
+                            <input type="text" class="form-control" value="<?php echo $leave['To'] ?>"/>
+                        </div>
+                        <div class="fv-row w-100 flex-md-root">
+                            <span class="menu-title">No of Days</span>
+                            <input type="text" class="form-control" value="<?php echo $leave['Days'] ?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="fv-row mb-4">
+                    <span class="menu-title">Reason</span>
+                    <textarea class="form-control min-h-200px"><?php echo $leave['Details'] ?></textarea>
+                </div>
+                <div class="fv-row mb-4">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <?php
+        endif;
     }
 
     //memorandum

@@ -54,9 +54,15 @@ class Employee extends BaseController
         //leave
         $leaveModel = new \App\Models\employeeLeaveModel();
         $leave = $leaveModel->WHERE('employeeID',session()->get('employeeUser'))->findAll();
+        //notification
+        $builder = $this->db->table('tblapproval_leave');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
+        $notification = $builder->get()->getResult();
 
         $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,
-                'vacation'=>$vacation,'sick'=>$sick,'concern'=>$concern,'leave'=>$leave];
+                'vacation'=>$vacation,'sick'=>$sick,'concern'=>$concern,
+                'leave'=>$leave,'notification'=>$notification];
         return view('Employee/index',$data);
     }
 
@@ -64,7 +70,7 @@ class Employee extends BaseController
     {
         //list of managers
         $employeeModel = new \App\Models\employeeModel();
-        $employee = $employeeModel->WHERE('SalaryGrade','Managerial')->findAll();
+        $employee = $employeeModel->WHERE('SalaryGrade','Managerial')->WHERE('employeeID <>',session()->get('employeeUser'))->findAll();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -72,9 +78,33 @@ class Employee extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+        //notification
+        $builder = $this->db->table('tblapproval_leave');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
+        $notification = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'employee'=>$employee];
+        $data = ['celebrants'=>$celebrants,'employee'=>$employee,'notification'=>$notification];
         return view('Employee/apply-leave',$data);
+    }
+
+    public function authorization()
+    {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //notification
+        $builder = $this->db->table('tblapproval_leave');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
+        $notification = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants,'notification'=>$notification];
+        return view('Employee/leave-approval',$data);
     }
 
     public function memo()
@@ -93,8 +123,15 @@ class Employee extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+        //notification
+        $builder = $this->db->table('tblapproval_leave');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
+        $notification = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'page'=>$page,'perPage'=>$perpage,'total'=>$total,'list'=>$list,'pager'=>$pager];
+        $data = ['celebrants'=>$celebrants,'page'=>$page,
+        'perPage'=>$perpage,'total'=>$total,'list'=>$list,'pager'=>$pager
+        ,'notification'=>$notification];
         return view('Employee/memo',$data);
     }
 
@@ -115,8 +152,14 @@ class Employee extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+        //notification
+        $builder = $this->db->table('tblapproval_leave');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
+        $notification = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'page'=>$page,'perPage'=>$perpage,'total'=>$total,'list'=>$list,'pager'=>$pager];
+        $data = ['celebrants'=>$celebrants,'page'=>$page,'perPage'=>$perpage,
+        'total'=>$total,'list'=>$list,'pager'=>$pager,'notification'=>$notification];
         return view('Employee/memo',$data);
     }
 
@@ -131,8 +174,13 @@ class Employee extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+        //notification
+        $builder = $this->db->table('tblapproval_leave');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
+        $notification = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'concern'=>$concern];
+        $data = ['celebrants'=>$celebrants,'concern'=>$concern,'notification'=>$notification];
         return view('Employee/create',$data);
     }
 
@@ -175,8 +223,13 @@ class Employee extends BaseController
         $builder->join('tblconcern b','b.concernID=a.concernID','LEFT');
         $builder->WHERE('a.employeeID',session()->get('employeeUser'));
         $list = $builder->get()->getResult();
+        //notification
+        $builder = $this->db->table('tblapproval_leave');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
+        $notification = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'list'=>$list];
+        $data = ['celebrants'=>$celebrants,'list'=>$list,'notification'=>$notification];
         return view('Employee/concerns',$data);
     }
 
@@ -192,8 +245,13 @@ class Employee extends BaseController
         //load the evaluation
         $evaluationModel = new \App\Models\evaluationModel();
         $evaluation = $evaluationModel->WHERE('Status',1)->findAll();
+        //notification
+        $builder = $this->db->table('tblapproval_leave');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
+        $notification = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation];
+        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation,'notification'=>$notification];
         return view('Employee/evaluation',$data);
     }
 
@@ -211,8 +269,13 @@ class Employee extends BaseController
         //history
         $workHistoryModel = new \App\Models\workHistoryModel();
         $work = $workHistoryModel->WHERE('employeeID',session()->get('employeeUser'))->findAll();
+        //notification
+        $builder = $this->db->table('tblapproval_leave');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
+        $notification = $builder->get()->getResult();
 
-        $data = ['employee'=>$employee,'celebrants'=>$celebrants,'work'=>$work];
+        $data = ['employee'=>$employee,'celebrants'=>$celebrants,'work'=>$work,'notification'=>$notification];
         return view('Employee/account',$data);
     }
 

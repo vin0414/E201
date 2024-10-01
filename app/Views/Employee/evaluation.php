@@ -161,7 +161,8 @@
                         <div class="app-navbar-item ms-1">
                             <!--begin::Menu- wrapper-->
                             <div class="btn btn-sm btn-icon btn-custom h-35px w-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-								<i class="fa-regular fa-bell"></i>        
+								<i class="fa-regular fa-bell"></i>    
+                                <span class="bg-primary badge text-white"><?php foreach($notification as $row):{ echo $row->total; }endforeach;?></span>     
                             </div>
                             
                     <!--end::Menu-->        <!--end::Menu wrapper-->
@@ -481,7 +482,19 @@
 						</a>  
 						<!--end::Item-->
 					</div>
-					<!--end::Items-->   
+					<!--end::Items-->
+                    <?php if(session()->get('role')=="Managerial"){ ?> 
+                    <!--begin::Items-->
+					<div class="m-0">
+                        <!--begin::Item-->
+						<a href="<?=site_url('Employee/authorization')?>" class="btn btn-sm px-3 border border-transparent btn-color-gray-700 btn-active-color-gray-900">               
+                            <i class="fa-solid fa-envelope-circle-check"></i>&nbsp;&nbsp;For Approval     
+                            <span class="badge bg-primary text-white"><?php foreach($notification as $row):{ echo $row->total; }endforeach;?></span>     
+						</a>  
+						<!--end::Item-->
+					</div>
+					<!--end::Items-->  
+                    <?php } ?>   
 				</div>
 				<!--end::Filter-->
 					

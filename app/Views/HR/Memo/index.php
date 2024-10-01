@@ -660,7 +660,7 @@
                                         </div>
                                     <?php endif; ?>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-striped" id="tblmemo">
+                                        <table class="table table-bordered align-middle table-striped" id="tblmemo">
                                             <thead>
                                                 <th class="text-white">Subject</th>
                                                 <th class="text-white">Date</th>
