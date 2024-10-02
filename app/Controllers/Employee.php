@@ -83,9 +83,74 @@ class Employee extends BaseController
         $builder->select('COUNT(*)total');
         $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
         $notification = $builder->get()->getResult();
+        //employee information
+        $employeeModel = new \App\Models\employeeModel();
+        $account = $employeeModel->WHERE('employeeID',session()->get('employeeUser'))->first();
 
-        $data = ['celebrants'=>$celebrants,'employee'=>$employee,'notification'=>$notification];
+        $data = ['celebrants'=>$celebrants,'employee'=>$employee,'notification'=>$notification,'account'=>$account];
         return view('Employee/apply-leave',$data);
+    }
+
+    public function sendLeave()
+    {
+        date_default_timezone_set('Asia/Manila');
+        $employeeLeaveModel = new \App\Models\employeeLeaveModel();
+        $approveLeaveModel = new \App\Models\approveLeaveModel();
+        $leaveModel = new \App\Models\leaveModel();
+        //data
+        $leave = $this->request->getPost('leave');
+        $user = session()->get('employeeUser');
+        $date = date('Y-m-d');
+        $from  = $this->request->getPost('fromdate');
+        $to  = $this->request->getPost('todate');
+        $days = $this->request->getPost('days');
+        $reason = $this->request->getPost('reason');
+        $file = $this->request->getFile('file');
+        $originalName = $file->getClientName();
+        $approver = $this->request->getPost('approver');
+        //add filter
+        if(($leave=="Sick Leave"||$leave=="Bereavement Leave" || $leave=="Solo Parent") && $days>=2 && empty($originalName))
+        {
+            echo "Please attach the required document";
+        }
+        else
+        {
+            //check available credits
+            $credit = $leaveModel->WHERE('employeeID',$user)->first();
+            if($leave=="Vacation Leave" && $credit['Vacation']==0)
+            {
+                echo "No more available credits left";
+            }
+            else if($leave=="Sick Leave" && $credit['Sick']==0)
+            {
+                echo "No more available credits left";
+            }
+            else
+            {
+                if(($leave=="Sick Leave"||$leave=="Bereavement Leave" || $leave=="Solo Parent") && $days>=2)
+                {
+                    $file->move('Attachment/',$originalName);
+                    //save the information
+                    $values = ['Date'=>$date,'employeeID'=>$user,'leave_type'=>$leave,
+                    'From'=>$from,'To'=>$to,'Days'=>$days,'Details'=>$reason,'Status'=>0,'Attachment'=>$originalName];
+                    $employeeLeaveModel->save($values);
+                }
+                else
+                {
+                    //save the information
+                    $values = ['Date'=>$date,'employeeID'=>$user,'leave_type'=>$leave,
+                    'From'=>$from,'To'=>$to,'Days'=>$days,'Details'=>$reason,'Status'=>0,'Attachment'=>'N/A'];
+                    $employeeLeaveModel->save($values);
+                }
+                //send to approver
+                $leaveInfo = $employeeLeaveModel->WHERE('employeeID',$user)
+                            ->WHERE('From',$from)->WHERE('To',$to)
+                            ->WHERE('leave_type',$leave)->first();
+                $values = ['employeeID'=>$approver,'leaveID'=>$leaveInfo['leaveID'],'DateReceived'=>$date,'Status'=>0,'DateApproved'=>'','Remarks'=>''];
+                $approveLeaveModel->save($values);
+                echo "success";
+            }
+        }
     }
 
     public function authorization()

@@ -55,6 +55,7 @@ $routes->post('save-promotion','Home::savePromotion');
 $routes->post('change-pin','Employee::changePIN');
 $routes->get('search-memo','Employee::searchMemo');
 $routes->post('create','Employee::createConcern');
+$routes->post('send-leave','Employee::sendLeave');
 $routes->get('view-details','Home::viewLeaveDetails');
 //memo
 $routes->post('upload-file','Memo::uploadFile');

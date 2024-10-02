@@ -605,17 +605,255 @@
                                 <div class="card-title"><i class="fa-solid fa-file-circle-plus"></i>&nbsp;File Leave</div>
                             </div>
                             <div class="card-body pt-0">
-                                <form method="POST" class="form w-100">
+                                <?php if($account): ?>
+                                <form method="POST" class="form w-100" enctype="multipart/form-data" id="frmLeave">
+                                    <?php if($account['EmployeeStatus']=="Regular"||$account['EmployeeStatus']=="REGULAR"){ ?>
+                                    <div class="fv-row mb-4">
+                                        <span class="menu-title">Type of Leave</span>
+                                        <div class="d-flex flex-wrap gap-5">
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <!--begin::Input-->
+                                                    <input class="form-check-input me-3" name="leave" type="radio" value="Vacation Leave" required/>
+                                                    <!--end::Input-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="form-check-label">
+                                                        <div class="fw-bold text-gray-800">Vacation Leave</div>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <!--begin::Input-->
+                                                    <input class="form-check-input me-3" name="leave" type="radio" value="Sick Leave"/>
+                                                    <!--end::Input-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="form-check-label">
+                                                        <div class="fw-bold text-gray-800">Sick Leave</div>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <!--begin::Input-->
+                                                    <input class="form-check-input me-3" name="leave" type="radio" value="Emergency Leave"/>
+                                                    <!--end::Input-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="form-check-label">
+                                                        <div class="fw-bold text-gray-800">Emergency Leave</div>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <!--begin::Input-->
+                                                    <input class="form-check-input me-3" name="leave" type="radio" value="Leave without pay"/>
+                                                    <!--end::Input-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="form-check-label">
+                                                        <div class="fw-bold text-gray-800">Leave without pay</div>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <!--begin::Input-->
+                                                    <input class="form-check-input me-3" name="leave" type="radio" value="Bereavement Leave"/>
+                                                    <!--end::Input-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="form-check-label">
+                                                        <div class="fw-bold text-gray-800">Bereavement Leave</div>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fv-row mb-4">
+                                        <?php if($account['Children']>0){ ?>
+                                            <div class="d-flex flex-wrap gap-5">
+                                                <div class="fv-row w-100 flex-md-root">
+                                                    <div class="form-check form-check-custom form-check-solid">
+                                                        <!--begin::Input-->
+                                                        <input class="form-check-input me-3" name="leave" type="radio" value="Solo Parent"/>
+                                                        <!--end::Input-->
+
+                                                        <!--begin::Label-->
+                                                        <label class="form-check-label">
+                                                            <div class="fw-bold text-gray-800">Solo Parent</div>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                        <?php if($account['MaritalStatus']=="Married"){ ?>
+                                        <div class="d-flex flex-wrap gap-5">
+                                            <?php if($account['Gender']=="Female"){ ?>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <!--begin::Input-->
+                                                    <input class="form-check-input me-3" name="leave" type="radio" value="Maternity Leave"/>
+                                                    <!--end::Input-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="form-check-label">
+                                                        <div class="fw-bold text-gray-800">Maternity Leave</div>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <!--begin::Input-->
+                                                    <input class="form-check-input me-3" name="leave" type="radio" value="VAWC"/>
+                                                    <!--end::Input-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="form-check-label">
+                                                        <div class="fw-bold text-gray-800">VAWC</div>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <!--begin::Input-->
+                                                    <input class="form-check-input me-3" name="leave" type="radio" value="Special Leave"/>
+                                                    <!--end::Input-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="form-check-label">
+                                                        <div class="fw-bold text-gray-800">Special Leave</div>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                            <?php } ?>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <!--begin::Input-->
+                                                    <input class="form-check-input me-3" name="leave" type="radio" value="Paternity Leave"/>
+                                                    <!--end::Input-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="form-check-label">
+                                                        <div class="fw-bold text-gray-800">Paternity Leave</div>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <!--begin::Input-->
+                                                    <input class="form-check-input me-3" name="leave" type="radio" value="Solo Parent"/>
+                                                    <!--end::Input-->
+
+                                                    <!--begin::Label-->
+                                                    <label class="form-check-label">
+                                                        <div class="fw-bold text-gray-800">Solo Parent</div>
+                                                    </label>
+                                                    <!--end::Label-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php }else{ ?>
+                                            <?php if($account['Gender']=="Female"){ ?>
+                                            <div class="d-flex flex-wrap gap-5">
+                                                <div class="fv-row w-100 flex-md-root">
+                                                    <div class="form-check form-check-custom form-check-solid">
+                                                        <!--begin::Input-->
+                                                        <input class="form-check-input me-3" name="leave" type="radio" value="VAWC"/>
+                                                        <!--end::Input-->
+
+                                                        <!--begin::Label-->
+                                                        <label class="form-check-label">
+                                                            <div class="fw-bold text-gray-800">VAWC</div>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </div>
+                                    <?php }else{ ?>
+                                    <div class="fv-row mb-4">
+                                        <div class="form-check form-check-custom form-check-solid">
+                                            <!--begin::Input-->
+                                            <input class="form-check-input me-3" name="leave" type="radio" value="Leave without pay" required/>
+                                            <!--end::Input-->
+
+                                            <!--begin::Label-->
+                                            <label class="form-check-label">
+                                                <div class="fw-bold text-gray-800">Leave without pay</div>
+                                            </label>
+                                            <!--end::Label-->
+                                        </div>
+                                    </div>
+                                    <div class="fv-row mb-4">
+                                        <?php if($account['Gender']=="Female"){ ?>
+                                        <div class="form-check form-check-custom form-check-solid">
+                                            <!--begin::Input-->
+                                            <input class="form-check-input me-3" name="leave" type="radio" value="Maternity Leave"/>
+                                            <!--end::Input-->
+
+                                            <!--begin::Label-->
+                                            <label class="form-check-label">
+                                                <div class="fw-bold text-gray-800">Maternity Leave</div>
+                                            </label>
+                                            <!--end::Label-->
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                    <?php } ?>
+                                    <div class="fv-row mb-4">
+                                        <div class="d-flex flex-wrap gap-5">
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <span class="menu-title">From</span>
+                                                <input type="date" class="form-control" name="fromdate" id="fromdate" required/>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <span class="menu-title">To</span>
+                                                <input type="date" class="form-control" name="todate" id="todate" required/>
+                                            </div>
+                                            <div class="fv-row w-100 flex-md-root">
+                                                <span class="menu-title">Days</span>
+                                                <input type="text" class="form-control" name="days" id="days" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fv-row mb-4">
+                                        <span class="menu-title">Reason</span>
+                                        <textarea name="reason" class="form-control h-150px" required></textarea>
+                                    </div>
+                                    <div class="fv-row mb-4" id="showAttachment">
+                                        <span class="menu-title">Attachment</span>
+                                        <input type="file" name="file" class="form-control"/>
+                                    </div>
                                     <div class="fv-row mb-4">
                                         <span class="menu-title">Approved By</span>
-                                        <select class="form-select mb-2" data-control="select2" name="approver">
+                                        <select class="form-select mb-2" data-control="select2" name="approver" id="approver" required>
                                             <option value="">Choose</option>
                                             <?php foreach($employee as $row): ?>
                                                 <option value="<?php echo $row['employeeID'] ?>"><?php echo $row['Surname'] ?> <?php echo $row['Suffix'] ?>, <?php echo $row['Firstname'] ?> <?php echo $row['MI'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
+                                    <div class="fv-row mb-4">
+                                        <button type="submit" class="btn btn-primary" id="btnSubmit"><i class="fa-regular fa-paper-plane"></i>&nbsp;Submit</button>
+                                    </div>
                                 </form>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -648,7 +886,103 @@
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
 	    <!--end::Javascript-->
-            
+        <script>
+            function newToday()
+            {
+                var date = new Date(); // Now
+                date.setDate(date.getDate());
+                $('#fromdate').val(convert(date));
+                $('#fromdate').attr('min',convert(date));
+                $('#todate').attr('min',convert(date));
+            }
+            function today()
+            {
+                var date = new Date(); // Now
+                date.setDate(date.getDate() + 2);
+                $('#fromdate').val(convert(date));
+                $('#fromdate').attr('min',convert(date));
+                $('#todate').attr('min',convert(date));
+            }
+            function convert(str) {
+                var date = new Date(str),
+                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+                day = ("0" + date.getDate()).slice(-2);
+                return [date.getFullYear(), mnth, day].join("-");
+            }
+            $('input:radio[name="leave"]').change(function()
+            {
+                if($(this).val()==="Vacation Leave")
+                {
+                    $('#showDetails').slideUp();
+                    $('#showAttachment').slideUp();
+                    today();
+                }
+                else if($(this).val()==="Bereavement Leave"||$(this).val()==="VAWC"||$(this).val()==="Solo Parent"||$(this).val()==="Off-Set")
+                {
+                    $('#showAttachment').slideDown();
+                    newToday();
+                }
+                else
+                {
+                    $('#fromdate').removeAttr("min");
+                    $('#todate').removeAttr("min");
+                    $('#showDetails').slideUp();
+                    $('#showAttachment').slideUp();
+                    newToday();
+                }
+            });
+            $('#days').keyup(function()
+            {
+                var days = $('#days').val();
+                var leave = $('input:radio[name="leave"]:checked').val();
+                if(leave==="Sick Leave")
+                {
+                    if (days>=2) 
+                    {
+                        $('#showAttachment').slideDown();
+                    }
+                    else{
+                        $('#showAttachment').slideUp();
+                    }
+                }
+            });
+            $('#frmLeave').on('submit',function(e){
+                e.preventDefault();
+                $.ajax({
+                    url:"<?=site_url('send-leave')?>",method:"POST",
+                    data:new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData:false,
+                    beforeSend: function(){
+                        $('#btnSubmit').attr("disabled","disabled");
+                        $('#frmLeave').css("opacity",".5");
+                    },
+                    success:function(data)
+                    {
+                        if(data==="success")
+                        {
+                            $('#frmLeave')[0].reset();
+                            Swal.fire(
+                                'Great',
+                                'Successfully submitted',
+                                'success'
+                                );
+                        }
+                        else
+                        {
+                            Swal.fire(
+                                'Warning!',
+                                data,
+                                'warning'
+                                );
+                        }
+                        $('#frmLeave').css("opacity","");
+                        $("#btnSubmit").removeAttr("disabled");
+                    }
+                });
+            });
+        </script>
     </body>
     <!--end::Body-->
 </html>

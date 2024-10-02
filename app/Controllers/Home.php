@@ -196,6 +196,7 @@ class Home extends BaseController
         $suffix = $this->request->getPost('suffix');
         $companyID = $this->request->getPost('companyID');
         $contactNo = $this->request->getPost('contactNo');
+        $gender = $this->request->getPost('gender');
         $emailAdd = $this->request->getPost('email');
         $maritalStatus = $this->request->getPost('maritalStatus');
         $dob = $this->request->getPost('dob');
@@ -226,7 +227,7 @@ class Home extends BaseController
         {
             $values =  ['CompanyID'=>$companyID,'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
             'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
-            'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,
+            'Address'=>$address,'ContactNo'=>$contactNo,'Gender'=>$gender,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,
             'Designation'=>$designation,'Department'=>$department,'EmployeeStatus'=>$employeeStatus,
             'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
             'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
@@ -238,7 +239,7 @@ class Home extends BaseController
         {
             $values =  ['CompanyID'=>$companyID,'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
             'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
-            'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,
+            'Address'=>$address,'ContactNo'=>$contactNo,'Gender'=>$gender,'EmailAddress'=>$emailAdd,
             'DateHired'=>$date_hired,'Designation'=>$designation,'Department'=>$department,'EmployeeStatus'=>$employeeStatus,
             'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
             'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,
@@ -298,6 +299,7 @@ class Home extends BaseController
         $suffix = $this->request->getPost('suffix');
         $companyID = $this->request->getPost('companyID');
         $contactNo = $this->request->getPost('contactNo');
+        $gender = $this->request->getPost('gender');
         $emailAdd = $this->request->getPost('email');
         $maritalStatus = $this->request->getPost('maritalStatus');
         $dob = $this->request->getPost('dob');
@@ -328,6 +330,7 @@ class Home extends BaseController
             'firstname'=>'required',
             'companyID'=>'required',
             'contactNo'=>'required|min_length[11]|max_length[11]',
+            'gender'=>'required',
             'maritalStatus'=>'required',
             'dob'=>'required',
             'place_of_birth'=>'required',
@@ -353,7 +356,7 @@ class Home extends BaseController
             //save the employee records
             $values =  ['DateCreated'=>date('Y-m-d'),'CompanyID'=>$companyID,'PIN'=>$pin,'Surname'=>$surname,'Firstname'=>$firstname,'MI'=>$mi,'Suffix'=>$suffix,
                         'BirthDate'=>$dob,'MaritalStatus'=>$maritalStatus,'PlaceOfBirth'=>$place_of_birth,
-                        'Address'=>$address,'ContactNo'=>$contactNo,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,
+                        'Address'=>$address,'ContactNo'=>$contactNo,'Gender'=>$gender,'EmailAddress'=>$emailAdd,'DateHired'=>$date_hired,
                         'Designation'=>$designation,'Department'=>$department,'EmployeeStatus'=>$employeeStatus,
                         'SalaryGrade'=>$salary_grade,'Guardian1'=>$fathersName,'Guardian2'=>$mothersName,
                         'Spouse'=>$spouseName,'SpouseDOB'=>$spouseDOB,'Children'=>$children,

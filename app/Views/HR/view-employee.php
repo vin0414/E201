@@ -793,6 +793,11 @@
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'maritalStatus') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Gender</span>
+                                                                <input type="text" name="maritalStatus" id="maritalStatus" value="<?php echo $employee['Gender'] ?>" class="form-control bg-transparent"/>    
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'gender') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Date of Birth</span>
                                                                 <input type="text" name="dob" id="dob" value="<?php echo $employee['BirthDate'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'dob') : '' ?></span>

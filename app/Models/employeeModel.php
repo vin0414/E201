@@ -15,7 +15,7 @@ class employeeModel extends Model
     protected $userSoftDelete = false;
     protected $protectFields = true;
     protected $allowedFields = ['DateCreated','CompanyID','PIN','Surname','Firstname','MI','Suffix',
-                                'BirthDate','MaritalStatus','PlaceOfBirth','Address','ContactNo',
+                                'BirthDate','MaritalStatus','PlaceOfBirth','Address','ContactNo','Gender',
                                 'EmailAddress','DateHired','Designation','Department','EmployeeStatus',
                                 'SalaryGrade','Guardian1','Guardian2','Spouse','SpouseDOB','Children',
                                 'Education','SSS','HDMF','PhilHealth','TIN','Photo','Status','Token'];

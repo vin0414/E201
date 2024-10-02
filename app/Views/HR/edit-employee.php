@@ -810,6 +810,15 @@
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'maritalStatus') : '' ?></span>
                                                             </div>
                                                             <div class="fv-row w-100 flex-md-root">
+                                                                <span class="menu-title">Gender</span>
+                                                                <select class="form-select mb-2" data-control="select2" name="gender" id="gender">
+                                                                    <option value="">Choose</option>
+                                                                    <option <?php if($employee['Gender']=="Male") echo 'selected="selected"'; ?>>Male</option>
+                                                                    <option <?php if($employee['Gender']=="Female") echo 'selected="selected"'; ?>>Female</option>
+                                                                </select>   
+                                                                <span class="text-danger"><?=isset($validation)? display_error($validation,'gender') : '' ?></span>
+                                                            </div>
+                                                            <div class="fv-row w-100 flex-md-root">
                                                                 <span class="menu-title">Date of Birth</span>
                                                                 <input type="date" name="dob" id="dob" value="<?php echo $employee['BirthDate'] ?>" class="form-control bg-transparent"/> 
                                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'dob') : '' ?></span>
