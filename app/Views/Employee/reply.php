@@ -2,7 +2,7 @@
 <html lang="en" >
     <!--begin::Head-->
     <head>
-        <title>E201 - Leave Approval</title>
+        <title>E201 - Reply</title>
         <meta charset="utf-8"/>
         <meta name="description" content="employee information management system, e201"/>
         <meta name="keywords" content="e201, employee information, ems"/>
@@ -364,7 +364,7 @@
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " ><!--begin:Menu link-->
-                                    <a class="menu-link active"  href="<?=site_url('Employee/authorization')?>"><span  class="menu-title" >For Approval</span></a>
+                                    <a class="menu-link active"  href="javascript:void(0);"><span  class="menu-title" >Reply</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -559,7 +559,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                For Approval
+                                Reply
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -575,10 +575,22 @@
                                     <li class="breadcrumb-item">
                                         <span class="bullet bg-gray-500 w-5px h-2px"></span>
                                     </li>
-                                    <!--end::Item-->                 
+                                    <!--end::Item--> 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        For Approval                                    
+                                        <a href="<?=site_url('Employee/authorization')?>" class="text-muted text-hover-primary">
+                                        For Approval                           
+                                        </a>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->                
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        Reply                                   
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
@@ -593,69 +605,66 @@
                 <!--end::Toolbar-->  
                 <div id="kt_app_content" class="app-content  flex-column-fluid" >
                     <div id="kt_app_content_container" class="app-container container-fluid ">
+                        <?php foreach($list as $row): ?>
                         <div class="card">
-                            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                                <div class="d-flex flex-wrap gap-2">
-                                    <div class="card-title"><i class="fa-solid fa-globe"></i>&nbsp;Online Leave</div>    
+                            <div class="card-header align-items-center py-5 gap-5">
+                                <div class="d-flex">
+                                    <a href="<?=site_url('Employee/authorization')?>" class="btn btn-sm btn-clear btn-active-light-primary me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Back">
+                                        <i class="fa-solid fa-arrow-left"></i>&nbsp;Back 
+                                    </a>
+                                    <a href="javascript:void(0);" class="btn btn-sm btn-light btn-active-light-primary me-2">
+                                        <?php echo substr($row->Details,0,20) ?>...
+                                    </a>
                                 </div>
-                                <div class="d-flex align-items-center flex-wrap gap-2">
-                                    <!--begin::Search-->
-                                    <div class="d-flex align-items-center position-relative">
-                                        <i class="fa-solid fa-magnifying-glass fs-3 position-absolute ms-4"></i>      
-                                        <input type="text" id="search" class="form-control form-control-sm form-control-solid mw-100 min-w-125px min-w-lg-150px min-w-xxl-200px ps-11" placeholder="Search inbox" />
-                                    </div>
-                                    <!--end::Search-->
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="btn btn-sm btn-light btn-active-light-primary me-2">
+                                        <i class="fa-solid fa-check"></i>&nbsp;Approve
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-light btn-active-light-danger me-2">
+                                        <i class="fa-solid fa-trash"></i>&nbsp;Reject
+                                    </button>
                                 </div>
                             </div>
-                            <div class="card-body p-0">
-                                <table class="table table-hover align-middle table-row-dashed fs-6 gy-5 my-0" id="kt_inbox_listing">
-                                    <thead class="d-none">
-                                        <th class="w-50px">#</th>
-                                        <th>Requestor</th>
-                                        <th>Title</th>
-                                        <th>Details</th>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                    </thead>
-                                    <tbody id="tbl_content">
-                                    <?php foreach($list as $row): ?>
-                                        <tr>
-                                            <td class="ps-9 w-50px">
-                                                <div class="form-check form-check-sm form-check-custom form-check-solid mt-3">
-                                                    <input class="form-check-input" type="checkbox" name="leave[]" value="<?php echo $row->leaveID ?>"/>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center flex-wrap gap-2">
+                                    <!--begin::Heading-->
+                                    <h2 class="fw-semibold me-3 my-1">Type of Leave : <?php echo $row->leave_type ?> | <?php echo $row->Days ?> Day(s)</h2>
+                                    <!--begin::Heading-->
+                                </div>
+                                <div data-kt-inbox-message="message_wrapper">
+                                    <div class="d-flex flex-wrap gap-2 flex-stack cursor-pointer" data-kt-inbox-message="header">
+                                        <div class="d-flex align-items-center">
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-50 me-4">
+                                                <span class="symbol-label" style="background-image:url(<?=base_url('assets/img/profile.png')?>);"></span>
+                                            </div>
+                                            <!--end::Avatar-->
+
+                                            <div class="pe-5">
+                                                <!--begin::Author details-->
+                                                <div class="d-flex align-items-center flex-wrap gap-1">
+                                                    <a href="#" class="fw-bold text-gray-900 text-hover-primary"><?php echo $row->Firstname ?> <?php echo $row->MI ?> <?php echo $row->Surname ?> <?php echo $row->Suffix ?></a>
+                                                    <i class="fa-solid fa-grip-lines-vertical fs-7 text-success mx-3"></i>                   
+                                                    <span class="text-muted fw-bold"><?php echo $row->Date ?></span>
                                                 </div>
-                                            </td>
-                                            <td class="w-120px">
-                                                <a href="<?=site_url('Employee/reply/')?><?php echo $row->leaveID ?>" class="d-flex align-items-center text-gray-900">
-                                                <?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?>
-                                                </a>
-                                            </td>
-                                            <td class="w-120px">
-                                                <a href="<?=site_url('Employee/reply/')?><?php echo $row->leaveID ?>" class="d-flex align-items-center text-gray-900">
-                                                <span class="fw-bold"><?php echo $row->leave_type ?></span>
-                                                </a>
-                                            </td>
-                                            <td class="w-600px">
-                                                <a href="<?=site_url('Employee/reply/')?><?php echo $row->leaveID ?>" class="d-flex align-items-center text-gray-900">
-                                                <?php echo substr($row->Details,0,50) ?>...
-                                                </a>
-                                            </td>
-                                            <td class="w-125px">
-                                                <?php if($row->Status==0){ ?>
-                                                    <span class="badge bg-warning">PENDING</span>
-                                                <?php }else if($row->Status==1){?>
-                                                    <span class="badge bg-primary">APPROVED</span>
-                                                <?php }else { ?>
-                                                    <span class="badge bg-danger">DECLINED</span>
-                                                <?php } ?>
-                                            </td>
-                                            <td class="w-125px"><?php echo date('d M, Y', strtotime($row->Date)) ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                                <!--end::Author details-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapse fade show" data-kt-inbox-message="message">
+                                    <br/>
+                                    <div>Date : <?php echo $row->From ?> - <?php echo $row->To ?></div>
+                                    <div class="py-5">
+                                        <?php echo $row->Details ?>
+                                    </div>
+                                    <div class="py-2">
+                                        <a href="<?=base_url('Attachment/')?><?php echo $row->Attachment ?>" target="_BLANK" class="btn btn-light btn-active-light-primary me-2"><i class="fa-solid fa-paperclip"></i>&nbsp;Attachment</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <?php endforeach; ?>
                     </div>
                 </div> 
             </div>         
@@ -686,26 +695,6 @@
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
 	    <!--end::Javascript-->
-        <script>
-            $('#search').keyup(function(){
-                var val = $(this).val();
-                $.ajax({
-                    url:"<?=site_url('search')?>",method:"GET",
-                    data:{value:val},
-                    success:function(response)
-                    {
-                        if(response==="")
-                        {
-                            $('#tbl_content').html("<tr><td class='text-center'>No Record(s) found</td></tr>");
-                        }
-                        else
-                        {
-                            $('#tbl_content').html(response);
-                        }
-                    }
-                });
-            });
-        </script> 
     </body>
     <!--end::Body-->
 </html>

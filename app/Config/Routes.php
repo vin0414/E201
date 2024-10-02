@@ -56,6 +56,7 @@ $routes->post('change-pin','Employee::changePIN');
 $routes->get('search-memo','Employee::searchMemo');
 $routes->post('create','Employee::createConcern');
 $routes->post('send-leave','Employee::sendLeave');
+$routes->get('search','Employee::searchRequest');
 $routes->get('view-details','Home::viewLeaveDetails');
 //memo
 $routes->post('upload-file','Memo::uploadFile');
@@ -129,6 +130,7 @@ $routes->group('',['filter'=>'EmployeeAuthCheck'],function($routes)
     $routes->get('Employee/account','Employee::account');
     //approval module
     $routes->get('Employee/authorization','Employee::authorization');
+    $routes->get('Employee/reply/(:any)','Employee::reply/$1');
 });
 
 $routes->group('',['filter'=>'EmployeeAlreadyLoggedIn'],function($routes)

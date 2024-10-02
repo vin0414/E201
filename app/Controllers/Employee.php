@@ -167,9 +167,92 @@ class Employee extends BaseController
         $builder->select('COUNT(*)total');
         $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
         $notification = $builder->get()->getResult();
+        //list of leave
+        $builder = $this->db->table('tblapproval_leave a');
+        $builder->select('a.Status,b.leaveID,b.leave_type,b.Details,b.Date,c.Surname,c.Firstname,c.MI,c.Suffix');
+        $builder->join('tblemployee_leave b','b.leaveID=a.leaveID','LEFT');
+        $builder->join('tblemployee c','c.employeeID=b.employeeID','LEFT');
+        $builder->WHERE('a.Status',0)->WHERE('a.employeeID',session()->get('employeeUser'));
+        $builder->groupBy('a.approveID')->orderBy('a.approveID','DESC');
+        $list = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'notification'=>$notification];
+        $data = ['celebrants'=>$celebrants,'notification'=>$notification,'list'=>$list];
         return view('Employee/leave-approval',$data);
+    }
+
+    public function searchRequest()
+    {
+        $val = "%".$this->request->getGet('value')."%";
+        $builder = $this->db->table('tblapproval_leave a');
+        $builder->select('a.Status,b.leaveID,b.leave_type,b.Details,b.Date,c.Surname,c.Firstname,c.MI,c.Suffix');
+        $builder->join('tblemployee_leave b','b.leaveID=a.leaveID','LEFT');
+        $builder->join('tblemployee c','c.employeeID=b.employeeID','LEFT');
+        $builder->WHERE('a.Status',0)->WHERE('a.employeeID',session()->get('employeeUser'));
+        $builder->LIKE('b.leave_type',$val);
+        $builder->groupBy('a.approveID')->orderBy('a.approveID','DESC');
+        $data = $builder->get();
+        foreach($data->getResult() as $row)
+        {
+            ?>
+            <tr>
+                <td class="ps-9 w-50px">
+                    <div class="form-check form-check-sm form-check-custom form-check-solid mt-3">
+                        <input class="form-check-input" type="checkbox" name="leave[]" value="<?php echo $row->leaveID ?>"/>
+                    </div>
+                </td>
+                <td class="w-120px">
+                    <a href="<?=site_url('Employee/reply/')?><?php echo $row->leaveID ?>" class="d-flex align-items-center text-gray-900">
+                    <?php echo $row->Surname ?> <?php echo $row->Suffix ?>, <?php echo $row->Firstname ?> <?php echo $row->MI ?>
+                    </a>
+                </td>
+                <td class="w-120px">
+                    <a href="<?=site_url('Employee/reply/')?><?php echo $row->leaveID ?>" class="d-flex align-items-center text-gray-900">
+                    <span class="fw-bold"><?php echo $row->leave_type ?></span>
+                    </a>
+                </td>
+                <td class="w-600px">
+                    <a href="<?=site_url('Employee/reply/')?><?php echo $row->leaveID ?>" class="d-flex align-items-center text-gray-900">
+                    <?php echo substr($row->Details,0,50) ?>...
+                    </a>
+                </td>
+                <td class="w-125px">
+                    <?php if($row->Status==0){ ?>
+                        <span class="badge bg-warning">PENDING</span>
+                    <?php }else if($row->Status==1){?>
+                        <span class="badge bg-primary">APPROVED</span>
+                    <?php }else { ?>
+                        <span class="badge bg-danger">DECLINED</span>
+                    <?php } ?>
+                </td>
+                <td class="w-125px"><?php echo date('d M, Y', strtotime($row->Date)) ?></td>
+            </tr>
+            <?php
+        }
+    }
+
+    public function reply($id)
+    {
+        //celebrants
+        $month = date('m');
+        $builder = $this->db->table('tblemployee');
+        $builder->select('Surname,Firstname,MI,Suffix,Designation,BirthDate');
+        $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
+        $builder->orderby('BirthDate','ASC');
+        $celebrants = $builder->get()->getResult();
+        //notification
+        $builder = $this->db->table('tblapproval_leave');
+        $builder->select('COUNT(*)total');
+        $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
+        $notification = $builder->get()->getResult();
+        //list of leave
+        $builder = $this->db->table('tblemployee_leave a');
+        $builder->select('a.leave_type,a.From,a.To,a.Days,a.Details,a.Date,a.Attachment,b.Surname,b.Firstname,b.MI,b.Suffix');
+        $builder->join('tblemployee b','b.employeeID=a.employeeID','LEFT');
+        $builder->WHERE('a.leaveID',$id);
+        $list = $builder->get()->getResult();
+
+        $data = ['celebrants'=>$celebrants,'notification'=>$notification,'list'=>$list];
+        return view('Employee/reply',$data);
     }
 
     public function memo()
