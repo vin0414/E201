@@ -613,7 +613,7 @@
                                         <i class="fa-solid fa-arrow-left"></i>&nbsp;Back 
                                     </a>
                                     <a href="javascript:void(0);" class="btn btn-sm btn-light btn-active-light-primary me-2">
-                                        <?php echo substr($row->Details,0,20) ?>...
+                                        <?php echo substr($row->Details,0,30) ?>...
                                     </a>
                                 </div>
                                 <div class="d-flex align-items-center">
@@ -643,19 +643,18 @@
                                             <div class="pe-5">
                                                 <!--begin::Author details-->
                                                 <div class="d-flex align-items-center flex-wrap gap-1">
-                                                    <a href="#" class="fw-bold text-gray-900 text-hover-primary"><?php echo $row->Firstname ?> <?php echo $row->MI ?> <?php echo $row->Surname ?> <?php echo $row->Suffix ?></a>
-                                                    <i class="fa-solid fa-grip-lines-vertical fs-7 text-success mx-3"></i>                   
-                                                    <span class="text-muted fw-bold"><?php echo $row->Date ?></span>
+                                                    <a href="#" class="fw-bold text-gray-900 text-hover-primary"><?php echo $row->Firstname ?> <?php echo $row->MI ?> <?php echo $row->Surname ?> <?php echo $row->Suffix ?></a>                  
                                                 </div>
+                                                <b>From</b> : <?php echo date('d M, Y', strtotime($row->From)) ?><br/>
+                                                <b>To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b> : <?php echo date('d M, Y', strtotime($row->To)) ?>
                                                 <!--end::Author details-->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="collapse fade show" data-kt-inbox-message="message">
-                                    <br/>
-                                    <div>Date : <?php echo $row->From ?> - <?php echo $row->To ?></div>
                                     <div class="py-5">
+                                        <p><b>Details</b></p>
                                         <?php echo $row->Details ?>
                                     </div>
                                     <div class="py-2">
