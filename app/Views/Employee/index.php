@@ -676,7 +676,7 @@
                                                 <thead>
                                                     <th class="text-white w-125px">Date</th>
                                                     <th class="text-white w-200px">Type of Leave</th>
-                                                    <th class="text-white w-50px">Days</th>
+                                                    <th class="text-white w-25px">Days</th>
                                                     <th class="text-white">Details</th>
                                                     <th class="text-white w-100px">Status</th>
                                                 </thead>
@@ -689,11 +689,11 @@
                                                             <td><?php echo $row['Details'] ?></td>
                                                             <td>
                                                                 <?php if($row['Status']==0){ ?>
-                                                                    <span class="badge bg-warning">PENDING</span>
+                                                                    <span class="badge bg-warning text-white">PENDING</span>
                                                                 <?php }else if($row['Status']==1){ ?>
                                                                     <span class="badge bg-primary text-white">APPROVED</span>
                                                                 <?php }else{ ?>
-                                                                    <span class="badge bg-danger">DENIED</span>
+                                                                    <span class="badge bg-danger text-white">DENIED</span>
                                                                 <?php } ?>
                                                             </td>
                                                         </tr>

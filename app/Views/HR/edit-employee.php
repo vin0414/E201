@@ -424,8 +424,8 @@
                                         <!--begin:Menu item-->
                                         <div  class="menu-item" ><!--begin:Menu link-->
                                             <a class="menu-link"  href="<?=site_url('HR/maintenance')?>">
-                                                <span  class="menu-icon" ><i class="fa-solid fa-database"></i></span>
-                                                <span  class="menu-title" >Back-Up & Restore</span>
+                                                <span  class="menu-icon" ><i class="fa-solid fa-screwdriver-wrench"></i></span>
+                                                <span  class="menu-title" >Maintenance</span>
                                             </a><!--end:Menu link-->
                                         </div><!--end:Menu item-->
                                     </div><!--end:Menu sub-->
@@ -707,7 +707,7 @@
                                                 <!--end::Image input-->
 
                                                 <!--begin::Description-->
-                                                <div class="text-muted fs-7">Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                                                <div class="text-muted fs-7">Set the employee thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted</div>
                                                 <span class="text-danger"><?=isset($validation)? display_error($validation,'file') : '' ?></span>
                                                 <!--end::Description-->
                                             </div>

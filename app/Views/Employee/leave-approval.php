@@ -642,11 +642,11 @@
                                             </td>
                                             <td class="w-125px">
                                                 <?php if($row->Status==0){ ?>
-                                                    <span class="badge bg-warning">PENDING</span>
+                                                    <span class="badge bg-warning text-white">PENDING</span>
                                                 <?php }else if($row->Status==1){?>
-                                                    <span class="badge bg-primary">APPROVED</span>
+                                                    <span class="badge bg-primary text-white">APPROVED</span>
                                                 <?php }else { ?>
-                                                    <span class="badge bg-danger">DECLINED</span>
+                                                    <span class="badge bg-danger text-white">DECLINED</span>
                                                 <?php } ?>
                                             </td>
                                             <td class="w-125px"><?php echo date('d M, Y', strtotime($row->Date)) ?></td>

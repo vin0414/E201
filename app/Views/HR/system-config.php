@@ -12,7 +12,6 @@
         <link href="<?=base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
-        <link href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             thead,th{background-color:#0096ff;}
@@ -395,7 +394,7 @@
                                 <!--end:Menu item-->
                                 <!--begin:Menu item-->
                                 <div  class="menu-item " ><!--begin:Menu link-->
-                                    <a class="menu-link active"  href="<?=site_url('HR/maintenance')?>"><span  class="menu-title" >Back-Up & Restore</span></a>
+                                    <a class="menu-link active"  href="<?=site_url('HR/maintenance')?>"><span  class="menu-title" >Maintenance</span></a>
                                     <!--end:Menu link-->
                                 </div><!--end:Menu item-->
                                 <!--begin:Menu item-->
@@ -424,8 +423,8 @@
                                         <!--begin:Menu item-->
                                         <div  class="menu-item" ><!--begin:Menu link-->
                                             <a class="menu-link"  href="<?=site_url('HR/maintenance')?>">
-                                                <span  class="menu-icon" ><i class="fa-solid fa-database"></i></span>
-                                                <span  class="menu-title" >Back-Up & Restore</span>
+                                                <span  class="menu-icon" ><i class="fa-solid fa-screwdriver-wrench"></i></span>
+                                                <span  class="menu-title" >Maintenance</span>
                                             </a><!--end:Menu link-->
                                         </div><!--end:Menu item-->
                                     </div><!--end:Menu sub-->
@@ -614,7 +613,7 @@
                             <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
                                 <!--begin::Title-->
                                 <h1 class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
-                                Back-Up & Restore
+                                Maintenance
                                 </h1>
                                 <!--end::Title-->
                                 <!--begin::Breadcrumb-->
@@ -633,7 +632,7 @@
                                     <!--end::Item-->                 
                                     <!--begin::Item-->
                                     <li class="breadcrumb-item text-muted">
-                                        Back-Up & Restore                                     
+                                        Maintenance                                    
                                     </li>
                                     <!--end::Item-->                     
                                 </ul>
@@ -651,7 +650,66 @@
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-fluid ">
                         <div class="d-flex flex-column flex-lg-row gap-5">
-                            <div class="col-lg-8">
+                            <div class="col-lg-3">
+                            <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title">Upload Logo</div>
+                                    </div>
+                                    <div class="card-body text-center pt-0">
+                                        <style>
+                                            .image-input-placeholder {
+                                                background-image: url('/assets/img/blank-image.svg');
+                                            }
+
+                                            [data-bs-theme="dark"] .image-input-placeholder {
+                                                background-image: url('/assets/img/blank-dark-image.svg');
+                                            }                
+                                        </style>
+                                        <form method="POST" class="form w-100" enctype="multipart/form-data" id="frmUpload">
+                                            <div class="fv-row mb-4">
+                                                <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+                                                    <!--begin::Preview existing avatar-->
+                                                    <?php if(empty($logo['File'])){ ?>
+                                                    <div class="image-input-wrapper w-150px h-150px"></div>
+                                                    <!--end::Preview existing avatar-->
+                                                    <?php }else { ?>
+                                                        <div class="image-input-wrapper w-150px h-150px" style="background-image: url('<?=base_url("assets/img")?>/<?=$logo['File']?>')"></div>
+                                                    <?php } ?>
+                                                    <!--begin::Label-->
+                                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change Logo">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                        <!--begin::Inputs-->
+                                                        <input type="file" name="file" accept=".png, .jpg, .jpeg" required/>
+                                                        <input type="hidden" name="avatar_remove" />
+                                                        <!--end::Inputs-->
+                                                    </label>
+                                                    <!--end::Label-->
+
+                                                    <!--begin::Cancel-->
+                                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel Logo">
+                                                        <i class="fa-solid fa-trash"></i>            
+                                                    </span>
+                                                    <!--end::Cancel-->
+
+                                                    <!--begin::Remove-->
+                                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove Logo">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </span>
+                                                    <!--end::Remove-->
+                                                </div>
+                                                <!--end::Image input-->
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <button type="submit" class="btn btn-primary" id="btnUpload"><i class="fa-solid fa-arrow-up-from-bracket"></i>&nbsp;Upload</button>
+                                            </div>
+                                        </form>
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7">Only *.png, *.jpg and *.jpeg image files are accepted</div>
+                                        <!--end::Description-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
                                 <div class="card card-flush py-4">
                                     <div class="card-header">
                                         <div class="card-title"><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;Restore</div>
@@ -699,7 +757,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="card card-flush py-4">
                                     <div class="card-header">
                                         <div class="card-title"><i class="fa-solid fa-cloud-arrow-down"></i>&nbsp;Back-Up</div>
@@ -746,10 +804,40 @@
 				<script src="<?=base_url('assets/js/widgets.bundle.js')?>"></script>
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 		<!--end::Custom Javascript-->
-        <!--data tables -->
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-        <script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
-	<!--end::Javascript-->
+	    <!--end::Javascript-->
+        <script>
+            $('#frmUpload').on('submit',function(e){
+                e.preventDefault();
+                $.ajax({
+                    url:"<?=site_url('upload-logo')?>",method:"POST",
+                    data:new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData:false,
+                    beforeSend: function(){
+                        $('#btnUpload').attr("disabled","disabled");
+                        $('#frmUpload').css("opacity",".5");
+                    },
+                    success:function(data)
+                    {
+                        if(data==="success")
+                        {
+                           location.reload();
+                        }
+                        else
+                        {
+                            Swal.fire(
+                                'Warning!',
+                                data,
+                                'warning'
+                                );
+                        }
+                        $('#frmUpload').css("opacity","");
+                        $("#btnUpload").removeAttr("disabled");
+                    }
+                });
+            });
+        </script>
     </body>
     <!--end::Body-->
 </html>

@@ -58,6 +58,8 @@ $routes->post('create','Employee::createConcern');
 $routes->post('send-leave','Employee::sendLeave');
 $routes->get('search','Employee::searchRequest');
 $routes->get('view-details','Home::viewLeaveDetails');
+$routes->post('approve-leave','Employee::approveLeave');
+$routes->post('reject-leave','Employee::rejectLeave');
 //memo
 $routes->post('upload-file','Memo::uploadFile');
 $routes->post('move-to-archive','Memo::archive');
@@ -76,6 +78,7 @@ $routes->post('edit-question','Evaluation::editQuestion');
 //maintenance
 $routes->post('restore','Restore::restoreFile');
 $routes->get('download','Download::downloadFile');
+$routes->post('upload-logo','Home::uploadLogo');
 //concern entry
 $routes->post('save-entry','Home::saveEntry');
 

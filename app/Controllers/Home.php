@@ -13,11 +13,17 @@ class Home extends BaseController
     //pages
     public function index()
     {
-        return view('welcome_message');
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
+        $data = ['logo'=>$logo];
+        return view('welcome_message',$data);
     }
 
     public function Overview()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //chart
         $builder = $this->db->table('tblemployee');
         $builder->select('DateCreated,COUNT(employeeID)total');
@@ -57,7 +63,8 @@ class Home extends BaseController
         $celebrants = $builder->get()->getResult();
 
         $data = ['employee'=>$employee,'regular'=>$regular,'probationary'=>$newlyHired,
-        'total'=>$total,'inactive'=>$inactive,'query'=>$query,'celebrants'=>$celebrants];
+        'total'=>$total,'inactive'=>$inactive,'query'=>$query,'celebrants'=>$celebrants,
+        'logo'=>$logo];
         return view('HR/overview',$data);
     }
 
@@ -998,8 +1005,11 @@ class Home extends BaseController
         $builder->WHERE('DATE_FORMAT(BirthDate,"%m")',$month)->WHERE('Status',1);
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
 
-        $data = ['celebrants'=>$celebrants];
+        $data = ['celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/system-config',$data);
     }
 
@@ -1017,6 +1027,31 @@ class Home extends BaseController
         $account = $accountModel->WHERE('accountID',session()->get('loggedUser'))->first();
         $data = ['account'=>$account,'celebrants'=>$celebrants];
         return view('HR/account',$data);
+    }
+
+    public function uploadLogo()
+    {
+        $logoModel = new \App\Models\logoModel();
+        //data
+        $file = $this->request->getFile('file');
+        $originalName = $file->getClientName();
+        //move the file
+        $file->move('assets/img/',$originalName);
+        //check if empty or not
+        $logo = $logoModel->first();
+        if(empty($logo))
+        {
+            //save the records
+            $values = ['Name'=>$originalName,'File'=>$originalName];
+            $logoModel->save($values);
+        }
+        else
+        {
+            //update the records
+            $values = ['Name'=>$originalName,'File'=>$originalName];
+            $logoModel->update($logo['logoID'],$values);
+        }
+        echo "success";
     }
 
 }

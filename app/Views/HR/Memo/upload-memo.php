@@ -423,8 +423,8 @@
                                         <!--begin:Menu item-->
                                         <div  class="menu-item" ><!--begin:Menu link-->
                                             <a class="menu-link"  href="<?=site_url('HR/maintenance')?>">
-                                                <span  class="menu-icon" ><i class="fa-solid fa-database"></i></span>
-                                                <span  class="menu-title" >Back-Up & Restore</span>
+                                                <span  class="menu-icon" ><i class="fa-solid fa-screwdriver-wrench"></i></span>
+                                                <span  class="menu-title" >Maintenance</span>
                                             </a><!--end:Menu link-->
                                         </div><!--end:Menu item-->
                                     </div><!--end:Menu sub-->

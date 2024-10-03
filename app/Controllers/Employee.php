@@ -172,7 +172,7 @@ class Employee extends BaseController
         $builder->select('a.Status,b.leaveID,b.leave_type,b.Details,b.Date,c.Surname,c.Firstname,c.MI,c.Suffix');
         $builder->join('tblemployee_leave b','b.leaveID=a.leaveID','LEFT');
         $builder->join('tblemployee c','c.employeeID=b.employeeID','LEFT');
-        $builder->WHERE('a.Status',0)->WHERE('a.employeeID',session()->get('employeeUser'));
+        $builder->WHERE('a.employeeID',session()->get('employeeUser'));
         $builder->groupBy('a.approveID')->orderBy('a.approveID','DESC');
         $list = $builder->get()->getResult();
 
@@ -187,7 +187,7 @@ class Employee extends BaseController
         $builder->select('a.Status,b.leaveID,b.leave_type,b.Details,b.Date,c.Surname,c.Firstname,c.MI,c.Suffix');
         $builder->join('tblemployee_leave b','b.leaveID=a.leaveID','LEFT');
         $builder->join('tblemployee c','c.employeeID=b.employeeID','LEFT');
-        $builder->WHERE('a.Status',0)->WHERE('a.employeeID',session()->get('employeeUser'));
+        $builder->WHERE('a.employeeID',session()->get('employeeUser'));
         $builder->LIKE('b.leave_type',$val);
         $builder->groupBy('a.approveID')->orderBy('a.approveID','DESC');
         $data = $builder->get();
@@ -217,11 +217,11 @@ class Employee extends BaseController
                 </td>
                 <td class="w-125px">
                     <?php if($row->Status==0){ ?>
-                        <span class="badge bg-warning">PENDING</span>
+                        <span class="badge bg-warning text-white">PENDING</span>
                     <?php }else if($row->Status==1){?>
-                        <span class="badge bg-primary">APPROVED</span>
+                        <span class="badge bg-primary text-white">APPROVED</span>
                     <?php }else { ?>
-                        <span class="badge bg-danger">DECLINED</span>
+                        <span class="badge bg-danger text-white">DECLINED</span>
                     <?php } ?>
                 </td>
                 <td class="w-125px"><?php echo date('d M, Y', strtotime($row->Date)) ?></td>
@@ -246,13 +246,94 @@ class Employee extends BaseController
         $notification = $builder->get()->getResult();
         //list of leave
         $builder = $this->db->table('tblemployee_leave a');
-        $builder->select('a.leave_type,a.From,a.To,a.Days,a.Details,a.Date,a.Attachment,b.Surname,b.Firstname,b.MI,b.Suffix');
+        $builder->select('a.Status,a.leaveID,a.leave_type,a.From,a.To,a.Days,a.Details,a.Date,a.Attachment,b.Surname,b.Firstname,b.MI,b.Suffix');
         $builder->join('tblemployee b','b.employeeID=a.employeeID','LEFT');
-        $builder->WHERE('a.leaveID',$id);
+        $builder->WHERE('a.leaveID',$id)->groupBy('a.leaveID');
         $list = $builder->get()->getResult();
+        //comment
+        $approveLeaveModel = new \App\Models\approveLeaveModel();
+        $approve = $approveLeaveModel->WHERE('leaveID',$id)->WHERE('employeeID',session()->get('employeeUser'))->first();
 
-        $data = ['celebrants'=>$celebrants,'notification'=>$notification,'list'=>$list];
+        $data = ['celebrants'=>$celebrants,'notification'=>$notification,'list'=>$list,'approve'=>$approve];
         return view('Employee/reply',$data);
+    }
+
+    public function approveLeave()
+    {
+        date_default_timezone_set('Asia/Manila');
+        $employeeLeaveModel = new \App\Models\employeeLeaveModel();
+        $approveLeaveModel = new \App\Models\approveLeaveModel();
+        $leaveModel = new \App\Models\leaveModel();
+        //data
+        $val = $this->request->getPost('value');
+        //update the leave form
+        $values = ['Status'=>1];
+        $employeeLeaveModel->update($val,$values);
+        //deduct the credits
+        $leave = $employeeLeaveModel->WHERE('leaveID',$val)->first();
+        if($leave['leave_type']=="Vacation Leave")
+        {
+            //deduct the vacation leave credit
+            $credit = $leaveModel->WHERE('employeeID',session()->get('employeeUser'))->first();
+            $remainCredit = $credit['Vacation']-$leave['Days'];
+            $new_values = ['Vacation'=>$remainCredit];
+            $leaveModel->update($credit['creditID'],$new_values);
+        }
+        else if($leave['leave_type']=="Leave without pay"||$leave['leave_type']=="Paternity Leave" || 
+                $leave['leave_type']=="Maternity Leave" || $leave['leave_type']=="Special Leave"|| 
+                $leave['leave_type']=="Solo Parent")
+        {
+            //do nothing
+        }
+        else if($leave['leave_type']=="Sick Leave")
+        {
+            //deduct the sick leave credit
+            $credit = $leaveModel->WHERE('employeeID',session()->get('employeeUser'))->first();
+            $remainCredit = $credit['Sick']-$leave['Days'];
+            $new_values = ['Sick'=>$remainCredit];
+            $leaveModel->update($credit['creditID'],$new_values);
+        }
+        else if($leave['leave_type']=="Bereavement Leave")
+        {
+            if($leave['Days']>3)
+            {
+                $credit = $leaveModel->WHERE('employeeID',session()->get('employeeUser'))->first();
+                $remainCredit = $credit['Vacation']-($leave['Days']-3);
+                $new_values = ['Vacation'=>$remainCredit];
+                $leaveModel->update($credit['creditID'],$new_values);
+            }
+        }
+        //update the approver status
+        $approver = $approveLeaveModel->WHERE('leaveID',$val)->WHERE('employeeID',session()->get('employeeUser'))->first();
+        $records = ['Status'=>1,'DateApproved'=>date('Y-m-d')];
+        $approveLeaveModel->update($approver['approveID'],$records);
+        echo "success";
+    }
+
+    public function rejectLeave()
+    {
+        date_default_timezone_set('Asia/Manila');
+        $employeeLeaveModel = new \App\Models\employeeLeaveModel();
+        $approveLeaveModel = new \App\Models\approveLeaveModel();
+        $leaveModel = new \App\Models\leaveModel();
+        //data
+        $val = $this->request->getPost('value');
+        $msg = $this->request->getPost('message');
+        if(empty($msg))
+        {
+            echo "Please leave a comment to continue";
+        }
+        else
+        {
+            //update the leave form
+            $values = ['Status'=>2];
+            $employeeLeaveModel->update($val,$values);
+            //update the approver status
+            $approver = $approveLeaveModel->WHERE('leaveID',$val)->WHERE('employeeID',session()->get('employeeUser'))->first();
+            $records = ['Status'=>2,'Remarks'=>$msg];
+            $approveLeaveModel->update($approver['approveID'],$records);
+            echo "success";
+        }
     }
 
     public function memo()

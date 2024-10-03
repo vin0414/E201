@@ -616,14 +616,28 @@
                                         <?php echo substr($row->Details,0,30) ?>...
                                     </a>
                                 </div>
+                                <?php if($row->Status==0){?>
                                 <div class="d-flex align-items-center">
-                                    <button type="button" class="btn btn-sm btn-light btn-active-light-primary me-2">
+                                    <button type="button" class="btn btn-sm btn-light btn-active-light-primary me-2 approve" value="<?php echo $row->leaveID ?>">
                                         <i class="fa-solid fa-check"></i>&nbsp;Approve
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-light btn-active-light-danger me-2">
+                                    <button type="button" class="btn btn-sm btn-light btn-active-light-danger me-2 reject" value="<?php echo $row->leaveID ?>">
                                         <i class="fa-solid fa-trash"></i>&nbsp;Reject
                                     </button>
                                 </div>
+                                <?php }else if($row->Status==1){ ?>
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="btn btn-sm btn-primary me-2">
+                                        <i class="fa-solid fa-check"></i>&nbsp;Approved
+                                    </button>
+                                </div>
+                                <?php }else { ?>
+                                    <div class="d-flex align-items-center">
+                                    <button type="button" class="btn btn-sm btn-danger me-2">
+                                        <i class="fa-solid fa-trash"></i>&nbsp;Rejected
+                                    </button>
+                                </div>
+                                <?php } ?>
                             </div>
                             <div class="card-body">
                                 <div class="d-flex align-items-center flex-wrap gap-2">
@@ -660,6 +674,11 @@
                                     <div class="py-2">
                                         <a href="<?=base_url('Attachment/')?><?php echo $row->Attachment ?>" target="_BLANK" class="btn btn-light btn-active-light-primary me-2"><i class="fa-solid fa-paperclip"></i>&nbsp;Attachment</a>
                                     </div>
+                                    <?php if($row->Status==2){ ?>
+                                        <div class="alert alert-danger">
+                                            <?=$approve['Remarks']?>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -694,6 +713,56 @@
 				<script src="<?=base_url('assets/js/custom/widgets.js')?>"></script>
 			<!--end::Custom Javascript-->
 	    <!--end::Javascript-->
+        <script>
+            $(document).on('click','.approve',function()
+            {
+                var confirmation = confirm("Do you want to approve this request?");  
+                if(confirmation)
+                {
+                    $.ajax({
+                        url:"<?=site_url('approve-leave')?>",method:"POST",
+                        data:{value:$(this).val()},
+                        success:function(response)
+                        {
+                            if(response==="success")
+                            {
+                                alert("Great! Successfully approved the request");
+                                window.location.href="<?=site_url('Employee/authorization')?>"
+                            }
+                            else
+                            {
+                                alert(response);
+                            }
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click','.reject',function()
+            {
+                var confirmation = confirm("Do you want to reject this request?");  
+                if(confirmation)
+                {
+                    var message = prompt("Please leave a comment");
+                    $.ajax({
+                        url:"<?=site_url('reject-leave')?>",method:"POST",
+                        data:{value:$(this).val(),message:message},
+                        success:function(response)
+                        {
+                            if(response==="success")
+                            {
+                                alert("Great! Successfully declined the request");
+                                window.location.href="<?=site_url('Employee/authorization')?>"
+                            }
+                            else
+                            {
+                                alert(response);
+                            }
+                        }
+                    });
+                }
+            });
+        </script>
     </body>
     <!--end::Body-->
 </html>
