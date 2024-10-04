@@ -724,11 +724,19 @@
                                         <form method="POST" class="form w-100" id="frmSystem">
                                             <div class="fv-row mb-4">
                                                 <span class="menu-title">Application Name</span>
-                                                <input type="text" class="form-control" name="app_name" required/>
+                                                <?php if(empty($about)){ ?>
+                                                <input type="text" class="form-control" name="app_name" value="" required/>
+                                                <?php }else{ ?>
+                                                <input type="text" class="form-control" name="app_name" value="<?=$about['App_name']?>" required/>
+                                                <?php } ?>
                                             </div>
                                             <div class="fv-row mb-4">
                                                 <span class="menu-title">Application Details</span>
+                                                <?php if(empty($about)){ ?>
                                                 <textarea class="form-control h-100px" name="app_details"></textarea>
+                                                <?php }else{ ?>
+                                                <textarea class="form-control h-100px" name="app_details"><?=$about['App_details']?></textarea>
+                                                <?php } ?>
                                             </div>
                                             <div class="fv-row mb-4">
                                                 <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Save</button>
@@ -866,6 +874,30 @@
                         }
                         $('#frmUpload').css("opacity","");
                         $("#btnUpload").removeAttr("disabled");
+                    }
+                });
+            });
+
+            $('#frmSystem').on('submit',function(e){
+                e.preventDefault();
+                var data = $(this).serialize();
+                $.ajax({
+                    url:"<?=site_url('about')?>",method:"POST",
+                    data:data,
+                    success:function(response)
+                    {
+                        if(response==="success")
+                        {
+                            location.reload();
+                        }
+                        else
+                        {
+                            Swal.fire(
+                                'Warning!',
+                                response,
+                                'warning'
+                                );
+                        }
                     }
                 });
             });

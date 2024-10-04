@@ -2,7 +2,7 @@
 <html lang="en" >
     <!--begin::Head-->
     <head>
-        <title>Sign In</title>
+        <title>Sign In - <?=$about['App_name']?></title>
         <meta charset="utf-8"/>
         <meta name="description" content="employee information management system, e201"/>
         <meta name="keywords" content="e201, employee information, ems"/>
@@ -81,7 +81,8 @@
 
             <!--begin::Text-->
             <div class="text-gray-600 fs-base text-center fw-semibold">
-                Online Employee Information Management System for <br/>Gabales Engineering Services
+                Online Employee Information Management System for <br/>
+                <?=$about['App_name']?>
             </div>
             <!--end::Text-->
         </div>
@@ -109,7 +110,7 @@
 
                             <!--begin::Subtitle-->
                             <div class="text-gray-500 fw-semibold fs-6">
-                                Gabales Engineering Services
+                            <?=$about['App_name']?>
                             </div>
                             <!--end::Subtitle--->
                         </div>

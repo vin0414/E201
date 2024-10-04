@@ -13,9 +13,14 @@ class Home extends BaseController
     //pages
     public function index()
     {
+        //logo
         $logoModel = new \App\Models\logoModel();
         $logo = $logoModel->first();
-        $data = ['logo'=>$logo];
+        //app
+        $appModel = new \App\Models\appModel();
+        $about = $appModel->first();
+
+        $data = ['logo'=>$logo,'about'=>$about];
         return view('welcome_message',$data);
     }
 
@@ -1057,8 +1062,11 @@ class Home extends BaseController
         //logo
         $logoModel = new \App\Models\logoModel();
         $logo = $logoModel->first();
+        //application
+        $appModel = new \App\Models\appModel();
+        $app = $appModel->first();
 
-        $data = ['celebrants'=>$celebrants,'logo'=>$logo];
+        $data = ['celebrants'=>$celebrants,'logo'=>$logo,'about'=>$app];
         return view('HR/system-config',$data);
     }
 
@@ -1102,6 +1110,28 @@ class Home extends BaseController
             //update the records
             $values = ['Name'=>$originalName,'File'=>$originalName];
             $logoModel->update($logo['logoID'],$values);
+        }
+        echo "success";
+    }
+
+    public function about()
+    {
+        $appModel = new \App\Models\appModel();
+        //data
+        $app_name = $this->request->getPost('app_name');
+        $app_details = $this->request->getPost('app_details');
+        $app = $appModel->first();
+        if(empty($app))
+        {
+            //save
+            $values = ['App_name'=>$app_name,'App_details'=>$app_details];
+            $appModel->save($values);
+        }
+        else
+        {
+            //update
+            $values = ['App_name'=>$app_name,'App_details'=>$app_details];
+            $appModel->update($app['systemID'],$values);
         }
         echo "success";
     }

@@ -79,6 +79,7 @@ $routes->post('edit-question','Evaluation::editQuestion');
 $routes->post('restore','Restore::restoreFile');
 $routes->get('download','Download::downloadFile');
 $routes->post('upload-logo','Home::uploadLogo');
+$routes->post('about','Home::about');
 //concern entry
 $routes->post('save-entry','Home::saveEntry');
 

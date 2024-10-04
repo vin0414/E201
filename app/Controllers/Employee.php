@@ -17,8 +17,11 @@ class Employee extends BaseController
         //logo
         $logoModel = new \App\Models\logoModel();
         $logo = $logoModel->first();
+        //application
+        $appModel = new \App\Models\appModel();
+        $about = $appModel->first();
 
-        $data = ['logo'=>$logo];
+        $data = ['logo'=>$logo,'about'=>$about];
         return view('employee-portal',$data);
     }
 
@@ -27,6 +30,9 @@ class Employee extends BaseController
         //logo
         $logoModel = new \App\Models\logoModel();
         $logo = $logoModel->first();
+        //application
+        $appModel = new \App\Models\appModel();
+        $about = $appModel->first();
 
         date_default_timezone_set('Asia/Manila');
         $year = date('Y');
@@ -71,7 +77,7 @@ class Employee extends BaseController
 
         $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,
                 'vacation'=>$vacation,'sick'=>$sick,'concern'=>$concern,
-                'leave'=>$leave,'notification'=>$notification,'logo'=>$logo];
+                'leave'=>$leave,'notification'=>$notification,'logo'=>$logo,'about'=>$about];
         return view('Employee/index',$data);
     }
 
