@@ -7,7 +7,7 @@
         <meta name="description" content="employee information management system, e201"/>
         <meta name="keywords" content="e201, employee information, ems"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="shortcut icon" href="<?=base_url('assets/img/logo.png')?>"/>
+        <link rel="shortcut icon" href="<?=base_url('assets/img')?>/<?=$logo['File']?>"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/> 
         <link href="<?=base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css"/>
@@ -75,7 +75,7 @@
                                     <i class="fa-solid fa-bars"></i>	
                                 </button>
                                 <a href="Employee/overview">
-                                    <img alt="Logo" src="<?=base_url('assets/img/logo.png')?>" class="mh-25px"/>
+                                    <img alt="Logo" src="<?=base_url('assets/img')?>/<?=$logo['File']?>" class="logo mh-25px"/>
                                 </a>
                             </div>
                             <div class="d-flex align-items-stretch" id="kt_app_header_menu_wrapper">

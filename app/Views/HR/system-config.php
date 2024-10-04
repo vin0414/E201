@@ -7,7 +7,7 @@
         <meta name="description" content="employee information management system, e201"/>
         <meta name="keywords" content="e201, employee information, ems"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="shortcut icon" href="<?=base_url('assets/img/logo.png')?>"/>
+        <link rel="shortcut icon" href="<?=base_url('assets/img')?>/<?=$logo['File']?>"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/> 
         <link href="<?=base_url('assets/plugins/custom/datatables/datatables.bundle.css')?>" rel="stylesheet" type="text/css"/>
         <link href="<?=base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css"/>
@@ -15,6 +15,11 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             thead,th{background-color:#0096ff;}
+            @media only screen and (max-width: 500px) {
+                .logo {
+                display: none;
+                }
+            }
         </style>
     </head>
     <body  id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-header-stacked="true" data-kt-app-header-primary-enabled="true" data-kt-app-header-secondary-enabled="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true"  class="app-default" >
@@ -52,7 +57,7 @@
                                     <i class="fa-solid fa-bars"></i>	
                                 </button>
                                 <a href="HR/overview">
-                                    <img alt="Logo" src="<?=base_url('assets/img/logo.png')?>" class="mh-25px"/>
+                                    <img alt="Logo" src="<?=base_url('assets/img')?>/<?=$logo['File']?>" class="logo mh-25px"/>
                                 </a>
                             </div>
                             <div class="d-flex align-items-stretch" id="kt_app_header_menu_wrapper">
@@ -649,11 +654,12 @@
                 <div id="kt_app_content" class="app-content flex-column-fluid" >
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-fluid ">
+                        <h6>Application Setup</h6>
                         <div class="d-flex flex-column flex-lg-row gap-5">
                             <div class="col-lg-3">
-                            <div class="card card-flush py-4">
+                                <div class="card card-flush py-4">
                                     <div class="card-header">
-                                        <div class="card-title">Upload Logo</div>
+                                        <div class="card-title"><i class="fa-solid fa-computer"></i>&nbsp;System Logo</div>
                                     </div>
                                     <div class="card-body text-center pt-0">
                                         <style>
@@ -679,7 +685,7 @@
                                                     <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change Logo">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                         <!--begin::Inputs-->
-                                                        <input type="file" name="file" accept=".png, .jpg, .jpeg" required/>
+                                                        <input type="file" name="file" accept=".png, .jpg, .jpeg, .svg" required/>
                                                         <input type="hidden" name="avatar_remove" />
                                                         <!--end::Inputs-->
                                                     </label>
@@ -709,8 +715,34 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-9">
                                 <div class="card card-flush py-4">
+                                    <div class="card-header">
+                                        <div class="card-title"><i class="fa-solid fa-computer"></i>&nbsp;System</div>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <form method="POST" class="form w-100" id="frmSystem">
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">Application Name</span>
+                                                <input type="text" class="form-control" name="app_name" required/>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <span class="menu-title">Application Details</span>
+                                                <textarea class="form-control h-100px" name="app_details"></textarea>
+                                            </div>
+                                            <div class="fv-row mb-4">
+                                                <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk"></i>&nbsp;Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <h6>Back-Up & Restore</h6>
+                        <div class="d-flex flex-column flex-lg-row gap-5">
+                            <div class="col-lg-8">
+                                <div class="card card-flush py-2">
                                     <div class="card-header">
                                         <div class="card-title"><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;Restore</div>
                                     </div>
@@ -757,7 +789,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <div class="card card-flush py-4">
                                     <div class="card-header">
                                         <div class="card-title"><i class="fa-solid fa-cloud-arrow-down"></i>&nbsp;Back-Up</div>

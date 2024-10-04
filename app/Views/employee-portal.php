@@ -4,10 +4,10 @@
     <head>
         <title>Sign In</title>
         <meta charset="utf-8"/>
-        <meta name="description" content=""/>
-        <meta name="keywords" content=""/>
+        <meta name="description" content="employee information management system, e201"/>
+        <meta name="keywords" content="e201, employee information, ems"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="shortcut icon" href="assets/img/logo.png"/>
+        <link rel="shortcut icon" href="<?=base_url('assets/img')?>/<?=$logo['File']?>"/>
 
         <!--begin::Fonts(mandatory for all pages)-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>        <!--end::Fonts-->

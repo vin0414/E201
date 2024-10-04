@@ -71,6 +71,9 @@ class Home extends BaseController
     //employee
     public function Employee()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
          //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -81,7 +84,7 @@ class Home extends BaseController
         //employee
         $employeeModel = new \App\Models\employeeModel();
         $employee = $employeeModel->findAll();
-        $data = ['employee'=>$employee,'celebrants'=>$celebrants];
+        $data = ['employee'=>$employee,'celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/employee-records',$data);
     }
 
@@ -161,6 +164,9 @@ class Home extends BaseController
 
     public function newEmployee()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -169,12 +175,15 @@ class Home extends BaseController
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants];
+        $data = ['celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/new-employee',$data);
     }
 
     public function editEmployee($id)
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -185,7 +194,7 @@ class Home extends BaseController
         //employee
         $employeeModel = new \App\Models\employeeModel();
         $employee = $employeeModel->WHERE('Token',$id)->first();
-        $data = ['employee'=>$employee,'celebrants'=>$celebrants];
+        $data = ['employee'=>$employee,'celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/edit-employee',$data);
     }
 
@@ -272,6 +281,9 @@ class Home extends BaseController
 
     public function viewEmployee($id)
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -288,7 +300,7 @@ class Home extends BaseController
         $builder->WHERE('employeeID',$employee['employeeID'])
                 ->orderBy('movementID','DESC');
         $job = $builder->get()->getResult();
-        $data = ['employee'=>$employee,'job'=>$job,'celebrants'=>$celebrants];
+        $data = ['employee'=>$employee,'job'=>$job,'celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/view-employee',$data);
     }
 
@@ -568,6 +580,9 @@ class Home extends BaseController
 
     public function employeeLeave()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -591,7 +606,7 @@ class Home extends BaseController
         $builder->WHERE('a.Status<>',1)->groupBy('a.leaveID')->orderBy('a.leaveID','DESC')->limit(5);
         $leaveOnProcess = $builder->get()->getResult();
 
-        $data = ['memo'=>$memo,'celebrants'=>$celebrants,'leave'=>$leave,'ongoing'=>$leaveOnProcess];
+        $data = ['memo'=>$memo,'celebrants'=>$celebrants,'leave'=>$leave,'ongoing'=>$leaveOnProcess,'logo'=>$logo];
         return view('HR/employee-leave',$data);
     }
 
@@ -638,6 +653,9 @@ class Home extends BaseController
     //memorandum
     public function Memo()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
          //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -648,12 +666,15 @@ class Home extends BaseController
         //memo
         $memoModel = new \App\Models\memoModel();
         $memo = $memoModel->findAll();
-        $data = ['memo'=>$memo,'celebrants'=>$celebrants];
+        $data = ['memo'=>$memo,'celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/Memo/index',$data);
     }
 
     public function Upload()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -667,12 +688,15 @@ class Home extends BaseController
         $builder->orderby('memoID','DESC')->limit(3);
         $memo = $builder->get()->getResult();
 
-        $data = ['memo'=>$memo,'celebrants'=>$celebrants];
+        $data = ['memo'=>$memo,'celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/Memo/upload-memo',$data);
     }
 
     public function editMemo($id)
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -683,13 +707,16 @@ class Home extends BaseController
         //memo
         $memoModel = new \App\Models\memoModel();
         $memo = $memoModel->WHERE('memoID',$id)->first();
-        $data = ['memo'=>$memo,'celebrants'=>$celebrants];
+        $data = ['memo'=>$memo,'celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/Memo/edit-memo',$data);
     }
 
     //user accounts
     public function Users()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -702,12 +729,15 @@ class Home extends BaseController
         $account = $accountModel->findAll();
         $total = $accountModel->countAll();
 
-        $data = ['account'=>$account,'total'=>$total,'celebrants'=>$celebrants];
+        $data = ['account'=>$account,'total'=>$total,'celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/all-users',$data);
     }
 
     public function newUser()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -716,7 +746,7 @@ class Home extends BaseController
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants];
+        $data = ['celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/new-user',$data);
     }
 
@@ -761,6 +791,9 @@ class Home extends BaseController
 
     public function editUser($id)
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -771,7 +804,7 @@ class Home extends BaseController
         //account
         $accountModel = new \App\Models\accountModel();
         $account = $accountModel->WHERE('Token',$id)->first();
-        $data = ['account'=>$account,'celebrants'=>$celebrants];
+        $data = ['account'=>$account,'celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/edit-user',$data);
     }
 
@@ -854,6 +887,9 @@ class Home extends BaseController
     //performance
     public function Performance()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
          //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -862,12 +898,15 @@ class Home extends BaseController
         $builder->orderby('BirthDate','ASC');
         $celebrants = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants];
+        $data = ['celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/performance',$data);
     }
     //evaluation
     public function Evaluation()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -879,12 +918,15 @@ class Home extends BaseController
         $evaluationModel = new \App\Models\evaluationModel();
         $evaluation = $evaluationModel->findAll();
 
-        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation];
+        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation,'logo'=>$logo];
         return view('HR/Evaluation/index',$data);
     }
 
     public function view($id)
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -899,13 +941,16 @@ class Home extends BaseController
         $questionModel = new \App\Models\questionModel();
         $question = $questionModel->WHERE('evaluationID',$id)->findAll();
 
-        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation,'question'=>$question];
+        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation,'question'=>$question,'logo'=>$logo];
         return view('HR/Evaluation/view-question',$data);
     }
 
     //report
     public function Report()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -936,7 +981,8 @@ class Home extends BaseController
         $query = $this->db->query($sql);
         $alldata = $query->getResult();
 
-        $data = ['regular'=>$employee,'concerns'=>$concern,'alldata'=>$alldata,'query'=>$queries,'celebrants'=>$celebrants];
+        $data = ['regular'=>$employee,'concerns'=>$concern,'logo'=>$logo,
+                'alldata'=>$alldata,'query'=>$queries,'celebrants'=>$celebrants];
         return view('HR/report',$data);
     }
 
@@ -976,6 +1022,9 @@ class Home extends BaseController
     //logs
     public function systemLogs()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
          //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -992,7 +1041,7 @@ class Home extends BaseController
         $logs = $builder->get()->getResult();
         //page
         $total = $model->countAll();
-        $data = ['logs'=>$logs,'total'=>$total,'celebrants'=>$celebrants];
+        $data = ['logs'=>$logs,'total'=>$total,'celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/system-logs',$data);
     }
 
@@ -1015,6 +1064,9 @@ class Home extends BaseController
 
     public function Account()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -1025,7 +1077,7 @@ class Home extends BaseController
         //account
         $accountModel = new \App\Models\accountModel();
         $account = $accountModel->WHERE('accountID',session()->get('loggedUser'))->first();
-        $data = ['account'=>$account,'celebrants'=>$celebrants];
+        $data = ['account'=>$account,'celebrants'=>$celebrants,'logo'=>$logo];
         return view('HR/account',$data);
     }
 

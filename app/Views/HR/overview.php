@@ -14,6 +14,11 @@
         <link href="<?=base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
+            @media only screen and (max-width: 500px) {
+                .logo {
+                display: none;
+                }
+            }
             /* Track */
             ::-webkit-scrollbar-track {
               background: #f1f1f1; 
@@ -76,7 +81,7 @@
                                     <i class="fa-solid fa-bars"></i>	
                                 </button>
                                 <a href="HR/overview">
-                                    <img alt="Logo" src="<?=base_url('assets/img/logo.png')?>" class="mh-25px"/>
+                                    <img alt="Logo" src="<?=base_url('assets/img')?>/<?=$logo['File']?>" class="logo mh-25px"/>
                                 </a>
                             </div>
                             <div class="d-flex align-items-stretch" id="kt_app_header_menu_wrapper">

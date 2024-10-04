@@ -14,11 +14,20 @@ class Employee extends BaseController
 
     public function employeeIndex()
     {
-        return view('employee-portal');
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
+
+        $data = ['logo'=>$logo];
+        return view('employee-portal',$data);
     }
 
     public function overview()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
+
         date_default_timezone_set('Asia/Manila');
         $year = date('Y');
         $employeeModel = new \App\Models\employeeModel();
@@ -62,12 +71,15 @@ class Employee extends BaseController
 
         $data = ['memo'=>$memo,'employee'=>$employee,'celebrants'=>$celebrants,
                 'vacation'=>$vacation,'sick'=>$sick,'concern'=>$concern,
-                'leave'=>$leave,'notification'=>$notification];
+                'leave'=>$leave,'notification'=>$notification,'logo'=>$logo];
         return view('Employee/index',$data);
     }
 
     public function applyLeave()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //list of managers
         $employeeModel = new \App\Models\employeeModel();
         $employee = $employeeModel->WHERE('SalaryGrade','Managerial')->WHERE('employeeID <>',session()->get('employeeUser'))->findAll();
@@ -87,7 +99,7 @@ class Employee extends BaseController
         $employeeModel = new \App\Models\employeeModel();
         $account = $employeeModel->WHERE('employeeID',session()->get('employeeUser'))->first();
 
-        $data = ['celebrants'=>$celebrants,'employee'=>$employee,'notification'=>$notification,'account'=>$account];
+        $data = ['celebrants'=>$celebrants,'employee'=>$employee,'notification'=>$notification,'account'=>$account,'logo'=>$logo];
         return view('Employee/apply-leave',$data);
     }
 
@@ -155,6 +167,9 @@ class Employee extends BaseController
 
     public function authorization()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -176,7 +191,7 @@ class Employee extends BaseController
         $builder->groupBy('a.approveID')->orderBy('a.approveID','DESC');
         $list = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'notification'=>$notification,'list'=>$list];
+        $data = ['celebrants'=>$celebrants,'notification'=>$notification,'list'=>$list,'logo'=>$logo];
         return view('Employee/leave-approval',$data);
     }
 
@@ -232,6 +247,9 @@ class Employee extends BaseController
 
     public function reply($id)
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -254,7 +272,7 @@ class Employee extends BaseController
         $approveLeaveModel = new \App\Models\approveLeaveModel();
         $approve = $approveLeaveModel->WHERE('leaveID',$id)->WHERE('employeeID',session()->get('employeeUser'))->first();
 
-        $data = ['celebrants'=>$celebrants,'notification'=>$notification,'list'=>$list,'approve'=>$approve];
+        $data = ['celebrants'=>$celebrants,'notification'=>$notification,'list'=>$list,'approve'=>$approve,'logo'=>$logo];
         return view('Employee/reply',$data);
     }
 
@@ -338,6 +356,10 @@ class Employee extends BaseController
 
     public function memo()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
+        //memo
         $memoModel = new \App\Models\memoModel();
         $page = (int) ($this->request->getGet('page') ?? 1);
         $perpage = 8;
@@ -360,7 +382,7 @@ class Employee extends BaseController
 
         $data = ['celebrants'=>$celebrants,'page'=>$page,
         'perPage'=>$perpage,'total'=>$total,'list'=>$list,'pager'=>$pager
-        ,'notification'=>$notification];
+        ,'notification'=>$notification,'logo'=>$logo];
         return view('Employee/memo',$data);
     }
 
@@ -394,6 +416,10 @@ class Employee extends BaseController
 
     public function writeConcern()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
+        //memo
         $concernModel = new \App\Models\concernModel();
         $concern = $concernModel->findAll();
         //celebrants
@@ -409,7 +435,7 @@ class Employee extends BaseController
         $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
         $notification = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'concern'=>$concern,'notification'=>$notification];
+        $data = ['celebrants'=>$celebrants,'concern'=>$concern,'notification'=>$notification,'logo'=>$logo];
         return view('Employee/create',$data);
     }
 
@@ -439,6 +465,9 @@ class Employee extends BaseController
 
     public function concerns()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -458,12 +487,15 @@ class Employee extends BaseController
         $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
         $notification = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'list'=>$list,'notification'=>$notification];
+        $data = ['celebrants'=>$celebrants,'list'=>$list,'notification'=>$notification,'logo'=>$logo];
         return view('Employee/concerns',$data);
     }
 
     public function evaluate()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
         //celebrants
         $month = date('m');
         $builder = $this->db->table('tblemployee');
@@ -480,12 +512,16 @@ class Employee extends BaseController
         $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
         $notification = $builder->get()->getResult();
 
-        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation,'notification'=>$notification];
+        $data = ['celebrants'=>$celebrants,'evaluation'=>$evaluation,'notification'=>$notification,'logo'=>$logo];
         return view('Employee/evaluation',$data);
     }
 
     public function account()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
+        //account
         $employeeModel = new \App\Models\employeeModel();
         $employee = $employeeModel->WHERE('employeeID',session()->get('employeeUser'))->first();
         //celebrants
@@ -504,7 +540,7 @@ class Employee extends BaseController
         $builder->WHERE('Status',0)->WHERE('employeeID',session()->get('employeeUser'));
         $notification = $builder->get()->getResult();
 
-        $data = ['employee'=>$employee,'celebrants'=>$celebrants,'work'=>$work,'notification'=>$notification];
+        $data = ['employee'=>$employee,'celebrants'=>$celebrants,'work'=>$work,'notification'=>$notification,'logo'=>$logo];
         return view('Employee/account',$data);
     }
 
