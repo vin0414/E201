@@ -701,7 +701,7 @@
                                 <div class="card card-flush py-4" style="background-color:#0096FF;">
                                     <div class="card-body">
                                         <div class="fs-3 fw-bold text-gray-900">
-                                        <i class="fa-solid fa-user-tie text-white"></i>&nbsp;Resigned       
+                                        <i class="fa-solid fa-user-tie text-white"></i>&nbsp;Inactive       
                                          </div>
                                         <p class="text-white fw-semibold fs-5 mt-1 mb-7">
                                         Resigned/Terminated/AWOL      
@@ -723,7 +723,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-400px mb-7">
+                            <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7">
                                 <div class="card card-flush py-4">
                                     <div class="card-body">
                                         <div class="card-title"><h2>Recent Employees</h2></div>
