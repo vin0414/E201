@@ -99,10 +99,6 @@ class Auth extends BaseController
             }
             else
             {
-                //save logs
-                date_default_timezone_set('Asia/Manila');
-                $values = ['accountID'=>$user_info['employeeID'],'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Logged On'];
-                $logModel->save($values);
                 $fullname = $user_info['Firstname']." ".$user_info['MI']." ".$user_info['Surname']." ".$user_info['Suffix'];
                 session()->set('employeeUser', $user_info['employeeID']);
                 session()->set('fullname', $fullname);
@@ -114,10 +110,6 @@ class Auth extends BaseController
     }
     public function employeeLogout()
     {
-        $logModel = new \App\Models\logModel();
-        date_default_timezone_set('Asia/Manila');
-        $values = ['accountID'=>session()->get('employeeUser'),'Date'=>date('Y-m-d H:i:s a'),'Activity'=>'Logged Out'];
-        $logModel->save($values);
         if(session()->has('employeeUser'))
         {
             session()->remove('employeeUser');
