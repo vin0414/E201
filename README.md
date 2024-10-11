@@ -12,12 +12,14 @@ An employee 201 file, usually contained records/data pertaining to the employee'
 * Employee Portal
 * Employee evaluation
 * Filing of Employee Issues/Concerns
+* Google Charts
 
 ## Languages
 * PHP/CodeIgniter 4
 * JavaScript
 * Ajax-jQuery
 * JSON
+* HTML/CSS/Bootstrap
 * MySQL/MariaDB
 * SweetAlert
 
