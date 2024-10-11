@@ -16,6 +16,7 @@ An employee 201 file, usually contained records/data pertaining to the employee'
 * Back-up and Restore
 * Customize company label and logo
 * System Logs
+* Dark/Light/System Mode
 
 ## Languages
 * PHP/CodeIgniter 4
