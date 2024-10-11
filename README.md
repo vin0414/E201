@@ -13,6 +13,8 @@ An employee 201 file, usually contained records/data pertaining to the employee'
 * Employee evaluation
 * Filing of Employee Issues/Concerns
 * Google Charts
+* Back-up and Restore
+* Customize company label and logo
 
 ## Languages
 * PHP/CodeIgniter 4
