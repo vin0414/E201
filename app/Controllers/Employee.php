@@ -394,6 +394,10 @@ class Employee extends BaseController
 
     public function searchMemo()
     {
+        //logo
+        $logoModel = new \App\Models\logoModel();
+        $logo = $logoModel->first();
+
         $memoModel = new \App\Models\memoModel();
         $val = "%".$this->request->getGet('search')."%";
         $page = (int) ($this->request->getGet('page') ?? 1);
@@ -416,7 +420,7 @@ class Employee extends BaseController
         $notification = $builder->get()->getResult();
 
         $data = ['celebrants'=>$celebrants,'page'=>$page,'perPage'=>$perpage,
-        'total'=>$total,'list'=>$list,'pager'=>$pager,'notification'=>$notification];
+        'total'=>$total,'list'=>$list,'pager'=>$pager,'notification'=>$notification,'logo'=>$logo];
         return view('Employee/memo',$data);
     }
 
